@@ -2,17 +2,24 @@
 Sitio web de hostería.
 
 ## Integrantes
-- Mateo Parrado
-- Ivan Colombo
-- Lucas de la Peña
+###Referentes base de datos
 - Joaquín Basile
-- Maxi Fittipaldi
-- Tomas Ordorica
-- Melanie Belen Garcia Lapegna
+- Lucas de la Peña
+###Referentes Forms
+- Mateo Parrado
 - Lucas Mancini
+
+###Referentes vistas
+- Melanie Belen Garcia Lapegna
 - Mirko Uriel Sáenz Valiente
+
+###Referentes API
+- Tomas Ordorica
+
 - Jose Piñeiro Sanchez
 - Sofía Villalva
+- Ivan Colombo
+- Maxi Fittipaldi
 
 
 ## Ejecutar
