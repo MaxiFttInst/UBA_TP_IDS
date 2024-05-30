@@ -30,9 +30,11 @@ Podes usar **init.sh** o **pipenv install** en
 ambas apps.
 
 ## Documentación y ayuda
+[Descripción proyecto](https://docs.google.com/document/d/1mb9RKfqSAJfvnvmGMwoJfzLQW7B9jlwTmD1y_JOt8-A/edit?usp=sharing)
+[Backlog-hitos](https://docs.google.com/document/d/1R4y3L9an2E5DqzXhLTx_3DH_y7Y3vlkNs5IGeWhuxcY/edit?usp=sharing)
+
 [Flask docs](https://flask.palletsprojects.com/en/3.0.x/)
 [Leaflet](https://leafletjs.com/examples.html)
 [GIT cheatsheet](https://education.github.com/git-cheat-sheet-education.pdf)
 [GitHub SSH setup](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
-[Descripción proyecto](https://docs.google.com/document/d/1mb9RKfqSAJfvnvmGMwoJfzLQW7B9jlwTmD1y_JOt8-A/edit?usp=sharing)
 
