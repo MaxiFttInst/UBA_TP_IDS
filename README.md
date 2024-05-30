@@ -14,13 +14,13 @@ Sitio web de hostería.
 #### Referentes vistas
 - Melanie Belen Garcia Lapegna
 - Mirko Uriel Sáenz Valiente
+- Ivan Colombo
 
 #### Referentes API
 - Tomas Ordorica
 
 - Jose Piñeiro Sanchez
 - Sofía Villalva
-- Ivan Colombo
 - Maxi Fittipaldi
 
 
