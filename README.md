@@ -1,6 +1,20 @@
 # UBA_TP_IDS
 Sitio web de hostería.
 
+## Integrantes
+Mateo Parrado
+Ivan Colombo
+Lucas de la Peña
+Joaquín Basile 
+Maxi Fittipaldi
+Tomas Ordorica
+Melanie Belen Garcia Lapegna
+Lucas Mancini
+Mirko Uriel Sáenz Valiente
+Jose Piñeiro Sanchez
+Sofía Villalva 
+
+
 ## Ejecutar
 El único requisito es tener instalado pipenv.
 Podes usar **init.sh** o **pipenv install** en
