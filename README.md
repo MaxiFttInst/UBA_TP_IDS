@@ -2,17 +2,17 @@
 Sitio web de hostería.
 
 ## Integrantes
-Mateo Parrado
-Ivan Colombo
-Lucas de la Peña
-Joaquín Basile 
-Maxi Fittipaldi
-Tomas Ordorica
-Melanie Belen Garcia Lapegna
-Lucas Mancini
-Mirko Uriel Sáenz Valiente
-Jose Piñeiro Sanchez
-Sofía Villalva 
+- Mateo Parrado
+- Ivan Colombo
+- Lucas de la Peña
+- Joaquín Basile
+- Maxi Fittipaldi
+- Tomas Ordorica
+- Melanie Belen Garcia Lapegna
+- Lucas Mancini
+- Mirko Uriel Sáenz Valiente
+- Jose Piñeiro Sanchez
+- Sofía Villalva
 
 
 ## Ejecutar
