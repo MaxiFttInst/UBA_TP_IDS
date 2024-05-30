@@ -3,19 +3,19 @@ Sitio web de hostería.
 
 ## Integrantes
 
-### Referentes base de datos
+#### Referentes base de datos
 - Joaquín Basile
 - Lucas de la Peña
 
-### Referentes Forms
+#### Referentes Forms
 - Mateo Parrado
 - Lucas Mancini
 
-### Referentes vistas
+#### Referentes vistas
 - Melanie Belen Garcia Lapegna
 - Mirko Uriel Sáenz Valiente
 
-### Referentes API
+#### Referentes API
 - Tomas Ordorica
 
 - Jose Piñeiro Sanchez
