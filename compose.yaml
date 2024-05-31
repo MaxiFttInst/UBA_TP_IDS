@@ -1,0 +1,16 @@
+services:
+  api:
+    image: ids_img:latest
+    command: sh -c "python3 app.py"
+    ports:
+      - 5100:5000
+    volumes:
+      - ./api:/app
+  web:
+    image: ids_img:latest
+    command: sh -c "python3 app.py"
+    ports:
+      - 5000:5000
+    volumes:
+      - ./web:/app
+
