@@ -25,9 +25,19 @@ Sitio web de hostería.
 
 
 ## Ejecutar
+
+### En host
 El único requisito es tener instalado pipenv.
 Podes usar **init.sh** o **pipenv install** en
 ambas apps.
+
+### En docker
+Ejecutar:
+```
+sudo docker buildx build -t ids_img .
+sudo docker compose up -d
+```
+y debería levantar el servicio de api (puerto 5100) y la parte web (puerto 5000)
 
 ## Documentación y ayuda
 [Descripción proyecto](https://docs.google.com/document/d/1mb9RKfqSAJfvnvmGMwoJfzLQW7B9jlwTmD1y_JOt8-A/edit?usp=sharing)
