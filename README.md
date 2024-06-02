@@ -35,9 +35,18 @@ ambas apps.
 Ejecutar:
 ```
 sudo docker buildx build -t ids_img .
-sudo docker compose up -d
+sudo docker compose up # (-d para dejarlo en background)
 ```
-y debería levantar el servicio de api (puerto 5100) y la parte web (puerto 5000)
+y debería levantar el servicio de api (puerto 5000) y la parte web (puerto 8080)
+
+#### Explicación
+El Dockerfile contiene una imagen de debian con algunas dependencias que,
+tanto la api como el servidor web utilizan. Sí, hay una imagen para ambas apps, y eso es
+así para que el proyecto no sea tan pesado.
+
+Luego el compose.yaml inicia el servicio web y el api con la red en host, de lo contrario,
+habría falta de comunicación entre contenedores y se necesitaría una configuración más extensa.
+
 
 ## Documentación y ayuda
 [Descripción proyecto](https://docs.google.com/document/d/1mb9RKfqSAJfvnvmGMwoJfzLQW7B9jlwTmD1y_JOt8-A/edit?usp=sharing)
