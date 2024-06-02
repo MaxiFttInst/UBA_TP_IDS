@@ -5,7 +5,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("base.html")
+    imagenes=["Imagenes/habitacion1.jpg","Imagenes/habitacion2.jpg","Imagenes/habitacion3.jpg"]
+    return render_template("base.html",lista=imagenes)
 
 
 @app.route("/..", methods=["GET", "POST"])
