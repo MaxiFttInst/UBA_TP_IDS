@@ -10,14 +10,20 @@
     color: #fff !important;
      background-color: #999999 !important;
 }
+
+.w3-theme-l1 {
+    color: #fff !important;
+    background-color: #333333 !important;
+    width: 1600px; 
+    height: 700px; 
+  }
+
+
 .w3-theme-l2  {
     color: #fff !important;
      background-color: #666666 !important;
 }
-.w3-theme-l1  {
-    color: #fff !important;
-     background-color: #333333 !important;
-}
+  
 .w3-theme-d1  {
     color: #fff !important;
      background-color: #000000 !important;
@@ -80,3 +86,15 @@ html {
 
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 .mySlides {display: none}
+
+
+.carusel-image {
+    width: 900px; 
+    height: 600px;
+    box-sizing: border-box;
+    margin-left: auto;
+    float: right;
+    position: relative; 
+    right: 100px; 
+    top: 0;
+}
