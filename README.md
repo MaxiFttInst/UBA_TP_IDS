@@ -18,9 +18,7 @@ Sitio web de hostería.
 
 #### Referentes API
 - Tomas Ordorica
-
 - Jose Piñeiro Sanchez
-- Sofía Villalva
 - Maxi Fittipaldi
 
 
@@ -46,6 +44,8 @@ así para que el proyecto no sea tan pesado.
 
 Luego el compose.yaml inicia el servicio web y el api con la red en host, de lo contrario,
 habría falta de comunicación entre contenedores y se necesitaría una configuración más extensa.
+Los archivos dentro de [web](web/) y [api](api/) se montan vía monturas bind, es decir, los
+contenedores leen la aplicación del host y la imagen no necesita ser reconstruida por cambio.
 
 
 ## Documentación y ayuda
