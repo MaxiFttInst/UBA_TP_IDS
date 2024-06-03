@@ -8,3 +8,6 @@ def obtener_reservas():
     with engine.connect() as conn:
         resultado = conn.execute(text("QUERY"))
     return resultado.all()
+
+def obtener_habitaciones():
+    pass
