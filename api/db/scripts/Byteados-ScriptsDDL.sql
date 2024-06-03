@@ -2,6 +2,7 @@ drop database if exists hosteria_byteados;
 create database hosteria_byteados;
 use hosteria_byteados;
 
+/* utilizar desde acá si se carga en sqlite */
 create table habitaciones(
     habitacion_id varchar(15) not null,
     habitacion_nombre varchar(30),
@@ -11,11 +12,11 @@ create table habitaciones(
 );
 
 create table reservas(
-    reserva_codigo int not null,
+    reserva_codigo int not null, /*si una PK es int, auto-increment se implementa automaticamente en sqlite*/
     habitacion_id int not null,
     reserva_fecha_ent date not null,
     reserva_fecha_sal date not null,
-    reserva_dni_cliente char not null,
+    reserva_id_cliente varchar(9) not null, /* DNI o Pasaporte */
     reserva_teleono_cliente int not null,
     reserva_mail_cliente int not null,
     reserva_precio_total float not null,
@@ -25,10 +26,10 @@ create table reservas(
 
 create table imagenes(
     imagen_link varchar(2048) not null,
-    habitacion_id int not null,
+    habitacion_id int,
     imagen_descripcion varchar(100),
     constraint pk_imagen_link primary key (imagen_link),
-    constraint fk_habitacion_id foreing key (habitacion_id) references habitaciones(habitacion_id)
+    constraint fk_habitacion_id foreign key (habitacion_id) references habitaciones(habitacion_id)
 );
 
 
