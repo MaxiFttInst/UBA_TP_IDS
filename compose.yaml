@@ -1,0 +1,19 @@
+services:
+  api:
+    image: ids_img:latest
+    network_mode: "host"
+    volumes:
+      - ./api:/app
+    environment:
+      - DB_USER=root 
+      - DB_PASS=my-secret-pw
+      - DB_PORT=3306
+      - DB_IP=localhost
+    command: sh -c ". .venv/bin/activate && python3 app/app.py"
+
+  web:
+    image: ids_img:latest
+    network_mode: "host"
+    volumes:
+      - ./web:/app
+    command: sh -c ". .venv/bin/activate && python3 app/app.py"
