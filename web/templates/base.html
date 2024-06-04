@@ -73,34 +73,30 @@
 
 <!-- Work Row -->
 <section id="habitaciones">
-    <div class="w3-row-padding w3-padding-64 w3-theme-l1" id="work">
-
-    <div class="w3-quarter">
-    <h2>¡Echa un vistazo a nuestras Cabañas!</h2>
-    <h4>Todas nuestras cabañas están equipadas con:</h4>
-    <p class="fa fa-bath"> Baño/s privado/s con ducha</p>
-    <div></div>
-    <p class="fa fa-bath"> Kitchenette</p>
-    <div></div>
-    <p class="fa fa-bath"> Caja fuerte</p>
-    <div></div>
-    <p class="fa fa-bath"> Smart TV</p>
-    <div></div>
-    <p class="fa fa-bath"> Vistas al Cerro Catedral</p>
-    </div>
-
     <!--carrucel-->
-    <section>
-
+    <div id="d-flex flex-column">
+      <h2 class="text-white fs-2">¡Echa un vistazo a nuestras Cabañas!</h2>
+      <h4 class="text-white fs-4">Todas nuestras cabañas están equipadas con:</h4>
+      <ul class="d-flex flex-column text-white p-0 my-4 gap-3 fs-5">
+        <li class="d-flex align-middle gap-2">
+          <i class="fa fa-bath"></i>
+          Baño/s privado/s con ducha
+        </li>
+        <li class="d-flex align-middle gap-2">
+          <i class="fa fa-cutlery" aria-hidden="true"></i>
+          Kitchenette
+        </li>
+        <li class="d-flex align-middle gap-2">
+          <i class="fa fa-lock" aria-hidden="true"></i>
+          Caja fuerte
+        </li>
+        <li class="d-flex align-middle gap-2">
+          <i class="fa fa-television" aria-hidden="true"></i>
+          Smart TV
+        </li>
+      </ul>
+    </div>
       <div id="carouselExampleIndicators" class="carousel slide carusel-image" data-ride="carousel">
-        <ol class="carousel-indicators">
-          {% for inter in range(0,lista|length) %}
-            <li data-target="#carouselExampleIndicators" data-slide-to="inter" 
-              {% if inter == 0 %}
-              class="active"
-            {% endif %}></li>
-          {% endfor %}
-        </ol>
         <div class="carousel-inner">
           {% for image in lista %}
             <div 
@@ -122,16 +118,8 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-    </section>
 
 </section>
-<!-- Container -->
-<div class="w3-container" style="position:relative">
-  <a onclick="w3_open()" class="w3-button w3-xlarge w3-circle w3-teal"
-  style="position:absolute;top:-28px;right:24px">+</a>
-</div>
-
-
 
 <!-- Pricing Row -->
 <section id="espacios_comunes">
