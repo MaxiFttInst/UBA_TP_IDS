@@ -18,6 +18,16 @@ def algo():
         return render_template("succesful_form.html", name=nombre, email=email,msg=mensaje)
     return render_template("base.html")
 
+@app.route("/formulario_reserva",methods=["POST"])
+def reserva():
+    if request.method == "POST":   
+        ingreso = request.form.get("fcheckin")
+        salida = request.form.get("fcheckout")
+        nombre = request.form.get("fname")
+        mail = request.form.get("femail")
+        dni = request.form.get("fdni")
+        numero_telefonico = request.form.get("fnumber")
+
 
 @app.route("/habitacion1")
 def habitacion_1():
