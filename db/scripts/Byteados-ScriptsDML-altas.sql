@@ -8,7 +8,12 @@ insert into Cabanias values
 ("CAB-ADE", "Adela", "Posee una cama matrimonial junto a 2 camas individuales y un baño. Perfecta para dos parejas amigas o una familia pequeña!", 4, 84),
 ("CAB-ALM", "Almendra", "Cabaña especial para dos personas... veni con tu persona especial! Dispone de 1 cama matrimonial y un baño. Cuenta con todo lo que necesitas para unos dias inolvidables", 2, 100);
 
--- Tabla Imagenes --> Joaco
+-- Tabla Imagenes
+insert into Imagenes (descripcion, cabania_id, imagen_link) values
+('portada', 'CAB-ADE', 'https://drive.google.com/uc?export=download&id=1srx8YtvXiG_AwGJNnlAEXQN0_S6Kpxcw'),
+('portada', 'CAB-ALM', 'https://drive.google.com/uc?export=download&id=1UmjKNyaQSIwyVEr24Te0ViV0-HFLIZUF'),
+('portada', 'CAB-EMI', 'https://drive.google.com/uc?export=download&id=1bLiHFID5_rNtpLTKeKeZrEHUS3thSJhw'),
+('portada', 'CAB-PRE', 'https://drive.google.com/uc?export=download&id=1o3KX6yFJPT6HIexN1GALE6PECqLwMOCD');
 
 -- Inserts de base para tabla RESERVAS
 -- reserva_codigo, cabania_id, fecha_ent, fecha_sal, id_cliente, telefono_cliente, mail_cliente, precio_total
