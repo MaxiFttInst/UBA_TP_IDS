@@ -13,15 +13,16 @@ create table Cabanias(
 );
 
 create table Reservas(
-    reserva_codigo int not null, /*si una PK es int, auto-increment se implementa automaticamente en sqlite*/
+    reserva_codigo integer, /*si una PK es int, auto-increment se implementa automaticamente en sqlite*/
     cabania_id varchar(7) not null,
     fecha_ent date not null,
     fecha_sal date not null,
     id_cliente varchar(9) not null, /* DNI o Pasaporte */
+    nombre_completo_cliente varchar(100) not null,
     telefono_cliente int not null,
-    mail_cliente int not null,
+    mail_cliente varchar(100) not null,
     precio_total float not null,
-    constraint pk_Reservas primary key (reserva_codigo),
+    primary key (reserva_codigo),
     constraint fk_cabania_id FOREIGN KEY (cabania_id) REFERENCES Cabanias(cabania_id)
 );
 
