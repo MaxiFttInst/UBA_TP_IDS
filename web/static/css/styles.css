@@ -31,7 +31,7 @@
 }
 .w3-theme-d2  {
     color: #fff !important;
-     background-color: #000000 !important;
+     background-color: #221303 !important;
 }
 .w3-theme-d3  {
     color: #fff !important;
@@ -95,6 +95,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     background-color: rgb(51, 51, 51);
 }
 
+.carusel-image {
+    width: 700px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.mapa{
+    width: 700px;
+    height: auto;
+    box-sizing: border-box;
+}
 .carusel-image {
     width: 700px;
     height: auto;
