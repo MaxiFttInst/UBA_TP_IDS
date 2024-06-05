@@ -29,7 +29,7 @@
  <div class="w3-bar w3-theme-d2 w3-left-align">
   <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
   <a href="#" class="w3-bar-item w3-button w3-teal"><i class="fa fa-home w3-margin-right"></i>Inicio</a>
-  <a href="#habitaciones" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Habitaciones</a>
+  <a href="#habitaciones" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Cabañas</a>
   <a href="#espacios_comunes" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Espacios Comunes</a>
   <a href="#actividades_extra" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Actividades Extra</a>
   <a href="#contacto" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contacto</a>
@@ -39,7 +39,7 @@
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
-    <a href="#team" class="w3-bar-item w3-button">Habitaciones</a>
+    <a href="#team" class="w3-bar-item w3-button">Cabañas</a>
     <a href="#work" class="w3-bar-item w3-button">Espacios Comunes</a>
     <a href="#extra" class="w3-bar-item w3-button">Actividades Extras</a>
     <a href="#contact" class="w3-bar-item w3-button">Contacto</a>
@@ -50,7 +50,7 @@
 
 <!-- Image Header -->
 <div class="w3-display-container w3-animate-opacity">
-    <img src="{{ url_for('static', filename='Imagenes/posada.jpg') }}" class="w3-image w3-greyscale-min" style="width:100%;">
+    <img src="{{ url_for('static', filename='Imagenes/posada.jpg') }}" style="width:100%;">
 </div>
 
 <!-- Modal -->
@@ -121,6 +121,58 @@
 
 </section>
 
+<!-- Info por Cabaña  -->
+<section id="reservas">
+  <br>
+  <h2 style="text-align: center;">Reserva tu cabaña</h2>
+  <ul class="nav nav-pills p-4 gap-1">
+    <li class="nav-item btn-habitacion" data-cabaña="1" aria-current="page">
+      <button class="nav-link active">Presencia Lunar</button>
+    </li>
+    <li class="nav-item btn-habitacion" data-cabaña="2" aria-current="page">
+      <button class="nav-link">Vicaria Amelia</button>
+    </li>
+    <li class="nav-item btn-habitacion" data-cabaña="3" aria-current="page">
+      <button class="nav-link">Bestia Clérigo</button>
+    </li>
+    <li class="nav-item btn-habitacion" data-cabaña="4" aria-current="page">
+      <button class="nav-link">Adela</button>
+    </li>
+    <li class="nav-item btn-habitacion" data-cabaña="5" aria-current="page">
+    <button class="nav-link">Almendra</button>
+    <li class="nav-item btn-habitacion" data-cabaña="6" aria-current="page">
+    <button class="nav-link">Emisario Celestial</button>
+    </li>
+  </ul>
+  <div class="d-flex gap-5 px-4">
+    <div id="carouselExampleIndicators2" class="carousel slide carusel-image" data-ride="carousel">
+      <div class="carousel-inner">
+        {% for image in lista %}
+          <div 
+          {% if image == lista[0] %}
+            class="carousel-item active"
+          {% else %}
+            class="carousel-item"
+          {% endif %}>
+            <img class="d-block w-100" src="{{ url_for('static', filename= image )}}" alt="First slide">
+          </div>
+        {% endfor %}
+        
+        <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+    <p id="descripcion-cabaña"></p>
+  </div>
+</section>
+
+
 <!-- Pricing Row -->
 <section id="espacios_comunes">
     <div class="w3-row-padding w3-center w3-padding-64" id="pricing">
@@ -148,9 +200,9 @@
         <div class="w3-third w3-margin-bottom">
         <ul class="w3-ul w3-border w3-hover-shadow">
             <li class="w3-theme">
-            <p class="w3-xlarge">Arcade con cocina</p>
+            <p class="w3-xlarge">Jardin y juegos para niños</p>
             </li>
-            <img src="{{ url_for('static', filename='Imagenes/salajuegos.jpg') }}"alt="Habitacion1" style="width:100%">
+            <img src="{{ url_for('static', filename='Imagenes/juegos.jpg') }}"alt="Habitacion1" style="width:100%">
             </li>
         </ul>
         </div>
@@ -169,13 +221,7 @@
             <div class="w3-container w3-white">
                 <h3>Tour Cumbrecita</h3>
                 <p class="w3-opacity">Por persona US$54</p>
-                <h4>Organizar bien lo de abajo! que sea un desplegable</h4>
-                <p>Partirás desde la ciudad de Córdoba por la Ruta Provincial E55, pasando por el Monumento a Myriam Stefford, Alta Gracia, Anisacate, La Bolsa y Villa Ciudad de América.</p>
-                <p>El recorrido continuará cruzando los cuatro ríos afluentes del lago “Los Molinos” y los pueblos de Potrero de Garay y “Los Reartes”. Desde allí ascendemos por las Sierras Grandes, atravesando una pintoresca región de bosques de coníferas.</p>
-                <p>Pasarás por Villa Berna y llegarás a La Cumbrecita, un pequeño pueblo de estilo alpino que tiene la singularidad de ser uno de los pocos pueblos peatonales del mundo.</p>
-                <p>Visitarás el balneario La Olla, el tradicional hotel La Cumbrecita, la capilla ecuménica, etc.</p>
-                <p>Entonces puedes conocer Villa General Belgrano, con su particular fisonomía centroeuropea.</p> 
-                <p>Regresando por la Curva del Viento, disfrutando de una espectacular vista panorámica del Lago y Dique Los Molinos; y emprenderá el regreso a Córdoba.</p>
+                <h4>"""Info"""</h4>
                 <button class="w3-button w3-block w3-black w3-margin-bottom">Mas Informacion</button>
             </div>
             </li>
@@ -199,18 +245,19 @@
     <div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
     <div class="w3-row">
         <div class="w3-col m5">
-        <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contacto/info</span></div>
-        <i class="fa fa-map-marker" style="width:30px"></i> John Fitzgerald Kennedy 2970, Palermo , Buenos Aires<br>
-        <i class="fa fa-phone" style="width:30px"></i> Telefono : +54 1111-1111<br>
-        <i class="fa fa-envelope" style="width:30px"> </i> Email : mail@mail.com<br>
-        <h3>Address</h3>
-        <p>Por aca podria ir el mapita</p>
+        <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Sobre Nosotros</span></div>
+        <i class="fa fa-map-marker" style="width:30px"></i> Los Terrones 950 esquina, Batalla de Caseros, X5184 Capilla del Monte, Córdoba<br>
+        <i class="fa fa-phone" style="width:30px"></i> Telefono : +54 2482-5445<br>
+        <i class="fa fa-envelope" style="width:30px"> </i> Email : posadabyteados@gmail.com<br>
+        <br>
+        <h3>Ubicación:</h3>
+        <img class="mapa" src="{{ url_for('static', filename='Imagenes/mapa.jpg') }}">
         </div>
     </div>
     </div>
 </section>
 <!-- Image of location/map -->
-<img src="{{ url_for('static', filename='Imagenes/HotelRandom.jpg') }}" class="w3-image w3-greyscale-min" style="width:100%;">
+<img src="{{ url_for('static', filename='Imagenes/posadanoche.jpg') }}" style="width:100%;">
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
@@ -233,6 +280,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/reservas.js')}}"></script>
 
 </body>
 </html>
