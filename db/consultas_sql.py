@@ -1,41 +1,43 @@
 import sqlite3
 from datetime import datetime
 
-RUTA_BD = "hosteleria_byteados.db"
+RUTA_BD = "hosteria_byteados.db"
 
 def get_db_connection():
     conn = sqlite3.connect(RUTA_BD)
-    conn.row_factory = sqlite3.Row
+    conn.row_factory = sqlite3.Row # Para obtener un diccionario en lugar de una tupla
     return conn
 
 def obtener_cabanias():
     conn = get_db_connection()
-    cabanias = conn.execute('SELECT * FROM Cabanias').fetchall()
+    cabanias = conn.execute("SELECT * FROM Cabanias").fetchall()
     conn.close()
     res = {}
     for cabania in cabanias:
-        res[cabania["id"]] = {
+        res[cabania["cabania_id"]] = {
             "nombre": cabania["nombre"],
-            "capacidad_max": cabania["capacidad_max"],
+            "cap_max": cabania["cap_max"],
             "descripcion": cabania["descripcion"],
             "precio_noche": cabania["precio_noche"]}
     return res
 
 def imagenes_de_cabania(cabania_id):
     conn = get_db_connection()
-    imagenes = conn.execute(f"SELECT descripcion, imagen_link FROM Imagenes WHERE cabania_id = {cabania_id}").fetchall()
+    imagenes = conn.execute(f"SELECT descripcion, imagen_link FROM Imagenes WHERE cabania_id = '{cabania_id}'").fetchall()
     conn.close()
     res = {}
     for imagen in imagenes:
-        imagen["descripcion"] = imagen["imagen_link"]
+        res[imagen["descripcion"]] = imagen["imagen_link"]
     return res
 
 def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
     conn = get_db_connection()
     query = f"""
     SELECT COUNT(*) FROM Reservas
-    WHERE cabania_id = {cabania_id}
-    AND ({fecha_sal} < fecha_ent AND {fecha_ent} > fecha_sal)
+    WHERE (
+        (cabania_id = '{cabania_id}') AND
+        ('{fecha_ent}' < fecha_sal AND '{fecha_sal}' > fecha_ent)
+        )
     """
     res = conn.execute(query).fetchone()
     conn.close()
@@ -45,7 +47,7 @@ def calendario(cabania_id):
     conn = get_db_connection()
     query = f"""
     SELECT fecha_ent, fecha_sal FROM Reservas
-    WHERE cabania_id = "{cabania_id}"
+    WHERE cabania_id = '{cabania_id}'
     """
     res = conn.execute(query).fetchall()
     conn.close()
