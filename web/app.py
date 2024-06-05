@@ -5,7 +5,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("base.html")
+    imagenes=["Imagenes/habitacion1.jpg","Imagenes/habitacion2.jpg","Imagenes/habitacion3.jpg"]
+    return render_template("base.html",lista=imagenes)
 
 
 @app.route("/..", methods=["GET", "POST"])
@@ -16,6 +17,16 @@ def algo():
         mensaje = request.form.get("msj")
         return render_template("succesful_form.html", name=nombre, email=email,msg=mensaje)
     return render_template("base.html")
+
+@app.route("/formulario_reserva",methods=["POST"])
+def reserva():
+    if request.method == "POST":   
+        ingreso = request.form.get("fcheckin")
+        salida = request.form.get("fcheckout")
+        nombre = request.form.get("fname")
+        mail = request.form.get("femail")
+        dni = request.form.get("fdni")
+        numero_telefonico = request.form.get("fnumber")
 
 
 @app.route("/habitacion1")
