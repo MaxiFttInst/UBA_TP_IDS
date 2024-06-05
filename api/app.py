@@ -3,7 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
-from db.db import obtener_reservas, obtener_habitaciones
+# Funciones de consultas_sql.py
+from ..db.consultas_sql import obtener_cabanias, realizar_reserva, consultar_reserva, eliminar_reserva, imagenes_cabanias, consultar_disponibilidad
 
 app = Flask(__name__)
 
@@ -14,33 +15,85 @@ def index():
         <p>Si necesitas un poco de ayuda, consulta la documentación</p>
     """
 
-@app.route("/habitaciones", methods=["GET"])
-def habitaciones():
-    result = obtener_habitaciones()
-    data = []
-    for row in result:
-        entity = {}
-        entity['id'] = row.habitacion_id
-        entity['nombre'] = row.habitacion_nombre
-        entity['descripcion'] = row.habitacion_descripcion
-        entity['precio_dia'] = row.habitacion_precio_dia
-        data.append(entity)
+@app.route("/cabanias", methods=["GET"])
+def cabanias():
+    res = obtener_cabanias()
+    return jsonify(res), 200
 
-    return jsonify(data), 200
+@app.route("/reserva", methods=["POST"])
+def consultar_reserva():
+    """
+    [
+        {
+            "dni": dni,
+            "telefono": telefono,
+            "email" : example@example.com
+        }
+    ]
+    """
+    consulta = request.get_json()[0]
+    dni = consulta['dni']
+    telefono = consulta['telefono']
+    email = consulta['email']
+    
+    codigo_reserva = consultar_reserva(dni, telefono, email)
+    if codigo_reserva:
+        return jsonify([{"codigo_reserva": codigo_reserva}])
+    
+    return jsonify([{"mensaje": f"No hay reservas para {email}."}]), 404
 
-@app.route("/reservas", methods=["GET"])
-def reservas():
-    result = obtener_reservas()
-    pass
 
-@app.route("/crear_reserva/<int:id>", methods=["POST"])
-def crear_reserva(id):
-    pass
-
-@app.route("/reservas/<int:id>", methods=["DELETE"])
+@app.route("/crear_reserva", methods=["POST"])
+def crear_reserva():
+    """
+    [
+        {   
+            "cabania_id" : id,
+            "fecha_ingreso" : "aaaa-mm-dd",
+            "fecha_egreso" : "aaaa-mm-dd",
+            "dni": dni,
+            "telefono": telefono,
+            "email" : "example@example.com"
+        }
+    ]
+    """
+    res = request.get_json()[0]
+    id = res['cabania_id']
+    ingreso = res['fecha_ingreso']
+    egreso = res['fecha_egreso']
+    dni = res['dni']
+    telefono = res['telefono']
+    email = res['email']
+    #Falta consultar la disponibilidad antes de crear la reserva.
+    codigo_reserva = realizar_reserva(id, ingreso, egreso, dni, telefono, email)
+    if codigo_reserva:
+        return jsonify([{"codigo_reserva" : codigo_reserva}]), 201
+    
+    return jsonify([{"mensaje" : "Se a producido un error al intentar crear la reserva."}])
+    
+@app.route("/reserva/<int:id>", methods=["DELETE"])
 def eliminar_reserva(id):
-    #eliminar_r(id)
-    pass
+    """
+    [
+        {   
+            "dni": dni,
+            "telefono": telefono,
+            "email" : "example@example.com"
+        }
+    ]
+    """
+    res = request.get_json()[0]
+    dni = res['dni']
+    telefono = res['telefono']
+    email = res['email']
 
+    if not consultar_reserva(dni, telefono, email):
+        return jsonify([{"mensaje": f"La reserva con codigo #{id} no existe."}]), 404
+
+    if not eliminar_reserva(id, dni, email):
+        return jsonify([{"mensaje": f"La reserva con codigo #{id} no corresponde con los datos proporcionados."}]), 403
+
+    return jsonify({"mensaje" : f"La reserva con codigo #{id} se a eliminado exitosamente."}), 202
+    
 if __name__ == "__main__":
     app.run("127.0.0.1", port="5000", debug=True) # 0.0.0.0 y debug=false para acceso publico
