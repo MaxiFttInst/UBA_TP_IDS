@@ -1,8 +1,5 @@
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+body,h1,h2,h3,h4,h5,h6 {font-family: "system-ui", Arial, Helvetica, sans-serif}
 .mySlides {display: none}
-
-
-
 
 :root {
 	/* COLORS */
@@ -34,6 +31,7 @@ body {
 	display: grid;
 	height: 100vh;
 	place-items: center;
+  background-color: lightgrey !important;
 }
 
 .form__title {
@@ -50,27 +48,23 @@ body {
 }
 
 .container {
-	background-color: var(--white);
-	border-radius: var(--button-radius);
-	box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25),
-		0 0.7rem 0.7rem rgba(0, 0, 0, 0.22);
-	height: var(--max-height);
-	max-width: var(--max-width);
-	overflow: hidden;
-	position: relative;
-	width: 100%;
+  height: auto;
+  display: flex;
+  gap: 36px;
+  padding: 6px 24px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  background-color: var(--white);
+  border-radius: 12px;
 }
 
 .container__form {
-	height: 100%;
-	position: absolute;
 	top: 0;
 	transition: all 0.6s ease-in-out;
 }
 
 .container--signin {
 	left: 0;
-	width: 50%;
 	z-index: 2;
 }
 
@@ -81,14 +75,12 @@ body {
 .container--signup {
 	left: 0;
 	opacity: 0;
-	width: 50%;
 	z-index: 1;
 }
 
 .container.right-panel-active .container--signup {
 	animation: show 0.6s;
 	opacity: 1;
-	transform: translateX(100%);
 	z-index: 5;
 }
 
@@ -187,12 +179,7 @@ body {
 .form {
 	background-color: var(--white);
 	display: flex;
-	align-items: center;
-	justify-content: center;
 	flex-direction: column;
-	padding: 0 3rem;
-	height: 100%;
-	text-align: center;
 }
 
 .input {
@@ -339,43 +326,6 @@ body {
     align-items: center;
     margin-bottom: 24px;
   }
-  
-  .calendar__week,
-  .calendar__header {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);  
-  }
-  .calendar__week {
-    grid-auto-rows: 100px;
-    text-align: right;
-  }
-  
-  .calendar__header {
-    grid-auto-rows: 50px;
-    align-items: center;
-    text-align: center;
-    background-color: rgb(238, 235, 235);
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-  }
-  
-  .calendar__day {
-    display: grid;
-    place-content: center;
-    padding: 16px;
-    color: green;
-  }
-
-  .busy_day{
-    background-color: #f5ad9b;
-    color: white;
-  }
-
-  .day{
-    color: #4e4e4e;
-    font-size: 28px;
-    font-weight: bold;
-  }
 
   /* COSMETIC STYLING */
   
@@ -446,24 +396,6 @@ body {
     font-weight: 400;
   }
   
-  .calendar {
-    background-color: white;
-    border: 1px solid #e1e1e1;
-    border-radius: 12px;
-  }
-  
-  .calendar__header > div {
-    color: black;
-    text-transform: uppercase;
-    font-size: 0.8em;
-    font-weight: bold;
-  }
-  
-  
-  .calendar__day:last-child {
-    border-right: 0;
-  }
-  
   .toggle{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -495,3 +427,174 @@ body {
     box-shadow: 1px 2px 30px -5px var(--red);
   }
   
+  html{
+    margin: 8px;
+  }
+  
+  .calendar{
+    width: 250px;
+  }
+  
+  .calendar__week,
+  .calendar__header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);  
+  }
+  
+  .calendar__week {
+    grid-auto-rows: 30px;
+    text-align: right;
+  }
+  
+  .calendar__header {
+    grid-auto-rows: 30px;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(238, 235, 235);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  
+  .calendar__day {
+    display: grid;
+    place-content: center;
+    color: green;
+  }
+  
+  .busy_day{
+    background-color: #f5ad9b;
+    color: white;
+  }
+  
+  .day{
+    color: #4e4e4e;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  /* COSMETIC STYLING */
+  
+  :root {
+    --red: #ED5454;
+    --blue: rgb(195, 195, 243);
+  }
+  
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 100;
+    margin: 0;
+  }
+  
+  sidebar {
+    background-color: white;
+    box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  main {
+    background-color: #FCFBFC;
+  }
+  
+  .avatar__name {
+    font-size: 0.8rem;
+  }
+  
+  .menu__item {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 16px 16px 16px 14px;
+    border-left: 4px solid transparent;
+    color: inherit;
+    text-decoration: none;
+    transition: color ease 0.3s;
+  }
+  
+  .menu__item--active .menu__icon {
+    color: var(--red);
+  }
+  .menu__item--active .menu__text {
+    color: black;
+  }
+  
+  .menu__item:hover {
+    color: black;
+  }
+  
+  
+  .menu__icon {
+    font-size: 1.3rem;
+  }
+  
+  @media screen and (min-width: 850px) {
+    .menu__icon {
+      font-size: 0.9rem;
+      padding-right: 16px;
+    }
+    .menu__item--active {
+      border-left: 4px solid var(--red);
+      box-shadow: inset 10px 0px 17px -13px var(--red);
+    }
+  }
+  
+  .copyright {
+    font-size: 0.7rem;
+    font-weight: 400;
+  }
+  
+  .calendar {
+    background-color: white;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+  }
+  
+  .calendar__header > div {
+    color: black;
+    font-size: 0.8em;
+  }
+  
+  .header-day:nth-child(7), .header-day:nth-child(6){
+    font-weight: bold;
+  }
+  
+  .calendar__day:last-child {
+    border-right: 0;
+  }
+  
+  .toggle{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  
+    text-align: center;
+    font-size: 0.9em;
+  }
+  .toggle__option{
+    padding: 16px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .toggle__option:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+  }
+  .toggle__option:last-child {
+      border-left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+  }
+  .toggle__option--selected{
+    border-color: white;
+    background-color: white;
+    color: var(--red);
+    font-weight: 500;
+    box-shadow: 1px 2px 30px -5px var(--red);
+  }
+
+  .calendario-wrapper{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .page-title{
+    font-weight: bolder;
+  }
