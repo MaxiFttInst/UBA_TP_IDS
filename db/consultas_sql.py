@@ -36,7 +36,7 @@ def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
     SELECT COUNT(*) FROM Reservas
     WHERE (
         (cabania_id = '{cabania_id}') AND
-        ('{fecha_ent}' < fecha_sal AND '{fecha_sal}' > fecha_ent)
+        ('{fecha_ent}' <= fecha_sal AND '{fecha_sal}' >= fecha_ent)
         )
     """
     res = conn.execute(query).fetchone()
@@ -54,19 +54,27 @@ def calendario(cabania_id):
     return res
 
 def total_a_pagar(cabania_id, fecha_ent, fecha_sal):
-    cant_de_noches = fecha_ent - fecha_sal + 1
+    fecha_ent = datetime.strptime(fecha_ent, "%Y-%m-%d")
+    fecha_sal = datetime.strptime(fecha_sal, "%Y-%m-%d")
+    cant_de_noches = (fecha_sal - fecha_ent).days + 1 # Ajuste de +1 para incluir la salida
     conn = get_db_connection()
-    conn.execute(
-        f""""""
-    )
-    return 
+    query = f"SELECT precio_noche FROM Cabanias WHERE cabania_id = '{cabania_id}'"
+    res = conn.execute(query).fetchone()
+    conn.close()
+    precio_noche = res['precio_noche']
+    total = cant_de_noches * precio_noche
+    return round(total, 2)
 
 def realizar_reserva(cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente):
+    if not consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
+        return False
+
     conn = get_db_connection()
     precio_total = total_a_pagar(cabania_id, fecha_ent, fecha_sal)
     conn.execute(
-        f"""INSERT INTO Reservas (cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente, precio_total)
-        VALUES({cabania_id}, {fecha_ent}, {fecha_sal}, {id_cliente}, {nombre_completo_cliente}, {telefono_cliente}, {mail_cliente}, {precio_total})"""
+        """INSERT INTO reservas (cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente, precio_total)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+        (cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente, precio_total)
     )
     conn.commit()
     reserva_codigo = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
