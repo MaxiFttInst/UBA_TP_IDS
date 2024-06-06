@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime
 
-RUTA_BD = "hosteria_byteados.db"
+RUTA_BD = "/home/torica/Desktop/git/UBA_TP_IDS/api/db/hosteria_byteados.db"
 
 def get_db_connection():
     conn = sqlite3.connect(RUTA_BD)

@@ -1,10 +1,5 @@
-from flask import Flask, jsonify, request
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-from sqlalchemy import text
-from sqlalchemy.exc import SQLAlchemyError
-# Funciones de consultas_sql.py
-from ..db.consultas_sql import obtener_cabanias, realizar_reserva, consultar_reserva, eliminar_reserva, imagenes_cabanias, consultar_disponibilidad
+from flask import Flask, request, jsonify
+from db import consultas_sql
 
 app = Flask(__name__)
 
@@ -17,12 +12,14 @@ def index():
 
 @app.route("/cabanias", methods=["GET"])
 def cabanias():
-    res = obtener_cabanias()
+    res = consultas_sql.obtener_cabanias()
+    print("CABANIAS:", res)
     return jsonify(res), 200
 
 @app.route("/reserva", methods=["POST"])
 def consultar_reserva():
     """
+    Recibe:
     [
         {
             "dni": dni,
@@ -46,6 +43,7 @@ def consultar_reserva():
 @app.route("/crear_reserva", methods=["POST"])
 def crear_reserva():
     """
+    Recibe:
     [
         {   
             "cabania_id" : id,
@@ -65,7 +63,7 @@ def crear_reserva():
     telefono = res['telefono']
     email = res['email']
     #Falta consultar la disponibilidad antes de crear la reserva.
-    codigo_reserva = realizar_reserva(id, ingreso, egreso, dni, telefono, email)
+    codigo_reserva = consultas_sql.realizar_reserva(id, ingreso, egreso, dni, telefono, email)
     if codigo_reserva:
         return jsonify([{"codigo_reserva" : codigo_reserva}]), 201
     
@@ -74,6 +72,7 @@ def crear_reserva():
 @app.route("/reserva/<int:id>", methods=["DELETE"])
 def eliminar_reserva(id):
     """
+    Recibe:
     [
         {   
             "dni": dni,
