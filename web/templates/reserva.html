@@ -19,7 +19,7 @@
 <div class="container right-panel-active">
 	<!-- Sign Up -->
 	<div class="container__form container--signup">
-		<form action="{{ url_for('reserva') }}" target="_blank" method="post" class="form" id="form1">
+		<form action="{{ url_for('forms_reserva') }}" target="_blank" method="post" class="form" id="form1">
 			
       <div class="input-group">
         <label><i class="fa fa-calendar-check-o"></i> Fecha ingreso</label>
@@ -118,8 +118,6 @@
   </div>
 
   <div class="w3-hide-large" style="margin-top:80px"></div>
-{% block content %}
-{% endblock %}
 
 <script src="{{ url_for('static', filename='js/hab.js')}}"></script>
 

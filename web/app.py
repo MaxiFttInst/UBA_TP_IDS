@@ -9,7 +9,7 @@ def index():
     return render_template("base.html",lista=imagenes)
 
 @app.route("/formulario_reserva",methods=["POST"])
-def reserva():
+def forms_reserva():
     if request.method == "POST":   
         ingreso = request.form.get("fcheckin")
         salida = request.form.get("fcheckout")
@@ -17,11 +17,11 @@ def reserva():
         mail = request.form.get("femail")
         dni = request.form.get("fdni")
         numero_telefonico = request.form.get("fnumber")
-        return render_template("habitacion2.html")
+        return redirect(url_for("habitacion_1"))
 
 
 @app.route("/reserva")
-def habitacion_1():
+def reserva():
     return render_template("reserva.html")
 
 if __name__ == "__main__":
