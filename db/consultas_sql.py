@@ -43,7 +43,7 @@ def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
     conn.close()
     return res[0] == 0
 
-def calendario(cabania_id):
+def calendario_reservas(cabania_id):
     conn = get_db_connection()
     query = f"""
     SELECT fecha_ent, fecha_sal FROM Reservas
@@ -51,7 +51,16 @@ def calendario(cabania_id):
     """
     res = conn.execute(query).fetchall()
     conn.close()
-    return res
+
+    reservas = []
+    for row in res:
+        reserva = {
+            "fecha_ent": row["fecha_ent"],
+            "fecha_sal": row["fecha_sal"]
+        }
+        reservas.append(reserva)
+
+    return reservas
 
 def total_a_pagar(cabania_id, fecha_ent, fecha_sal):
     fecha_ent = datetime.strptime(fecha_ent, "%Y-%m-%d")
