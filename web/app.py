@@ -29,9 +29,18 @@ def reserva():
         numero_telefonico = request.form.get("fnumber")
 
 
-@app.route("/habitacion1")
+        print(ingreso)
+        print(salida)
+        print(nombre)
+        print(mail)
+        print(dni)
+        print(numero_telefonico)
+        return render_template("habitacion2.html")
+
+
+@app.route("/reserva")
 def habitacion_1():
-    return render_template("habitacion1.html")
+    return render_template("reserva.html")
 
 
 @app.route("/habitacion2")
