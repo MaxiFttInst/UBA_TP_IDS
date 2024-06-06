@@ -1,30 +1,11 @@
-.w3-theme-l5  {
-    color: #000 !important;
-     background-color: #f0f0f0 !important;
-}
-.w3-theme-l4  {
-    color: #000 !important;
-     background-color: #cccccc !important;
-}
-.w3-theme-l3  {
-    color: #fff !important;
-     background-color: #999999 !important;
-}
-.w3-theme-l2  {
-    color: #fff !important;
-     background-color: #666666 !important;
-}
-.w3-theme-l1  {
-    color: #fff !important;
-     background-color: #333333 !important;
-}
+
 .w3-theme-d1  {
     color: #fff !important;
      background-color: #000000 !important;
 }
 .w3-theme-d2  {
     color: #fff !important;
-     background-color: #000000 !important;
+    background-color: #221303 !important;
 }
 .w3-theme-d3  {
     color: #fff !important;
@@ -51,18 +32,12 @@
     color: #fff !important;
      background-color: #000000 !important;
 }
-
-.w3-theme  {
-    color: #fff !important;
-     background-color: #000000 !important;
-}
 .w3-text-theme  {
     color: #000000 !important;
 }
 .w3-border-theme  {
     border-color: #000000 !important;
 }
-
 .w3-hover-theme:hover  {
     color: #fff !important;
      background-color: #000000 !important;
@@ -80,3 +55,157 @@ html {
 
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 .mySlides {display: none}
+
+#habitaciones{
+    display: flex;
+    justify-content: space-around;
+    padding: 48px 0;
+    background-color: rgb(51, 51, 51);
+}
+
+.carusel-image {
+    width: 700px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.btn-habitacion{
+    cursor: pointer;
+}
+
+#actividades_extra {
+    background-color: rgb(51, 51, 51);
+    color: #fff;
+}
+
+.w3-hover-shadow{
+    background-color: #666666;
+}
+.info {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+}
+
+.info.visible {
+    max-height: 1000px;
+    opacity: 1;
+    font-family: "Raleway", Arial, Helvetica, sans-serif;
+}
+
+.w3-theme {
+    background-color: #000;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+
+.w3-theme:hover {
+    background-color: #dcdcdc;
+    transform: scale(1.02);
+    color: black;
+    scroll-behavior: smooth;
+}
+
+.w3-theme:hover p {
+    color: #000;
+}
+
+
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+#contacto {
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+}
+
+#reserva_ahora{
+    background-color: rgb(224, 209, 180);
+
+}
+
+#espacios_comunes{
+    background-color: rgb(224, 209, 180);
+}
+.titulo{
+    text-align: center;
+    
+}
+.center{
+    text-align: center;
+}
+
+#hideText_btn{
+    border-radius: 10px;
+}
+#hideText_btn2{
+    border-radius: 10px;
+    
+}
+.detalles-cabaña {
+    display: none;
+}
+
+.detalles-cabaña img{
+    border-radius: 20px;
+}
+
+.botones-cabañas {
+    margin-bottom: 20px;
+}
+
+.boton {
+    background-color: #000;
+    color: white;
+    border-radius: 40px;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: inline-block;
+}
+.btn-reserva-hover {
+    width: 160px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 50px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
+  
+  .btn-reserva-hover:hover {
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
+  
+  .btn-reserva-hover:focus {
+    outline: none;
+  }
+  
+  .btn-reserva-hover.btn-reserva {
+    background-image: linear-gradient(
+      to right,
+      #29323c,
+      #485563,
+      #2b5876,
+      #4e4376
+    );
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+  }
