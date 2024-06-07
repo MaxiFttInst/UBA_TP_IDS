@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from db import consultas_sql
+from db.consultas import cabania_consultas_sql, reserva_consultas_sql, imagenes_consultas
 
 app = Flask(__name__)
 
@@ -12,39 +12,41 @@ def index():
 
 @app.route("/cabanias", methods=["GET"])
 def cabanias():
-    res = consultas_sql.obtener_cabanias()
+    res = cabania_consultas_sql.obtener_cabanias()
     print("CABANIAS:", res)
     return jsonify(res), 200
 
-@app.route("/reserva", methods=["POST"])
+@app.route("/reserva", methods=["GET"])
 def consultar_reserva():
     """
     Recibe:
-    [
-        {
-            "dni": dni,
-            "telefono": telefono,
-            "email" : example@example.com
+        {   
+            "dni": dni|pasaporte,
+            "nombre_completo" : nombre_cliente
         }
-    ]
     """
-    consulta = request.get_json()[0]
+    consulta = request.get_json()
     dni = consulta['dni']
-    telefono = consulta['telefono']
-    email = consulta['email']
+    nombre = consulta['nombre_completo']
     
-    codigo_reserva = consultar_reserva(dni, telefono, email)
-    if codigo_reserva:
-        return jsonify([{"codigo_reserva": codigo_reserva}])
+    res = reserva_consultas_sql.consultar_reservas(dni, nombre)
+    if res:
+        data = []
+        for codigo_reserva, nombre_cabania, fecha_ingreso, fecha_egreso in res:
+            data.append({
+                "codigo_reserva" : codigo_reserva,
+                "nombre_cabania" : nombre_cabania,
+                "fecha_ingreso": fecha_ingreso,
+                "fecha_egreso" : fecha_egreso
+            })
+        return jsonify(data)
     
-    return jsonify([{"mensaje": f"No hay reservas para {email}."}]), 404
-
+    return jsonify({"mensaje": f"No hay reservas a nombre de {nombre}."}), 404
 
 @app.route("/crear_reserva", methods=["POST"])
 def crear_reserva():
     """
     Recibe:
-    [
         {   
             "cabania_id" : id,
             "fecha_ingreso" : "aaaa-mm-dd",
@@ -53,9 +55,8 @@ def crear_reserva():
             "telefono": telefono,
             "email" : "example@example.com"
         }
-    ]
     """
-    res = request.get_json()[0]
+    res = request.get_json()
     id = res['cabania_id']
     ingreso = res['fecha_ingreso']
     egreso = res['fecha_egreso']
@@ -73,15 +74,13 @@ def crear_reserva():
 def eliminar_reserva(id):
     """
     Recibe:
-    [
         {   
             "dni": dni,
             "telefono": telefono,
             "email" : "example@example.com"
         }
-    ]
     """
-    res = request.get_json()[0]
+    res = request.get_json()
     dni = res['dni']
     telefono = res['telefono']
     email = res['email']

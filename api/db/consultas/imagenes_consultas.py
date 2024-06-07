@@ -1,7 +1,8 @@
 import sqlite3
 from datetime import datetime
+import os
 
-RUTA_BD = "hosteria_byteados.db"
+RUTA_BD = os.path.abspath("db/hosteria_byteados.db")
 
 def get_db_connection():
     '''
