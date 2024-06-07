@@ -8,7 +8,12 @@ insert into Cabanias values
 ("CAB-ADE", "Adela", "Posee una cama matrimonial junto a 2 camas individuales y un baño. Perfecta para dos parejas amigas o una familia pequeña!", 4, 84),
 ("CAB-ALM", "Almendra", "Cabaña especial para dos personas... veni con tu persona especial! Dispone de 1 cama matrimonial y un baño. Cuenta con todo lo que necesitas para unos dias inolvidables", 2, 100);
 
--- Tabla Imagenes --> Joaco
+-- Tabla Imagenes
+insert into Imagenes (descripcion, cabania_id, imagen_link) values
+('portada', 'CAB-ADE', 'https://drive.google.com/uc?export=download&id=1srx8YtvXiG_AwGJNnlAEXQN0_S6Kpxcw'),
+('portada', 'CAB-ALM', 'https://drive.google.com/uc?export=download&id=1UmjKNyaQSIwyVEr24Te0ViV0-HFLIZUF'),
+('portada', 'CAB-EMI', 'https://drive.google.com/uc?export=download&id=1bLiHFID5_rNtpLTKeKeZrEHUS3thSJhw'),
+('portada', 'CAB-PRE', 'https://drive.google.com/uc?export=download&id=1o3KX6yFJPT6HIexN1GALE6PECqLwMOCD');
 
 -- Inserts de base para tabla RESERVAS
 -- reserva_codigo, cabania_id, fecha_ent, fecha_sal, id_cliente, telefono_cliente, mail_cliente, precio_total
@@ -20,4 +25,5 @@ insert into Reservas(cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_comple
 ("CAB-PRE", "2023-04-01", "2023-04-8", "20818211", "Gustavo Cerati", 1144894221, "lago_en_el_cielo@gmail.com", 560),
 ("CAB-EMI", "2023-03-01", "2023-03-11", "US1890331", "Laufey Lín Bing Jónsdóttir", 0911148918, "laufey_lin@mail.com", 990),
 ("CAB-ADE", "2023-06-01", "2023-07-22", "US9981121", "Daniel Kim", 81149148918, "daniel_w2e@live.com", 4368),
-("CAB-ALM", "2023-06-20", "2023-08-27", "HP3891789", "Christopher Bang", 9112367817, "oimate@mail.au", 6700);
+("CAB-ALM", "2023-06-20", "2023-08-27", "HP3891789", "Christopher Bang", 9112367817, "oimate@mail.au", 6700),
+("CAB-CLE", "2023-04-02", "2023-04-10", "JP8918901", "Misato Katsuragi", 8112348918, "katsuragi_misa@live.jp", 1299);
