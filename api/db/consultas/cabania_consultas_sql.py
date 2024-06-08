@@ -1,3 +1,5 @@
+from db.consultas.imagenes_consultas import obtener_imagenes
+from db.consultas.conexion_base import get_db_connection
 import sqlite3
 from datetime import datetime
 import sys
@@ -6,9 +8,6 @@ import os
 # Añadir el directorio del paquete a sys.path de manera dinámica
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
-
-from db.consultas.conexion_base import get_db_connection
-from db.consultas.imagenes_consultas import obtener_imagenes
 
 
 def obtener_cabanias():
@@ -36,6 +35,7 @@ def obtener_cabanias():
                 "precio_noche": cabania["precio_noche"]}
     return res
 
+
 def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
     '''
     Devuelve True si la cabaña elegida está libre para reservar en ese rango de fechas, caso contrario devuelve False.
@@ -53,7 +53,8 @@ def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
             (? <= fecha_sal AND ? >= fecha_ent)
             )
         """
-        res = conn.execute(query, (cabania_id, fecha_ent, fecha_sal)).fetchone()
+        res = conn.execute(
+            query, (cabania_id, fecha_ent, fecha_sal)).fetchone()
         conn.close()
         return res[0] == 0
 
@@ -62,7 +63,7 @@ def calendario_reservas(cabania_id):
     '''
     Función auxiliar para usar en el diseño del calendario. 
     Devuelve una lista de diccionarios con el rango de fechas de cada reserva para la cabaña elegida. 
-    
+
     Salida:
     [{'fecha_ent': '2023-03-01', 'fecha_sal': '2023-03-20'}, {'fecha_ent': '2023-06-01', 'fecha_sal': '2023-07-22'}, … ]
     '''
@@ -97,7 +98,8 @@ def agregar_cabania(cabania_id, nombre, descripcion, cap_max, precio_noche):
     conn = get_db_connection()
     if conn is not None:
         try:
-            conn.execute("Insert into Cabanias values (?,?,?,?,?)", (cabania_id, nombre, descripcion, cap_max, precio_noche))
+            conn.execute("Insert into Cabanias values (?,?,?,?,?)",
+                         (cabania_id, nombre, descripcion, cap_max, precio_noche))
             conn.commit()
             changes = conn.total_changes
         except sqlite3.Error as e:
@@ -106,6 +108,7 @@ def agregar_cabania(cabania_id, nombre, descripcion, cap_max, precio_noche):
         conn.close()
 
     return changes > 0
+
 
 def eliminar_cabania(cabania_id):
     '''
@@ -116,24 +119,26 @@ def eliminar_cabania(cabania_id):
     conn = get_db_connection()
     if conn is not None:
         try:
-            conn.execute("Delete from Cabanias where cabania_id = ?", (cabania_id,))
+            conn.execute(
+                "Delete from Cabanias where cabania_id = ?", (cabania_id,))
             conn.commit()
             changes = conn.total_changes
         except sqlite3.Error as e:
             print("Error al elminar la cabaña:", e)
             conn.rollback()
-        conn.close()     
+        conn.close()
     return changes > 0
 
-def modificar_cabania(cabania_id, nuevo_nombre = None, nueva_descripcion = None, nueva_cap_max = None, nuevo_precio_noche = None):
+
+def modificar_cabania(cabania_id, nuevo_nombre=None, nueva_descripcion=None, nueva_cap_max=None, nuevo_precio_noche=None):
     '''
     Edita la cabaña según el cabania_id ingresado (de la base de datos).
     Si la operación se realiza correctamente devuelve True, sino False. 
     Los parametros ‘nuevo_elemento’ son opcionales.
     '''
     changes = 0
-    conn = get_db_connection() 
-    
+    conn = get_db_connection()
+
     if conn is not None:
         query = "UPDATE Cabanias SET "
         valores = []
@@ -158,9 +163,9 @@ def modificar_cabania(cabania_id, nuevo_nombre = None, nueva_descripcion = None,
         condiciones_sql = ", ".join(condiciones)
 
         valores.append(cabania_id)
-        condiciones_sql += " WHERE cabania_id = ?" #Agrega la condicion 
+        condiciones_sql += " WHERE cabania_id = ?"  # Agrega la condicion
 
-        #Consulta final
+        # Consulta final
         query += condiciones_sql
 
         try:
@@ -170,7 +175,7 @@ def modificar_cabania(cabania_id, nuevo_nombre = None, nueva_descripcion = None,
         except sqlite3.Error as e:
             print("Error al modificar la cabaña:", e)
             conn.rollback()
-        
+
         conn.close()
         return changes > 0
 
@@ -184,7 +189,8 @@ def total_a_pagar(cabania_id, fecha_ent, fecha_sal):
     if conn is not None:
         fecha_ent = datetime.strptime(fecha_ent, "%Y-%m-%d")
         fecha_sal = datetime.strptime(fecha_sal, "%Y-%m-%d")
-        cant_de_noches = (fecha_sal - fecha_ent).days + 1 # Ajuste de +1 para incluir la salida
+        cant_de_noches = (fecha_sal - fecha_ent).days + \
+            1  # Ajuste de +1 para incluir la salida
         query = f"""SELECT precio_noche FROM Cabanias 
                     WHERE cabania_id = ?"""
         res = conn.execute(query, (cabania_id,)).fetchone()

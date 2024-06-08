@@ -1,3 +1,4 @@
+from db.consultas.conexion_base import get_db_connection
 import sqlite3
 import sys
 import os
@@ -6,22 +7,21 @@ import os
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from db.consultas.conexion_base import get_db_connection
 
-
-def agregar_imagen(link, descripcion, id_cabania = "NULL"):
+def agregar_imagen(link, descripcion, id_cabania="NULL"):
     '''
     Agrega url de imagen a la base de datos, el parametro id_cabania es opcional. Devuelve True si la operación es exitosa.
     '''
     cambios = 0
     conn = get_db_connection()
-    if conn is not None: 
+    if conn is not None:
         query = """Insert into Imagenes values
                 (?, ?, ?)"""
-        conn.execute(query,(link, id_cabania, descripcion))
+        conn.execute(query, (link, id_cabania, descripcion))
         cambios = conn.total_changes
         conn.close()
     return cambios > 0
+
 
 def eliminar_imagen(link):
     '''
@@ -37,11 +37,12 @@ def eliminar_imagen(link):
         conn.close()
     return cambios > 0
 
-def obtener_imagenes(cabania_id = None):
+
+def obtener_imagenes(cabania_id=None):
     '''
     Obtiene una lista de las imágenes almacenadas en la base de datos -links-,
     si no se especifica la cabania_id se devuelven las fotos sin vinculación a la tabla “cabanias”. 
-    
+
     El formato de devolución es de diccionario:
     {“descripcion”: link, “descripcion2”: link2, …..}
     '''
@@ -57,7 +58,8 @@ def obtener_imagenes(cabania_id = None):
     conn = get_db_connection()
 
     if conn is not None:
-        query = "SELECT descripcion, imagen_link FROM Imagenes WHERE cabania_id " + condicion_consulta
+        query = "SELECT descripcion, imagen_link FROM Imagenes WHERE cabania_id " + \
+            condicion_consulta
         imagenes = conn.execute(query, tuple(lista_variables)).fetchall()
         conn.close()
 
@@ -65,4 +67,3 @@ def obtener_imagenes(cabania_id = None):
             res[imagen["descripcion"]] = imagen["imagen_link"]
 
     return res
-
