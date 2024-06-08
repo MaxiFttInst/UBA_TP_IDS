@@ -16,7 +16,6 @@ def cabanias():
     res = cabania.obtener_cabanias()
     print("CABANIAS:", res)
     return jsonify(res), 200
-cabanias()
 
 #--RESERVAS--
 @app.route("/reserva", methods=["GET"])

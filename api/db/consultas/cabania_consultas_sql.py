@@ -1,7 +1,13 @@
 import sqlite3
 from datetime import datetime
-from conexion_base import get_db_connection
-from imagenes_consultas import obtener_imagenes
+import sys
+import os
+
+# Añadir el directorio del paquete a sys.path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../..')
+
+from db.consultas.conexion_base import get_db_connection
+from db.consultas.imagenes_consultas import obtener_imagenes
 
 
 def obtener_cabanias():

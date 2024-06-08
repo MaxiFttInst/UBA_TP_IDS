@@ -1,6 +1,12 @@
 import sqlite3
-from conexion_base import get_db_connection
-from cabania_consultas_sql import total_a_pagar, consultar_disponibilidad
+import sys
+import os
+
+# Añadir el directorio del paquete a sys.path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../..')
+from db.consultas.cabania_consultas_sql import total_a_pagar, consultar_disponibilidad
+from db.consultas.conexion_base import get_db_connection
+
 
 def realizar_reserva(cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente):
     '''

@@ -1,5 +1,12 @@
 import sqlite3
-from conexion_base import get_db_connection
+import sys
+import os
+
+# Añadir el directorio del paquete a sys.path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../..')
+
+from db.consultas.conexion_base import get_db_connection
+
 
 def agregar_imagen(link, descripcion, id_cabania = "NULL"):
     '''
