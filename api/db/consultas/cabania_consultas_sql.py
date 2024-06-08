@@ -1,8 +1,9 @@
 import sqlite3
 from datetime import datetime
-from imagenes_consultas import obtener_imagenes
+from .imagenes_consultas import obtener_imagenes
+import os
 
-RUTA_BD = "hosteria_byteados.db"
+RUTA_BD = os.path.abspath("db/hosteria_byteados.db")
 
 def get_db_connection():
     '''
