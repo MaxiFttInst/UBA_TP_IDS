@@ -1,5 +1,5 @@
 import sqlite3
-from consultas.conexion_base import get_db_connection
+from conexion_base import get_db_connection
 
 def agregar_imagen(link, descripcion, id_cabania = "NULL"):
     '''
@@ -37,17 +37,20 @@ def obtener_imagenes(cabania_id = None):
     El formato de devolución es de diccionario:
     {“descripcion”: link, “descripcion2”: link2, …..}
     '''
+    lista_variables = []
+
     if cabania_id is None:
         condicion_consulta = "is Null"
     else:
         condicion_consulta = "= ?"
+        lista_variables.append(cabania_id)
 
     res = {}
     conn = get_db_connection()
 
     if conn is not None:
         query = "SELECT descripcion, imagen_link FROM Imagenes WHERE cabania_id " + condicion_consulta
-        imagenes = conn.execute(query, (cabania_id,)).fetchall()
+        imagenes = conn.execute(query, tuple(lista_variables)).fetchall()
         conn.close()
 
         for imagen in imagenes:
@@ -55,4 +58,3 @@ def obtener_imagenes(cabania_id = None):
 
     return res
 
-print(obtener_imagenes())

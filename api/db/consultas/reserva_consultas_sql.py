@@ -1,6 +1,6 @@
 import sqlite3
-from consultas.conexion_base import get_db_connection
-from consultas.cabania_consultas_sql import total_a_pagar, consultar_disponibilidad
+from conexion_base import get_db_connection
+from cabania_consultas_sql import total_a_pagar, consultar_disponibilidad
 
 def realizar_reserva(cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente):
     '''

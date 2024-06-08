@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime
-from consultas.conexion_base import get_db_connection
-from consultas.imagenes_consultas import obtener_imagenes
+from conexion_base import get_db_connection
+from imagenes_consultas import obtener_imagenes
 
 
 def obtener_cabanias():

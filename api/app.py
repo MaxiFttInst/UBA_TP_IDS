@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
-from db.consultas import cabania_consultas_sql, reserva_consultas_sql, imagenes_consultas
-
+import db.consultas.cabania_consultas_sql as cabania
+import db.consultas.imagenes_consultas as imagen
+import db.consultas.reserva_consultas_sql as reserva
 app = Flask(__name__)
 
 @app.route("/")
@@ -12,9 +13,10 @@ def index():
 #--CABANIAS--
 @app.route("/cabanias", methods=["GET"])
 def cabanias():
-    res = cabania_consultas_sql.obtener_cabanias()
+    res = cabania.obtener_cabanias()
     print("CABANIAS:", res)
     return jsonify(res), 200
+cabanias()
 
 #--RESERVAS--
 @app.route("/reserva", methods=["GET"])
