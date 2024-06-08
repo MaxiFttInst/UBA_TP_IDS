@@ -2,8 +2,10 @@ import sqlite3
 import sys
 import os
 
-# Añadir el directorio del paquete a sys.path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../..')
+# Añadir el directorio del paquete a sys.path de manera dinámica
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent))
+
 from db.consultas.cabania_consultas_sql import total_a_pagar, consultar_disponibilidad
 from db.consultas.conexion_base import get_db_connection
 

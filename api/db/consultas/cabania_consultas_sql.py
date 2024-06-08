@@ -3,8 +3,9 @@ from datetime import datetime
 import sys
 import os
 
-# Añadir el directorio del paquete a sys.path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../..')
+# Añadir el directorio del paquete a sys.path de manera dinámica
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent))
 
 from db.consultas.conexion_base import get_db_connection
 from db.consultas.imagenes_consultas import obtener_imagenes
