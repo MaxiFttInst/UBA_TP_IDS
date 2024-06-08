@@ -1,17 +1,8 @@
+import os
 import sqlite3
+from .conexion_base import get_db_connection
 from datetime import datetime
 from .imagenes_consultas import obtener_imagenes
-import os
-
-RUTA_BD = os.path.abspath("db/hosteria_byteados.db")
-
-def get_db_connection():
-    '''
-    Devuelve cursor de conexión a la base de datos según la RUTA_BD
-    '''
-    conn = sqlite3.connect(RUTA_BD)
-    conn.row_factory = sqlite3.Row # Para obtener un diccionario en lugar de una tupla
-    return conn
 
 
 def obtener_cabanias():
@@ -38,7 +29,7 @@ def obtener_cabanias():
             "precio_noche": cabania["precio_noche"]}
     return res
 
-#revisar
+
 def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
     '''
     Devuelve True si la cabaña elegida está libre para reservar en ese rango de fechas, caso contrario devuelve False.
@@ -55,9 +46,7 @@ def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
         (? <= fecha_sal AND ? >= fecha_ent)
         )
     """
-    res = conn.execute(query, (cabania_id,
-     fecha_ent, fecha_sal)).fetchone()
-    print('DISPONIBILIDAD:', res[0])
+    res = conn.execute(query, (cabania_id, fecha_ent, fecha_sal)).fetchone()
     conn.close()
     return res[0] == 0
 

@@ -22,15 +22,15 @@ def consultar_reserva():
     """
     Recibe:
         {   
-            "dni": dni|pasaporte,
-            "nombre_completo" : nombre_cliente
+            "cliente_id": cliente_id|pasaporte,
+            "nombre_cliente" : nombre_cliente
         }
     """
     consulta = request.get_json()
-    dni = consulta['dni']
-    nombre = consulta['nombre_completo']
+    cliente_id = consulta['cliente_id']
+    nombre = consulta['nombre_cliente']
     
-    res = reserva_consultas_sql.consultar_reservas(dni, nombre)
+    res = reserva_consultas_sql.consultar_reservas(cliente_id, nombre)
     if res:
         data = []
         for codigo_reserva, nombre_cabania, fecha_ingreso, fecha_egreso in res:
@@ -53,7 +53,7 @@ def crear_reserva():
             "fecha_ingreso" : "aaaa-mm-dd",
             "fecha_egreso" : "aaaa-mm-dd",
             "nombre_cliente" : "nombre_cliente",
-            "dni": dni,
+            "cliente_id": cliente_id,
             "telefono": telefono,
             "email" : "example@example.com"
         }
@@ -63,11 +63,11 @@ def crear_reserva():
     ingreso = res['fecha_ingreso']
     egreso = res['fecha_egreso']
     nombre = res['nombre_cliente']
-    dni = res['dni']
+    cliente_id = res['cliente_id']
     telefono = res['telefono']
     email = res['email']
     #revisar funcion consultar_disponibilidad()
-    codigo_reserva = reserva_consultas_sql.realizar_reserva(id, ingreso, egreso, dni, nombre, telefono, email)
+    codigo_reserva = reserva_consultas_sql.realizar_reserva(id, ingreso, egreso, cliente_id, nombre, telefono, email)
     print('CODIGO RESERVA:', codigo_reserva)
     if codigo_reserva:
         return jsonify({"codigo_reserva" : codigo_reserva}), 201
@@ -79,17 +79,17 @@ def eliminar_reserva(id):
     #"""
     # Recibe:
     #     {   
-    #         "dni": dni,
+    #         "cliente_id": cliente_id,
     #         "telefono": telefono,
     #         "email" : "example@example.com"
     #     }
     # """
     # res = request.get_json()
-    # dni = res['dni']
+    # cliente_id = res['cliente_id']
     # telefono = res['telefono']
     # email = res['email']
 
-    # if not consultar_reserva(dni, telefono, email):
+    # if not consultar_reserva(cliente_id, telefono, email):
     #     return jsonify([{"mensaje": f"La reserva con codigo #{id} no existe."}]), 404
 
     if reserva_consultas_sql.eliminar_reserva(id):
@@ -107,13 +107,13 @@ def actualizar_reserva(id):
     -"fecha_ingreso" : "aaaa-mm-dd"
     -"fecha_egreso" : "aaaa-mm-dd"
     -"nombre_cliente" : "nombre_cliente"
-    -"dni": dni
+    -"cliente_id": cliente_id
     -"telefono": telefono
     -"email" : "example@example.com"
    
     ej:
     {
-        "dni" : dni-modificado,
+        "cliente_id" : cliente_id-modificado,
         "telefono" : telefono-actualizado
     }
     """
@@ -122,11 +122,11 @@ def actualizar_reserva(id):
     fecha_ingreso = res.get("fecha_ingreso", None)
     fecha_egreso = res.get("fecha_egreso", None)
     nombre_cliente = res.get("nombre_cliente", None)
-    dni = res.get("dni", None)
+    cliente_id = res.get("cliente_id", None)
     telefono = res.get("telefono", None)
     email = res.get("email", None)
 
-    if reserva_consultas_sql.actualizar_reserva(id, cabania_id, fecha_ingreso, fecha_egreso, nombre_cliente, dni, telefono, email):
+    if reserva_consultas_sql.actualizar_reserva(id, cabania_id, fecha_ingreso, fecha_egreso, nombre_cliente, cliente_id, telefono, email):
        return jsonify({"msj":"Su reserva se modifico exitosamente."}), 200 
     
     return jsonify({"Hubo un problema al intentar modificar la reserva", 400})

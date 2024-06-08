@@ -1,5 +1,5 @@
 import sqlite3
-from conexion_base import get_db_connection
+from .conexion_base import get_db_connection
 
 def agregar_imagen(link, descripcion, id_cabania = "NULL"):
     '''
