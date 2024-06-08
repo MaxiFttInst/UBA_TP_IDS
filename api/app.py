@@ -133,6 +133,66 @@ def actualizar_reserva(id):
 
 #--IMAGENES--
 
+@app.route("/imagenes", methods = ["GET"])
+def obtener_imagenes():
+    """
+    Recibe:
+    {
+        "cabania_id" : id *opcional*
+    }
+    """
+    try:
+        res = request.get_json()
+        id = res["cabania_id"]
+        imagenes = imagenes_consultas.obtener_imagenes(id)
+        print("IMAGENES:", imagenes)
+        return jsonify(imagenes), 200
+    except:
+        imagenes = imagenes_consultas.obtener_imagenes()
+        print("IMAGENES:", imagenes)
+        return jsonify(imagenes), 200
+
+@app.route("/crear_imagen", methods = ["POST"])
+def crear_imagen():
+    """
+    Recibe:
+    {
+        cabania_id : id, *opcional*
+        link : url_img,
+        descripcion : portada
+    }
+    """
+    res = request.get_json()
+    cabania_id = res.get("cabania_id", None)
+    link = res["link"]
+    descripcion = res["descripcion"]
+
+    fue_creada = False
+    if cabania_id == None:
+        fue_creada = imagenes_consultas.agregar_imagen(link, descripcion)
+    else:
+        fue_creada = imagenes_consultas.agregar_imagen(link, descripcion, cabania_id)
+
+    if fue_creada:
+        return jsonify({"msj" : "La imagen fue agregada con exito."}), 201
+    return jsonify({"msj" : "Ocurrio un error al intentar crear la imagen."}), 400
+
+@app.route("/imagen", methods = ["DELETE"])
+def eliminar_imagen():
+    """
+    Recibe:
+    {
+        "link" : url
+    }
+    """
+    res = request.get_json()
+    link = res['link']
+    fue_eliminada = imagenes_consultas.eliminar_imagen(link)
+
+    if fue_eliminada:
+        return jsonify({"msj" : "La imagen se elimino exitosamente."}), 202
     
+    return jsonify({"No se a podido eliminar la imagen."}), 400
+
 if __name__ == "__main__":
     app.run("127.0.0.1", port="5000", debug=True) # 0.0.0.0 y debug=false para acceso publico
