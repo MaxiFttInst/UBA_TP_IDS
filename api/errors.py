@@ -1,0 +1,2 @@
+class CampoInvalido(Exception):
+    pass
