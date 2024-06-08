@@ -99,7 +99,37 @@ def eliminar_reserva(id):
     # if not eliminar_reserva(id):
     #     return jsonify([{"mensaje": f"La reserva con codigo #{id} no corresponde con los datos proporcionados."}]), 403
 
+@app.route("/reserva/<int:id>", methods=["PATCH"])
+def actualizar_reserva(id):
+    """
+    Recibe al menos uno de los siguientes: 
+    -"cabania_id" : id
+    -"fecha_ingreso" : "aaaa-mm-dd"
+    -"fecha_egreso" : "aaaa-mm-dd"
+    -"nombre_cliente" : "nombre_cliente"
+    -"dni": dni
+    -"telefono": telefono
+    -"email" : "example@example.com"
+   
+    ej:
+    {
+        "dni" : dni-modificado,
+        "telefono" : telefono-actualizado
+    }
+    """
+    res = request.get_json()
+    cabania_id = res.get("cabania_id", None)
+    fecha_ingreso = res.get("fecha_ingreso", None)
+    fecha_egreso = res.get("fecha_egreso", None)
+    nombre_cliente = res.get("nombre_cliente", None)
+    dni = res.get("dni", None)
+    telefono = res.get("telefono", None)
+    email = res.get("email", None)
+
+    if reserva_consultas_sql.actualizar_reserva(id, cabania_id, fecha_ingreso, fecha_egreso, nombre_cliente, dni, telefono, email):
+       return jsonify({"msj":"Su reserva se modifico exitosamente."}), 200 
     
+    return jsonify({"Hubo un problema al intentar modificar la reserva", 400})
 
 #--IMAGENES--
 
