@@ -1,16 +1,8 @@
+import os
 import sqlite3
+from conexion_base import get_db_connection
 from datetime import datetime
 from imagenes_consultas import obtener_imagenes
-
-RUTA_BD = "hosteria_byteados.db"
-
-def get_db_connection():
-    '''
-    Devuelve cursor de conexión a la base de datos según la RUTA_BD
-    '''
-    conn = sqlite3.connect(RUTA_BD)
-    conn.row_factory = sqlite3.Row # Para obtener un diccionario en lugar de una tupla
-    return conn
 
 
 def obtener_cabanias():
@@ -26,6 +18,7 @@ def obtener_cabanias():
     '''
     conn = get_db_connection()
     cabanias = conn.execute("SELECT * FROM Cabanias").fetchall()
+    print(cabanias)
     conn.close()
     res = {}
     for cabania in cabanias:
@@ -37,6 +30,7 @@ def obtener_cabanias():
             "precio_noche": cabania["precio_noche"]}
     return res
 
+print(obtener_cabanias())
 
 def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
     '''
@@ -179,3 +173,50 @@ def total_a_pagar(cabania_id, fecha_ent, fecha_sal):
     precio_noche = res['precio_noche']
     total = cant_de_noches * precio_noche
     return round(total, 2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+print(f"Ruta de la base de datos: {db_path}")
+
+# Verificar si el archivo de la base de datos existe
+if not os.path.exists(db_path):
+    print(f"El archivo de la base de datos no existe en la ruta: {db_path}")
+else:
+    # Conectar a la base de datos
+    conn = sqlite3.connect(db_path)
+
+    # Crear un cursor
+    cursor = conn.cursor()
+
+    # Consultar la lista de tablas para verificar que la tabla existe
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tablas = cursor.fetchall()
+    print("Tablas en la base de datos:", tablas)
+
+    # Asegúrate de que la tabla que estás intentando consultar aparece en la lista
+    nombre_tabla = 'nombre_de_tu_tabla'  # Reemplaza esto con el nombre real de tu tabla
+
+    if (nombre_tabla,) in tablas:
+        # Si la tabla existe, realiza la consulta
+        cursor.execute(f'SELECT * FROM {nombre_tabla}')
+        filas = cursor.fetchall()
+
+        for fila in filas:
+            print(fila)
+    else:
+        print(f"La tabla '{nombre_tabla}' no existe en la base de datos.")
+
+    # Cerrar la conexión
+    conn.close()
