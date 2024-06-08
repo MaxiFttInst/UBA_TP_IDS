@@ -1,6 +1,6 @@
 import sqlite3
-from .cabania_consultas_sql import total_a_pagar, consultar_disponibilidad
-from .conexion_base import get_db_connection
+from consultas.conexion_base import get_db_connection
+from consultas.cabania_consultas_sql import total_a_pagar, consultar_disponibilidad
 
 def realizar_reserva(cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente):
     '''
@@ -13,16 +13,19 @@ def realizar_reserva(cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_comple
     if not consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
         return False
 
+    cambios = 0
     conn = get_db_connection()
-    precio_total = total_a_pagar(cabania_id, fecha_ent, fecha_sal)
-    query = """Insert into Reservas(cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente, precio_total) values 
-                (?, ?, ?, ?, ?, ?, ?, ?)"""
-    conn.execute(query, (cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente, precio_total))
-    conn.commit()
 
-    cambios = conn.total_changes
-    reserva_codigo = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
-    conn.close()
+    if conn is not None:
+        precio_total = total_a_pagar(cabania_id, fecha_ent, fecha_sal)
+        query = """Insert into Reservas(cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente, precio_total) values 
+                    (?, ?, ?, ?, ?, ?, ?, ?)"""
+        conn.execute(query, (cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente, precio_total))
+        conn.commit()
+
+        cambios = conn.total_changes
+        reserva_codigo = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+        conn.close()
 
     return reserva_codigo if cambios > 0 else False
 
@@ -58,3 +61,4 @@ def eliminar_reserva(reserva_codigo):
     changes = conn.total_changes
     conn.close()
     return changes > 0
+

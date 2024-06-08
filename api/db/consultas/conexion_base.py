@@ -16,7 +16,7 @@ def get_db_connection():
     Devuelve cursor de conexión a la base de datos según la RUTA_BD
     '''
     if not os.path.exists(db_path):
-        print(f"El archivo de la base de datos no existe en la ruta: {db_path}")
+        print(f"Falló la conexión a la base de datos \nEl archivo de la base de datos no existe en la ruta: {db_path}")
         return None
     conn = sqlite3.connect(db_path) #Conexion a base
     conn.row_factory = sqlite3.Row # Para obtener un diccionario en lugar de una tupla
@@ -24,8 +24,11 @@ def get_db_connection():
     return cursor
 
 
-def correr_prueba(nombre_tabla):
-    print(f"Ruta de la base de datos: {db_path}")
+def correr_prueba(nombre_tabla = None):
+    '''
+    Corre prueba de la ruta de la base de datos, si se pasa el nombre_tabla también verifica si existe.
+    '''
+    print(f"Ruta asignada de la base de datos: {db_path}")
     # Verificar si el archivo de la base de datos existe
     if not os.path.exists(db_path):
         print(f"El archivo de la base de datos no existe en la ruta: {db_path}")
@@ -56,3 +59,6 @@ def correr_prueba(nombre_tabla):
 
         # Cerrar la conexión
         conn.close()
+
+def devolver_current_path():
+    return script_dir

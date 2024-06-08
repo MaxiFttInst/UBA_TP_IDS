@@ -1,28 +1,32 @@
 import sqlite3
-from .conexion_base import get_db_connection
+from consultas.conexion_base import get_db_connection
 
 def agregar_imagen(link, descripcion, id_cabania = "NULL"):
     '''
     Agrega url de imagen a la base de datos, el parametro id_cabania es opcional. Devuelve True si la operación es exitosa.
     '''
-    conn = get_db_connection() 
-    query = """Insert into Imagenes values
-               (?, ?, ?)"""
-    conn.execute(query,(link, id_cabania, descripcion))
-    cambios = conn.total_changes
-    conn.close()
+    cambios = 0
+    conn = get_db_connection()
+    if conn is not None: 
+        query = """Insert into Imagenes values
+                (?, ?, ?)"""
+        conn.execute(query,(link, id_cabania, descripcion))
+        cambios = conn.total_changes
+        conn.close()
     return cambios > 0
 
 def eliminar_imagen(link):
     '''
     Elimina la url de imágen ingresada de la base de datos. Devuelve True si la operación es exitosa.
     '''
-    conn = get_db_connection() 
-    query = """Delete from Imagenes
-               Where link = ?"""
-    conn.execute(query, (link,))
-    cambios = conn.total_changes
-    conn.close()
+    cambios = 0
+    conn = get_db_connection()
+    if conn is not None:
+        query = """Delete from Imagenes
+                Where link = ?"""
+        conn.execute(query, (link,))
+        cambios = conn.total_changes
+        conn.close()
     return cambios > 0
 
 def obtener_imagenes(cabania_id = None):
@@ -38,13 +42,17 @@ def obtener_imagenes(cabania_id = None):
     else:
         condicion_consulta = "= ?"
 
-    conn = get_db_connection()
-    query = "SELECT descripcion, imagen_link FROM Imagenes WHERE cabania_id " + condicion_consulta
-    imagenes = conn.execute(query, (cabania_id,)).fetchall()
-    conn.close()
-    
     res = {}
-    for imagen in imagenes:
-        res[imagen["descripcion"]] = imagen["imagen_link"]
+    conn = get_db_connection()
+
+    if conn is not None:
+        query = "SELECT descripcion, imagen_link FROM Imagenes WHERE cabania_id " + condicion_consulta
+        imagenes = conn.execute(query, (cabania_id,)).fetchall()
+        conn.close()
+
+        for imagen in imagenes:
+            res[imagen["descripcion"]] = imagen["imagen_link"]
 
     return res
+
+print(obtener_imagenes())
