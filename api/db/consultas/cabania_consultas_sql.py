@@ -38,7 +38,7 @@ def obtener_cabanias():
             "precio_noche": cabania["precio_noche"]}
     return res
 
-
+#revisar
 def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
     '''
     Devuelve True si la cabaña elegida está libre para reservar en ese rango de fechas, caso contrario devuelve False.
@@ -55,7 +55,9 @@ def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
         (? <= fecha_sal AND ? >= fecha_ent)
         )
     """
-    res = conn.execute(query, (cabania_id, fecha_ent, fecha_sal)).fetchone()
+    res = conn.execute(query, (cabania_id,
+     fecha_ent, fecha_sal)).fetchone()
+    print('DISPONIBILIDAD:', res[0])
     conn.close()
     return res[0] == 0
 
