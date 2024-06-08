@@ -1,15 +1,6 @@
 import sqlite3
 from cabania_consultas_sql import total_a_pagar, consultar_disponibilidad
-RUTA_BD = "hosteria_byteados.db"
-
-def get_db_connection():
-    '''
-    Devuelve cursor de conexión a la base de datos según la RUTA_BD
-    '''
-    conn = sqlite3.connect(RUTA_BD)
-    conn.row_factory = sqlite3.Row # Para obtener un diccionario en lugar de una tupla
-    return conn
-
+from conexion_base import get_db_connection
 
 def realizar_reserva(cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_completo_cliente, telefono_cliente, mail_cliente):
     '''

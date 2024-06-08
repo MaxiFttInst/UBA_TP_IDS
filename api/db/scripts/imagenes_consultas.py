@@ -1,15 +1,5 @@
 import sqlite3
-from datetime import datetime
-
-RUTA_BD = "hosteria_byteados.db"
-
-def get_db_connection():
-    '''
-    Devuelve cursor de conexión a la base de datos según la RUTA_BD
-    '''
-    conn = sqlite3.connect(RUTA_BD)
-    conn.row_factory = sqlite3.Row # Para obtener un diccionario en lugar de una tupla
-    return conn
+from conexion_base import get_db_connection
 
 def agregar_imagen(link, descripcion, id_cabania = "NULL"):
     '''
