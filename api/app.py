@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from db.consultas import cabania_consultas_sql, reserva_consultas_sql, imagenes_consultas
+from utils import admin
+from settings import ADMIN_PASS
 
 app = Flask(__name__)
 
@@ -15,6 +17,11 @@ def cabanias():
     res = cabania_consultas_sql.obtener_cabanias()
     print("CABANIAS:", res)
     return jsonify(res), 200
+
+@app.route("cabanias", methods=["POST", "PATCH", "DELETE"])
+@admin
+def cabanias_admin():
+    if request.method == "POST":
 
 @app.route("/reserva", methods=["GET"])
 def consultar_reserva():
