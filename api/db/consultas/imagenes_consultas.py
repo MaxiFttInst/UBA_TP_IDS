@@ -38,6 +38,7 @@ def obtener_imagenes(cabania_id = None):
     {“descripcion”: link, “descripcion2”: link2, …..}
     '''
     lista_variables = []
+    res = {}
 
     if cabania_id is None:
         condicion_consulta = "is Null"
@@ -45,7 +46,6 @@ def obtener_imagenes(cabania_id = None):
         condicion_consulta = "= ?"
         lista_variables.append(cabania_id)
 
-    res = {}
     conn = get_db_connection()
 
     if conn is not None:

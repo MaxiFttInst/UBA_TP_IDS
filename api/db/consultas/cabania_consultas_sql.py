@@ -28,7 +28,6 @@ def obtener_cabanias():
                 "descripcion": cabania["descripcion"],
                 "precio_noche": cabania["precio_noche"]}
     return res
-print(obtener_cabanias())
 
 def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
     '''

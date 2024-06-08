@@ -32,7 +32,7 @@ def consultar_reserva():
     cliente_id = consulta['cliente_id']
     nombre = consulta['nombre_cliente']
     
-    res = reserva_consultas_sql.consultar_reservas(cliente_id, nombre)
+    res = reserva.consultar_reservas(cliente_id, nombre)
     if res:
         data = []
         for codigo_reserva, nombre_cabania, fecha_ingreso, fecha_egreso in res:
@@ -69,7 +69,7 @@ def crear_reserva():
     telefono = res['telefono']
     email = res['email']
     #revisar funcion consultar_disponibilidad()
-    codigo_reserva = reserva_consultas_sql.realizar_reserva(id, ingreso, egreso, cliente_id, nombre, telefono, email)
+    codigo_reserva = reserva.realizar_reserva(id, ingreso, egreso, cliente_id, nombre, telefono, email)
     print('CODIGO RESERVA:', codigo_reserva)
     if codigo_reserva:
         return jsonify({"codigo_reserva" : codigo_reserva}), 201
@@ -94,7 +94,7 @@ def eliminar_reserva(id):
     # if not consultar_reserva(cliente_id, telefono, email):
     #     return jsonify([{"mensaje": f"La reserva con codigo #{id} no existe."}]), 404
 
-    if reserva_consultas_sql.eliminar_reserva(id):
+    if reserva.eliminar_reserva(id):
         return jsonify({"mensaje" : f"La reserva con codigo #{id} se a eliminado exitosamente."}), 202
     
     return jsonify({"mensaje": f"La reserva con codigo #{id} no existe."}), 404
@@ -128,7 +128,7 @@ def actualizar_reserva(id):
     telefono = res.get("telefono", None)
     email = res.get("email", None)
 
-    if reserva_consultas_sql.actualizar_reserva(id, cabania_id, fecha_ingreso, fecha_egreso, nombre_cliente, cliente_id, telefono, email):
+    if reserva.actualizar_reserva(id, cabania_id, fecha_ingreso, fecha_egreso, nombre_cliente, cliente_id, telefono, email):
        return jsonify({"msj":"Su reserva se modifico exitosamente."}), 200 
     
     return jsonify({"Hubo un problema al intentar modificar la reserva", 400})
@@ -146,11 +146,11 @@ def obtener_imagenes():
     try:
         res = request.get_json()
         id = res["cabania_id"]
-        imagenes = imagenes_consultas.obtener_imagenes(id)
+        imagenes = imagen.obtener_imagenes(id)
         print("IMAGENES:", imagenes)
         return jsonify(imagenes), 200
     except:
-        imagenes = imagenes_consultas.obtener_imagenes()
+        imagenes = imagen.obtener_imagenes()
         print("IMAGENES:", imagenes)
         return jsonify(imagenes), 200
 
@@ -171,9 +171,9 @@ def crear_imagen():
 
     fue_creada = False
     if cabania_id == None:
-        fue_creada = imagenes_consultas.agregar_imagen(link, descripcion)
+        fue_creada = imagen.agregar_imagen(link, descripcion)
     else:
-        fue_creada = imagenes_consultas.agregar_imagen(link, descripcion, cabania_id)
+        fue_creada = imagen.consultas.agregar_imagen(link, descripcion, cabania_id)
 
     if fue_creada:
         return jsonify({"msj" : "La imagen fue agregada con exito."}), 201
@@ -189,7 +189,7 @@ def eliminar_imagen():
     """
     res = request.get_json()
     link = res['link']
-    fue_eliminada = imagenes_consultas.eliminar_imagen(link)
+    fue_eliminada = imagen.eliminar_imagen(link)
 
     if fue_eliminada:
         return jsonify({"msj" : "La imagen se elimino exitosamente."}), 202
