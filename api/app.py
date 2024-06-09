@@ -193,6 +193,13 @@ def crear_reserva():
 @app.route("/reserva/<int:id>", methods=["DELETE"])
 @admin
 def eliminar_reserva(id):
+    """
+    Recibe:
+        {
+            "secreto" : passw
+        }
+    """
+
     if reserva.eliminar_reserva(id):
         return jsonify({"mensaje": f"La reserva con codigo #{id} se a eliminado exitosamente."}), 202
 
@@ -202,7 +209,11 @@ def eliminar_reserva(id):
 @admin
 def actualizar_reserva(id):
     """
-    Recibe al menos uno de los siguientes: 
+    Recibe:
+    {
+        "secreto" : passw
+    }
+    y al menos uno de los siguientes: 
     -"cabania_id" : id
     -"fecha_ingreso" : "aaaa-mm-dd"
     -"fecha_egreso" : "aaaa-mm-dd"
@@ -238,7 +249,8 @@ def actualizar_reserva(id):
 def obtener_imagenes():
     """
     Recibe:
-    {
+    {   
+        "secreto" : passw,
         "cabania_id" : id *opcional*
     }
     """
@@ -260,6 +272,7 @@ def crear_imagen():
     """
     Recibe:
     {
+        "secreto" : passw,
         "cabania_id" : id, *opcional*
         "link" : url_img,
         "descripcion" : portada
@@ -287,7 +300,8 @@ def crear_imagen():
 def eliminar_imagen():
     """
     Recibe:
-    {
+    {   
+        "secreto" : passw,
         "link" : url
     }
     """
