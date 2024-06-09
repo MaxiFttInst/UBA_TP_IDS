@@ -26,13 +26,13 @@ def obtener_cabanias():
     if conn is not None:
         cabanias = conn.execute("SELECT * FROM Cabanias").fetchall()
         conn.close()
-        for cabania in cabanias:
-            res[cabania["cabania_id"]] = {
-                "nombre": cabania["nombre"],
-                "cap_max": cabania["cap_max"],
-                "imagenes": obtener_imagenes(cabania["cabania_id"]),
-                "descripcion": cabania["descripcion"],
-                "precio_noche": cabania["precio_noche"]}
+        for cabania_id, nombre, descripcion, cap_max, precio_noche   in cabanias:
+            res[cabania_id] = {
+                "nombre": nombre,
+                "cap_max": descripcion,
+                "imagenes": obtener_imagenes(cabania_id),
+                "descripcion": descripcion,
+                "precio_noche": precio_noche}
     return res
 
 
@@ -193,10 +193,9 @@ def total_a_pagar(cabania_id, fecha_ent, fecha_sal):
             1  # Ajuste de +1 para incluir la salida
         query = f"""SELECT precio_noche FROM Cabanias 
                     WHERE cabania_id = ?"""
-        res = conn.execute(query, (cabania_id,)).fetchone()
+        precio_noche = conn.execute(query, (cabania_id,)).fetchone()
         conn.close()
 
-        precio_noche = res['precio_noche']
-        total = cant_de_noches * precio_noche
+        total = cant_de_noches * precio_noche[0]
         total = round(total, 2)
     return total

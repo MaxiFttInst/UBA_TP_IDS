@@ -21,7 +21,6 @@ def index():
 @app.route("/cabanias", methods=["GET"])
 def cabanias():
     res = cabania.obtener_cabanias()
-    print("CABANIAS:", res)
     return jsonify(res), 200
 
 
@@ -136,24 +135,26 @@ def consultar_reserva():
             "nombre_cliente" : nombre_cliente
         }
     """
-    consulta = request.get_json()
-    cliente_id = consulta['cliente_id']
-    nombre = consulta['nombre_cliente']
+    try:
+        consulta = request.get_json()
+        cliente_id = consulta['cliente_id']
+        nombre = consulta['nombre_cliente']
 
-    res = reserva.consultar_reservas(cliente_id, nombre)
-    if res:
-        data = []
-        for codigo_reserva, nombre_cabania, fecha_ingreso, fecha_egreso in res:
-            data.append({
-                "codigo_reserva": codigo_reserva,
-                "nombre_cabania": nombre_cabania,
-                "fecha_ingreso": fecha_ingreso,
-                "fecha_egreso": fecha_egreso
-            })
-        return jsonify(data)
+        res = reserva.consultar_reservas(cliente_id, nombre)
+        if res:
+            data = []
+            for codigo_reserva, nombre_cabania, fecha_ingreso, fecha_egreso in res:
+                data.append({
+                    "codigo_reserva": codigo_reserva,
+                    "nombre_cabania": nombre_cabania,
+                    "fecha_ingreso": fecha_ingreso,
+                    "fecha_egreso": fecha_egreso
+                })
+            return jsonify(data)
 
-    return jsonify({"mensaje": f"No hay reservas a nombre de {nombre}."}), 404
-
+        return jsonify({"msj": f"No hay reservas a nombre de {nombre}."}), 404
+    except KeyError:
+        return jsonify({"msj": "Los campos ingresados son incorrectos."}), 400
 
 @app.route("/crear_reserva", methods=["POST"])
 def crear_reserva():
@@ -169,51 +170,36 @@ def crear_reserva():
             "email" : "example@example.com"
         }
     """
-    res = request.get_json()
-    id = res['cabania_id']
-    ingreso = res['fecha_ingreso']
-    egreso = res['fecha_egreso']
-    nombre = res['nombre_cliente']
-    cliente_id = res['cliente_id']
-    telefono = res['telefono']
-    email = res['email']
-    # revisar funcion consultar_disponibilidad()
-    codigo_reserva = reserva.realizar_reserva(
-        id, ingreso, egreso, cliente_id, nombre, telefono, email)
-    print('CODIGO RESERVA:', codigo_reserva)
-    if codigo_reserva:
-        return jsonify({"codigo_reserva": codigo_reserva}), 201
+    try:
+        res = request.get_json()
+        id = res['cabania_id']
+        ingreso = res['fecha_ingreso']
+        egreso = res['fecha_egreso']
+        nombre = res['nombre_cliente']
+        cliente_id = res['cliente_id']
+        telefono = res['telefono']
+        email = res['email']
+        # revisar funcion consultar_disponibilidad()
+        codigo_reserva = reserva.realizar_reserva(
+            id, ingreso, egreso, cliente_id, nombre, telefono, email)
+        print('CODIGO RESERVA:', codigo_reserva)
+        if codigo_reserva:
+            return jsonify({"codigo_reserva": codigo_reserva}), 201
 
-    return jsonify({"mensaje": "Se a producido un error al intentar crear la reserva."}), 400
-
+        return jsonify({"mensaje": "Se a producido un error al intentar crear la reserva."}), 400
+    except KeyError:
+        return jsonify({"msj": "Los campos ingresados son incorrectos."}), 400
 
 @app.route("/reserva/<int:id>", methods=["DELETE"])
+@admin
 def eliminar_reserva(id):
-    # """
-    # Recibe:
-    #     {
-    #         "cliente_id": cliente_id,
-    #         "telefono": telefono,
-    #         "email" : "example@example.com"
-    #     }
-    # """
-    # res = request.get_json()
-    # cliente_id = res['cliente_id']
-    # telefono = res['telefono']
-    # email = res['email']
-
-    # if not consultar_reserva(cliente_id, telefono, email):
-    #     return jsonify([{"mensaje": f"La reserva con codigo #{id} no existe."}]), 404
-
     if reserva.eliminar_reserva(id):
         return jsonify({"mensaje": f"La reserva con codigo #{id} se a eliminado exitosamente."}), 202
 
     return jsonify({"mensaje": f"La reserva con codigo #{id} no existe."}), 404
-    # if not eliminar_reserva(id):
-    #     return jsonify([{"mensaje": f"La reserva con codigo #{id} no corresponde con los datos proporcionados."}]), 403
-
-
+   
 @app.route("/reserva/<int:id>", methods=["PATCH"])
+@admin
 def actualizar_reserva(id):
     """
     Recibe al menos uno de los siguientes: 
@@ -231,7 +217,7 @@ def actualizar_reserva(id):
         "telefono" : telefono-actualizado
     }
     """
-    res = request.get_json()
+    res = request.get_json(silent=True)
     cabania_id = res.get("cabania_id", None)
     fecha_ingreso = res.get("fecha_ingreso", None)
     fecha_egreso = res.get("fecha_egreso", None)
@@ -269,13 +255,14 @@ def obtener_imagenes():
 
 
 @app.route("/crear_imagen", methods=["POST"])
+@admin
 def crear_imagen():
     """
     Recibe:
     {
-        cabania_id : id, *opcional*
-        link : url_img,
-        descripcion : portada
+        "cabania_id" : id, *opcional*
+        "link" : url_img,
+        "descripcion" : portada
     }
     """
     res = request.get_json()
@@ -287,7 +274,7 @@ def crear_imagen():
     if cabania_id == None:
         fue_creada = imagen.agregar_imagen(link, descripcion)
     else:
-        fue_creada = imagen.consultas.agregar_imagen(
+        fue_creada = imagen.agregar_imagen(
             link, descripcion, cabania_id)
 
     if fue_creada:
@@ -296,6 +283,7 @@ def crear_imagen():
 
 
 @app.route("/imagen", methods=["DELETE"])
+@admin
 def eliminar_imagen():
     """
     Recibe:

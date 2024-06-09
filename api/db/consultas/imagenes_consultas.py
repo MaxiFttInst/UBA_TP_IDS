@@ -18,6 +18,7 @@ def agregar_imagen(link, descripcion, id_cabania="NULL"):
         query = """Insert into Imagenes values
                 (?, ?, ?)"""
         conn.execute(query, (link, id_cabania, descripcion))
+        conn.commit()
         cambios = conn.total_changes
         conn.close()
     return cambios > 0
@@ -31,8 +32,9 @@ def eliminar_imagen(link):
     conn = get_db_connection()
     if conn is not None:
         query = """Delete from Imagenes
-                Where link = ?"""
+                Where imagen_link = ?"""
         conn.execute(query, (link,))
+        conn.commit()
         cambios = conn.total_changes
         conn.close()
     return cambios > 0
@@ -63,7 +65,8 @@ def obtener_imagenes(cabania_id=None):
         imagenes = conn.execute(query, tuple(lista_variables)).fetchall()
         conn.close()
 
-        for imagen in imagenes:
-            res[imagen["descripcion"]] = imagen["imagen_link"]
+        for descripcion, link in imagenes:
+            print
+            res[descripcion] = link
 
     return res
