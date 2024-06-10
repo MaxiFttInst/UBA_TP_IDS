@@ -250,7 +250,6 @@ def obtener_imagenes():
     """
     Recibe:
     {   
-        "secreto" : passw,
         "cabania_id" : id *opcional*
     }
     """
