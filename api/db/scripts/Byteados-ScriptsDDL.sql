@@ -28,7 +28,7 @@ create table Reservas(
 
 create table Imagenes(
     imagen_link varchar(2048) not null,
-    cabania_id varchar(7) not null,
+    cabania_id varchar(7),
     descripcion varchar(100),
     constraint pk_Imagenes primary key (imagen_link),
     constraint fk_cabania_id foreign key (cabania_id) references Cabanias(cabania_id)
