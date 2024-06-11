@@ -21,9 +21,6 @@ def get_db_connection():
             f"Falló la conexión a la base de datos \nEl archivo de la base de datos no existe en la ruta: {db_path}")
         return None
     conn = sqlite3.connect(db_path)  # Conexion a base
-    # conn.row_factory = sqlite3.Row  # Para obtener un diccionario en lugar de una tupla
-    # cursor = conn.cursor()  # Cursor
-    # return cursor  # El cursor no permite commitear, sólo el objecto conexión
     return conn
 
 

@@ -23,6 +23,16 @@ def cabanias():
     res = cabania.obtener_cabanias()
     return jsonify(res), 200
 
+@app.route("/cabanias/calendario/<string:cabania_id>", methods=["GET"])
+def cabanias_get_fechas(cabania_id):
+    if id is None:
+        return jsonify({"mensaje": "no se pasó el id"}), 400
+    
+    res = cabania.calendario_reservas(cabania_id)
+    if not res:
+        return jsonify({"mensaje": "ID inexistente"}), 404
+    
+    return jsonify(res), 200
 
 @app.route("/cabanias", methods=["POST"])
 @admin
@@ -182,11 +192,12 @@ def crear_reserva():
         # revisar funcion consultar_disponibilidad()
         codigo_reserva = reserva.realizar_reserva(
             id, ingreso, egreso, cliente_id, nombre, telefono, email)
+        
         print('CODIGO RESERVA:', codigo_reserva)
         if codigo_reserva:
             return jsonify({"codigo_reserva": codigo_reserva}), 201
 
-        return jsonify({"mensaje": "Se a producido un error al intentar crear la reserva."}), 400
+        return jsonify({"mensaje": "Se ha producido un error al intentar crear la reserva."}), 400
     except KeyError:
         return jsonify({"msj": "Los campos ingresados son incorrectos."}), 400
 
