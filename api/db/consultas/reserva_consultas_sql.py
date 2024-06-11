@@ -58,6 +58,17 @@ def consultar_reservas(dni_cliente, nombre_cliente):
 
     return res if res else False
 
+def consultar_reservas_todas():
+    '''
+    Consulta todas las reservas que estan en base de datos. 
+    Devuelve "False" si no hay reservas.
+    '''
+    conn = get_db_connection()
+    query = """SELECT * FROM Reservas;"""
+    res = conn.execute(query).fetchall()
+    conn.close()
+
+    return res if res else False
 
 def eliminar_reserva(reserva_codigo = None, cabania_id = None):
     '''

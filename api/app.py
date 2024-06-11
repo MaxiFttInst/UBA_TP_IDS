@@ -135,6 +135,26 @@ def cabanias_patch_del(id):
 
 # --RESERVAS--
 
+@app.route("/reservas", methods=["GET"])
+def consultar_reservas():
+    data = reserva.consultar_reservas_todas()
+    if data:
+        res = {}
+        for codigo_reserva, cabania_id, fecha_ingreso, fecha_egreso, cliente_id, nombre_cliente, telefono, email, precio_total in data:
+            res[cabania_id] = res.get(cabania_id, [])
+            res[cabania_id].append({
+                "codigo_reserva":codigo_reserva,
+                "nombre_cliente":nombre_cliente,
+                "cliente_id":cliente_id,
+                "email":email,
+                "telefono":telefono,
+                "fecha_ingreso":fecha_ingreso,
+                "fecha_egreso":fecha_egreso,
+                "precio_total":precio_total
+            })
+
+        return jsonify(res), 200
+    return jsonify({"msj":"No se encontraron reservas."}), 200
 
 @app.route("/reserva", methods=["GET"])
 def consultar_reserva():
