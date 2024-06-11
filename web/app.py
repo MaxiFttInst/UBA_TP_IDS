@@ -14,7 +14,7 @@ def index():
 def forms_reserva():
     # Obtener los datos del formulario
     data = {
-        'habitacion_id': request.form['habitacion_id'],
+        'cabania_id': request.form['cabania_id'],
         'fecha_ingreso': request.form['fcheckin'],
         'fecha_egreso': request.form['fcheckout'],
         'dni_cliente': request.form['fdni'],
@@ -22,10 +22,11 @@ def forms_reserva():
         'mail_cliente': request.form['femail'],
         'nombre_completo_cliente': request.form['fname'],
     }
-    
+    print(data)
+  
     # Realizar la solicitud POST a la API del backend
     response = requests.post('http://localhost:5000/api/reservas', json=data)
- 
+
     if response.status_code == 201:
         return 'Reserva realizada correctamente'
     else:
@@ -34,7 +35,8 @@ def forms_reserva():
 
 @app.route("/reserva")
 def reserva():
-    return render_template("reserva.html")
+    cabania_id = request.args.get('cabania_id')
+    return render_template("reserva.html", cabania_id=cabania_id)
 
 
 
