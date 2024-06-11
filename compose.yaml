@@ -5,6 +5,7 @@ services:
     volumes:
       - ./api:/app
     environment:
+      - ADMIN_PASS=secreto
       - DB_USER=root 
       - DB_PASS=my-secret-pw
       - DB_PORT=3306
