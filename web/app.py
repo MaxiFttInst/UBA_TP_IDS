@@ -43,6 +43,10 @@ def reserva():
     return render_template("reserva.html", cabania_id=cabania_id)
 
 
+@app.route("/exito")
+def exito():
+    return render_template("form_exitoso.html")
+
 
 
 
