@@ -15,9 +15,9 @@ def index():
         <h1>Index de API</h1>
         <p>Si necesitas un poco de ayuda, consulta la documentación</p>
     """
+
+
 # --CABANIAS--
-
-
 @app.route("/cabanias", methods=["GET"])
 def cabanias():
     res = cabania.obtener_cabanias()
@@ -124,7 +124,7 @@ def cabanias_patch_del(id):
         exito = False
         try:
             if id is not None:
-                exito = cabania.eliminar_cabania(id)
+                exito = cabania.eliminar_cabania_y_datos(id)
         except Exception as e:
             return jsonify({"mensaje": f"FRACASO {e}"}), 400
 

@@ -14,7 +14,7 @@ db_path = os.path.join(parent_dir, NOMBRE_BASE)
 
 def get_db_connection():
     '''
-    Devuelve cursor de conexión a la base de datos según la RUTA_BD
+    Devuelve la conexión a la base de datos según la RUTA_BD
     '''
     if not os.path.exists(db_path):
         print(
