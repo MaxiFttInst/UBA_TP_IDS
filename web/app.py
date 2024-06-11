@@ -1,5 +1,6 @@
 from flask import Flask, render_template , request, redirect, url_for
 import requests
+import json
 app = Flask(__name__)
 
 
@@ -17,15 +18,18 @@ def forms_reserva():
         'cabania_id': request.form['cabania_id'],
         'fecha_ingreso': request.form['fcheckin'],
         'fecha_egreso': request.form['fcheckout'],
-        'dni_cliente': request.form['fdni'],
-        'telefono_cliente': request.form['fnumber'],
-        'mail_cliente': request.form['femail'],
-        'nombre_completo_cliente': request.form['fname'],
+        'nombre_cliente': request.form['fname'],
+        'cliente_id': request.form['fdni'],
+        'telefono': request.form['fnumber'],
+        'email': request.form['femail'],
+
     }
     print(data)
   
     # Realizar la solicitud POST a la API del backend
-    response = requests.post('http://localhost:5000/api/reservas', json=data)
+    response = requests.post('https://posadabyteados.pythonanywhere.com/crear_reserva', json=data)
+
+    print("Respuesta de la API:", response.text)
 
     if response.status_code == 201:
         return 'Reserva realizada correctamente'
@@ -37,17 +41,6 @@ def forms_reserva():
 def reserva():
     cabania_id = request.args.get('cabania_id')
     return render_template("reserva.html", cabania_id=cabania_id)
-
-
-
-
-
-
-
-
-
-
-
 
 
 
