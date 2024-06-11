@@ -1,4 +1,3 @@
-
 .w3-theme-d1  {
     color: #fff !important;
      background-color: #000000 !important;
@@ -188,24 +187,28 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     transition: all .4s ease-in-out;
   }
   
-  .btn-reserva-hover:hover {
-    background-position: 100% 0;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-  }
-  
-  .btn-reserva-hover:focus {
-    outline: none;
-  }
-  
-  .btn-reserva-hover.btn-reserva {
-    background-image: linear-gradient(
-      to right,
-      #29323c,
-      #485563,
-      #2b5876,
-      #4e4376
-    );
-    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
-  }
+.btn-reserva-hover:hover {
+background-position: 100% 0;
+-o-transition: all .4s ease-in-out;
+-webkit-transition: all .4s ease-in-out;
+transition: all .4s ease-in-out;
+}
+
+.btn-reserva-hover:focus {
+outline: none;
+}
+
+.btn-reserva-hover.btn-reserva {
+background-image: linear-gradient(
+    to right,
+    #29323c,
+    #485563,
+    #2b5876,
+    #4e4376
+);
+box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
+.cabania-visible{
+    display: block !important;
+}

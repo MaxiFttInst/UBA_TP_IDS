@@ -55,14 +55,35 @@ function toggleText() {
     }
 }
 
-function togglecabaña(cabaña) {
-    const cabañas = ['Bestia Clérigo', 'Vicaria Amelia', 'Emisario Celestial', 'Presencia Lunar', 'Adela', 'Almendra'];
-    cabañas.forEach(function(cab) {
-        const cabañaElement = document.getElementById('detalles-' + cab);
-        if (cab === cabaña) {
-            cabañaElement.style.display = (cabañaElement.style.display === 'block') ? 'none' : 'block';
-        } else {
-            cabañaElement.style.display = 'none';
-        }
-    });
+function cambiarActivo(anterior, nuevo){
+  if(anterior){
+    const cabaniaAnterior = document.getElementById(anterior.dataset.cabaniaId)
+    cabaniaAnterior.classList.remove("cabania-visible")
+  }
+
+  const cabañaNueva = document.getElementById(nuevo.dataset.cabaniaId)
+  cabañaNueva.classList.add("cabania-visible")
+
+  return nuevo
 }
+
+const botonesCabanias = document.getElementsByClassName("boton-cabania")
+let cabania_actual = null
+for(let i = 0; i < botonesCabanias.length; i++){
+  const elemento_cabania = botonesCabanias[i]
+  elemento_cabania.addEventListener("click", () => {
+    cabania_actual = cambiarActivo(cabania_actual, elemento_cabania)
+  })
+}
+
+// function togglecabaña(cabaña) {
+//     const cabañas = ['Bestia Clérigo', 'Vicaria Amelia', 'Emisario Celestial', 'Presencia Lunar', 'Adela', 'Almendra'];
+//     cabañas.forEach(function(cab) {
+//         const cabañaElement = document.getElementById('detalles-' + cab);
+//         if (cab === cabaña) {
+//             cabañaElement.style.display = (cabañaElement.style.display === 'block') ? 'none' : 'block';
+//         } else {
+//             cabañaElement.style.display = 'none';
+//         }
+//     });
+// }

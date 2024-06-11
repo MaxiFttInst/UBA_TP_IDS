@@ -1,13 +1,19 @@
-from flask import Flask, render_template , request, redirect, url_for
+from flask import Flask, render_template , request
 import requests
-import json
+import os
 app = Flask(__name__)
 
+API_URL = os.environ.get("API_URL", "http://127.0.0.1:5000")
 
 @app.route("/")
 def index():
-    imagenes=["Imagenes/presencialunarportada.jpg","Imagenes/vicariaameliaportada.jpg","Imagenes/bestiaclerigoportada.jpg","Imagenes/emisariocelestialportada.jpg","Imagenes/adelaportada.jpg","Imagenes/almendraportada.jpg"]
-    return render_template("base.html",lista=imagenes)
+    res = requests.get(API_URL + "/cabanias")
+    cabanias = {}
+
+    if res.status_code == 200:
+        cabanias = res.json()
+
+    return render_template("base.html", cabanias=cabanias)
 
 
 # Ruta para manejar la solicitud de reserva
