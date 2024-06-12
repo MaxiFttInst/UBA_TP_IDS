@@ -45,8 +45,8 @@ function toggleText() {
 let hideText_btn2 = document.getElementById('hideText_btn2');
 let hideText2 = document.getElementById('hideText2');
 
-hideText_btn2.addEventListener('click', toggleText);
-function toggleText() {
+hideText_btn2.addEventListener('click', toggleText2);
+function toggleText2() {
     hideText2.classList.toggle('show');
     if(hideText2.classList.contains('show')) {
       hideText_btn2.innerHTML = 'Leer menos';
@@ -54,36 +54,14 @@ function toggleText() {
       hideText_btn2.innerHTML = 'Mas información';
     }
 }
-
-function cambiarActivo(anterior, nuevo){
-  if(anterior){
-    const cabaniaAnterior = document.getElementById(anterior.dataset.cabaniaId)
-    cabaniaAnterior.classList.remove("cabania-visible")
-  }
-
-  const cabañaNueva = document.getElementById(nuevo.dataset.cabaniaId)
-  cabañaNueva.classList.add("cabania-visible")
-
-  return nuevo
+function togglecabaña(cabaña) {
+    const cabañas = ['Bestia Clérigo', 'Vicaria Amelia', 'Emisario Celestial', 'Presencia Lunar', 'Adela', 'Almendra'];
+    cabañas.forEach(function(cab) {
+        const cabañaElement = document.getElementById('detalles-' + cab);
+        if (cab === cabaña) {
+            cabañaElement.style.display = (cabañaElement.style.display === 'block') ? 'none' : 'block';
+        } else {
+            cabañaElement.style.display = 'none';
+        }
+    });
 }
-
-const botonesCabanias = document.getElementsByClassName("boton-cabania")
-let cabania_actual = null
-for(let i = 0; i < botonesCabanias.length; i++){
-  const elemento_cabania = botonesCabanias[i]
-  elemento_cabania.addEventListener("click", () => {
-    cabania_actual = cambiarActivo(cabania_actual, elemento_cabania)
-  })
-}
-
-// function togglecabaña(cabaña) {
-//     const cabañas = ['Bestia Clérigo', 'Vicaria Amelia', 'Emisario Celestial', 'Presencia Lunar', 'Adela', 'Almendra'];
-//     cabañas.forEach(function(cab) {
-//         const cabañaElement = document.getElementById('detalles-' + cab);
-//         if (cab === cabaña) {
-//             cabañaElement.style.display = (cabañaElement.style.display === 'block') ? 'none' : 'block';
-//         } else {
-//             cabañaElement.style.display = 'none';
-//         }
-//     });
-// }
