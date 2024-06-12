@@ -10,10 +10,25 @@ insert into Cabanias values
 
 -- Tabla Imagenes
 insert into Imagenes (descripcion, cabania_id, imagen_link) values
-('portada', 'CAB-ADE', 'https://drive.google.com/uc?export=download&id=1srx8YtvXiG_AwGJNnlAEXQN0_S6Kpxcw'),
-('portada', 'CAB-ALM', 'https://drive.google.com/uc?export=download&id=1UmjKNyaQSIwyVEr24Te0ViV0-HFLIZUF'),
-('portada', 'CAB-EMI', 'https://drive.google.com/uc?export=download&id=1bLiHFID5_rNtpLTKeKeZrEHUS3thSJhw'),
-('portada', 'CAB-PRE', 'https://drive.google.com/uc?export=download&id=1o3KX6yFJPT6HIexN1GALE6PECqLwMOCD');
+('portada', 'CAB-ADE', 'https://lh3.googleusercontent.com/d/1srx8YtvXiG_AwGJNnlAEXQN0_S6Kpxcw'),
+('portada', 'CAB-ALM', 'https://lh3.googleusercontent.com/d/1UmjKNyaQSIwyVEr24Te0ViV0-HFLIZUF'),
+('portada', 'CAB-EMI', 'https://lh3.googleusercontent.com/d/1bLiHFID5_rNtpLTKeKeZrEHUS3thSJhw'),
+('portada', 'CAB-PRE', 'https://lh3.googleusercontent.com/d/1o3KX6yFJPT6HIexN1GALE6PECqLwMOCD'),
+('portada', 'CAB-CLE', 'https://lh3.googleusercontent.com/d/1piA3rZ-O_EqfLpE3djiBqDA4hd6HFwU3'),
+('portada', 'CAB-VIC', 'https://lh3.googleusercontent.com/d/10wGokRYw4eFoHNF1H-XC-yEbhWwCSLgZ'),
+
+insert into Imagenes (descripcion, imagen_link) values
+('cocina1', 'https://lh3.googleusercontent.com/d/1s9gHPAZ3vfpSmhOPU1F5gZqIQ4b6z0fQ'),
+('cocina2', 'https://lh3.googleusercontent.com/d/1iBgWraaumdj2R0XZyrLkA9TLmVR2uPF7'),
+('arcade1', 'https://lh3.googleusercontent.com/d/1WvH7rO1Zt1MvhB3ZBGDSsxvIt5RX26Zj'),
+('arcade2', 'https://lh3.googleusercontent.com/d/1HSNi4PvLBqOQiuNjuO666qdLeubsdozE'),
+('juegos', 'https://lh3.googleusercontent.com/d/1NW6J1e_0lQpg_tRo98Dh_BupIdkObdvw'),
+('pileta', 'https://lh3.googleusercontent.com/d/1u8g_lklxCPY3VBqDG44t3mMpus_jJoIl'),
+('posada', 'https://lh3.googleusercontent.com/d/1tZlru6kU7YWcYAnXWI4Ge8WIk-l4nP27'),
+('posadanoche', 'https://lh3.googleusercontent.com/d/1YmZ5-XZtNZY7WVu4yzkm1ymom1dEp4_m'),
+('spa', 'https://lh3.googleusercontent.com/d/1_IIpxQbsbPoduTXc70w5h88oPo9XXh-r'),
+('tour1', 'https://lh3.googleusercontent.com/d/1--gMgb7clkDxSB4aPFuT8912SwMGfDSq'),
+('tour2', 'https://lh3.googleusercontent.com/d/1NR_c0T6FVfTa42qIgoNTErc5Dz0oWZgv'),
 
 -- Inserts de base para tabla RESERVAS
 -- reserva_codigo, cabania_id, fecha_ent, fecha_sal, id_cliente, telefono_cliente, mail_cliente, precio_total
