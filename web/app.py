@@ -3,7 +3,7 @@ import requests
 import os
 app = Flask(__name__)
 
-API_URL = os.environ.get("API_URL", "http://127.0.0.1:5000")
+API_URL = os.environ.get("API_URL", "https://posadabyteados.pythonanywhere.com")
 
 @app.route("/")
 def index():
@@ -35,9 +35,9 @@ def forms_reserva():
     # Realizar la solicitud POST a la API del backend
     response = requests.post('https://posadabyteados.pythonanywhere.com/crear_reserva', json=data)
 
-    print("Respuesta de la API:", response.text)
-
     if response.status_code == 201:
+        codigo_reserva = response.json().get('codigo_reserva')
+        print(codigo_reserva)
         return 'Reserva realizada correctamente'
     else:
         return 'Error al realizar la reserva'
@@ -59,9 +59,9 @@ def forms_cancelacion():
     print("Respuesta de la API:", response.text)
 
     if response.status_code == 202:
-        return 'Reserva realizada correctamente'
+        return 'Cancelacion realizada correctamente'
     else:
-        return 'Error al realizar la reserva'
+        return 'Error al cancelar la reserva'
 
 
 
