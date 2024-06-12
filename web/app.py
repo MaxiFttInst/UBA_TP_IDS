@@ -1,9 +1,11 @@
 from flask import Flask, render_template , request
 import requests
 import os
+import utils
+
 app = Flask(__name__)
 
-API_URL = os.environ.get("API_URL", "http://127.0.0.1:5000")
+API_URL = os.environ.get("API_URL", "https://posadabyteados.pythonanywhere.com")
 
 @app.route("/")
 def index():
@@ -33,7 +35,7 @@ def forms_reserva():
     print(data)
   
     # Realizar la solicitud POST a la API del backend
-    response = requests.post('https://posadabyteados.pythonanywhere.com/crear_reserva', json=data)
+    response = requests.post(f"{API_URL}/crear_reserva", json=data)
 
     print("Respuesta de la API:", response.text)
 
@@ -42,15 +44,12 @@ def forms_reserva():
     else:
         return 'Error al realizar la reserva'
 
-
 @app.route("/reserva")
 def reserva():
     cabania_id = request.args.get('cabania_id')
-    return render_template("reserva.html", cabania_id=cabania_id)
+    calendario_data = utils.obtener_calendario(cabania_id)
 
-
-
-
+    return render_template("reserva.html", cabania_id=cabania_id, calendario_data=calendario_data)
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8080", debug=True)
