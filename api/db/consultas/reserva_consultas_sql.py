@@ -58,7 +58,53 @@ def consultar_reservas(dni_cliente, nombre_cliente):
 
     return res if res else False
 
+def consultar_reservas_todas():
+    '''
+    Consulta todas las reservas que estan en base de datos. 
+    Devuelve "False" si no hay reservas.
+    '''
+    conn = get_db_connection()
+    query = """SELECT * FROM Reservas;"""
+    res = conn.execute(query).fetchall()
+    conn.close()
 
+    return res if res else False
+
+def actualizar_reserva(id, datos : dict):
+    """
+    Actualiza los datos de la reserva segun el id proporcionado.
+    Recibe también un dict con los datos
+    """
+    if not id:
+        return False
+    
+    conn = get_db_connection()
+    changes = 0
+    if conn is not None:
+        valores = []
+        columnas = []
+
+        query = "UPDATE Reservas SET "
+        for key, value in datos.items():
+            columnas.append(key + " = ?")
+            valores.append(value)
+
+        columnas = ", ".join(columnas)
+
+        query += columnas
+        query += f" WHERE reserva_codigo = {id}"
+
+        try:
+            conn.execute(query, tuple(valores))
+            conn.commit()
+            changes = conn.total_changes
+
+        except sqlite3.Error as e:
+            print("Error al modificar la reserva:", e)
+            conn.rollback()
+    
+    return changes > 0
+        
 def eliminar_reserva(reserva_codigo = None, cabania_id = None):
     '''
     Elimina la reserva elegida según el código de reserva.

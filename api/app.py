@@ -135,6 +135,26 @@ def cabanias_patch_del(id):
 
 # --RESERVAS--
 
+@app.route("/reservas", methods=["GET"])
+def consultar_reservas():
+    data = reserva.consultar_reservas_todas()
+    if data:
+        res = {}
+        for codigo_reserva, cabania_id, fecha_ingreso, fecha_egreso, cliente_id, nombre_cliente, telefono, email, precio_total in data:
+            res[cabania_id] = res.get(cabania_id, [])
+            res[cabania_id].append({
+                "codigo_reserva":codigo_reserva,
+                "nombre_cliente":nombre_cliente,
+                "cliente_id":cliente_id,
+                "email":email,
+                "telefono":telefono,
+                "fecha_ingreso":fecha_ingreso,
+                "fecha_egreso":fecha_egreso,
+                "precio_total":precio_total
+            })
+
+        return jsonify(res), 200
+    return jsonify({"msj":"No se encontraron reservas."}), 200
 
 @app.route("/reserva", methods=["GET"])
 def consultar_reserva():
@@ -225,33 +245,26 @@ def actualizar_reserva(id):
         "secreto" : passw
     }
     y al menos uno de los siguientes: 
-    -"cabania_id" : id
-    -"fecha_ingreso" : "aaaa-mm-dd"
-    -"fecha_egreso" : "aaaa-mm-dd"
-    -"nombre_cliente" : "nombre_cliente"
-    -"cliente_id": cliente_id
-    -"telefono": telefono
-    -"email" : "example@example.com"
+    -"fecha_ent" : "aaaa-mm-dd"
+    -"fecha_sal" : "aaaa-mm-dd"
+    -"nombre_completo_cliente" : "nombre_cliente"
+    -"id_cliente": cliente_id
+    -"telefono_cliente": telefono
+    -"mail_cliente" : "example@example.com"
 
     ej:
     {
-        "cliente_id" : cliente_id-modificado,
-        "telefono" : telefono-actualizado
+        "id_cliente" : cliente_id-modificado,
+        "telefono_cliente" : telefono-actualizado
     }
     """
-    res = request.get_json(silent=True)
-    cabania_id = res.get("cabania_id", None)
-    fecha_ingreso = res.get("fecha_ingreso", None)
-    fecha_egreso = res.get("fecha_egreso", None)
-    nombre_cliente = res.get("nombre_cliente", None)
-    cliente_id = res.get("cliente_id", None)
-    telefono = res.get("telefono", None)
-    email = res.get("email", None)
+    res = request.get_json()
+    res.pop('secreto')
 
-    if reserva.actualizar_reserva(id, cabania_id, fecha_ingreso, fecha_egreso, nombre_cliente, cliente_id, telefono, email):
+    if reserva.actualizar_reserva(id, res):
         return jsonify({"msj": "Su reserva se modifico exitosamente."}), 200
 
-    return jsonify({"Hubo un problema al intentar modificar la reserva", 400})
+    return jsonify({"msj":"Hubo un problema al intentar modificar la reserva"}), 400
 
 # --IMAGENES--
 
