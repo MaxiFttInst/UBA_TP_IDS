@@ -33,14 +33,14 @@ def forms_reserva():
     print(data)
 
     # Realizar la solicitud POST a la API del backend
-    response = requests.post('https://posadabyteados.pythonanywhere.com/crear_reserva', json=data)
+    response = requests.post('http://127.0.0.1:5001/crear_reserva', json=data)
 
     if response.status_code == 201:
         codigo_reserva = response.json().get('codigo_reserva')
         print(codigo_reserva)
         return 'Reserva realizada correctamente'
     else:
-        return 'Error al realizar la reserva'
+        return render_template("form_fallido.html")
 
 
 @app.route('/cancelar', methods=['POST'])
@@ -77,6 +77,14 @@ def cancelar():
     return render_template("cancelacion.html")
 
 
+@app.route("/exito")
+def exito():
+    return render_template("form_exitoso.html")
+
+
+@app.route("/cancelacion_fallida")
+def cancelacion_fallida():
+    return render_template("form_fallido.html")
 
 
 if __name__ == "__main__":
