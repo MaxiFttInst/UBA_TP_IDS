@@ -47,7 +47,9 @@ def reserva():
 def exito():
     return render_template("form_exitoso.html")
 
-
+@app.route("/formno")
+def form_no():
+    return render_template("form_no.html")
 
 
 if __name__ == "__main__":
