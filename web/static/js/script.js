@@ -90,8 +90,7 @@ function toggleDarkMode() {
   }
 }
 
-function togglecabaña(cabaña) {
-    const cabañas = ['Bestia Clérigo', 'Vicaria Amelia', 'Emisario Celestial', 'Presencia Lunar', 'Adela', 'Almendra'];
+function togglecabaña(cabaña,cabañas) {
     cabañas.forEach(function(cab) {
         const cabañaElement = document.getElementById('detalles-' + cab);
         if (cab === cabaña) {
@@ -101,3 +100,4 @@ function togglecabaña(cabaña) {
         }
     });
 }
+

@@ -5,13 +5,23 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    imagenes=["Imagenes/presencialunarportada.jpg","Imagenes/vicariaameliaportada.jpg","Imagenes/bestiaclerigoportada.jpg",
-              "Imagenes/emisariocelestialportada.jpg","Imagenes/adelaportada.jpg","Imagenes/almendraportada.jpg"]
-    espacios={"Pileta común":["Para dias calurosos podras disfrutar de nuestra piscina!!",'Imagenes/pileta.jpg']
+
+    response = requests.get('https://posadabyteados.pythonanywhere.com/cabanias')
+    cabañas={}
+    imagenes=[]
+    if response.status_code == 200:
+        response=response.json()
+        for cabaña in response:
+            cabañas[response[cabaña]["nombre"]]=[response[cabaña]["descripcion"],
+                                                response[cabaña]["imagenes"]["portada"]]
+            imagenes.append(response[cabaña]["imagenes"]["portada"])
+            
+    instalacionesComunes={"Pileta común":["Para dias calurosos podras disfrutar de nuestra piscina!!",'Imagenes/pileta.jpg']
               ,"Sala de SPA":["Una increible sala de spa para que puedas relajarte despues de un dia muy largo de haber conocido la zona!!",'Imagenes/spa.jpg'],
               "Arcade con cocina":["Podras disfrutar de todos los juegos que tenemos para ti! pool, videojuegos, television, metegol y muchos juegos de mesa!!",'Imagenes/juegos.jpg']}
+    
     ubicacion="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3424.447722353874!2d-64.52246542441412!3d-30.87413387451641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a3be8784d545%3A0x3117451a980afefd!2sCaba%C3%B1as%20La%20Morada%20De%20La%20Luna!5e0!3m2!1ses!2sar!4v1717986682657!5m2!1ses!2sar"
-    return render_template("base.html",lista_carrucel=imagenes,dic_espacios=espacios,ubicacion=ubicacion)
+    return render_template("base.html",lista_carrucel=imagenes,dic_espacios=instalacionesComunes,ubicacion=ubicacion,cabañas=cabañas)
 
 
 # Ruta para manejar la solicitud de reserva

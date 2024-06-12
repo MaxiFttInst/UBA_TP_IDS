@@ -30,13 +30,15 @@
   </div>
 
     <!-- Navbar on small screens -->
-    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
-      <a href="#team" class="w3-bar-item w3-button">Cabañas</a>
-      <a href="#work" class="w3-bar-item w3-button">Espacios Comunes</a>
-      <a href="#extra" class="w3-bar-item w3-button">Actividades Extras</a>
+    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium sticky">
+      <a href="#habitaciones" class="w3-bar-item w3-button">info Cabañas</a>
+      <a href="#espacios_comunes" class="w3-bar-item w3-button">Espacios Comunes</a>
+      <a href="#actividades_extra" class="w3-bar-item w3-button">Actividades Extras</a>
+      <a href="#reserva_ahora" class="w3-bar-item w3-button">Nuestras Cabañas</a>
       <a href="#contact" class="w3-bar-item w3-button">Contacto</a>
-      <a href="#nos" class="w3-bar-item w3-button">Nosotros</a>
+
     </div>
+
   </div>
 
   <!-- Image Header -->
@@ -99,7 +101,7 @@
                   {% else %}
                     class="carousel-item"
                   {% endif %}>
-                    <img class="d-block width100 carousel-image" src="{{ url_for('static', filename= image )}}" style="width:100%; height:auto;" alt="First slide">
+                    <img class="d-block width100 carousel-image" src="{{image}}" style="width:100%; height:auto;" alt="First slide">
                 </div>
               {% endfor %}
               
@@ -158,7 +160,6 @@
                 <p>Caja fuerte</p>
               </li>
             </ul>
-            <button class="reserve" type="button">Reserve Ahora</button>
           </div>
         </div>
       </div>
@@ -171,56 +172,21 @@
     <div class="w3-row-padding w3-center w3-padding-64">
         <h2>Nuestras Cabañas</h2>
         <div class="botones-cabañas">
-            <button class="boton" onclick="togglecabaña('Bestia Clérigo')">Bestia Clérigo</button>
-            <button class="boton" onclick="togglecabaña('Vicaria Amelia')">Vicaria Amelia</button>
-            <button class="boton" onclick="togglecabaña('Emisario Celestial')">Emisario Celestial</button>
-            <button class="boton" onclick="togglecabaña('Presencia Lunar')">Presencia Lunar</button>
-            <button class="boton" onclick="togglecabaña('Adela')">Adela</button>
-            <button class="boton" onclick="togglecabaña('Almendra')">Almendra</button>
+          {% for cabaña in cabañas %}
+            <button class="boton" onclick="togglecabaña('{{ cabaña }}', {{ cabañas.keys()| list }})">{{cabaña}}</button>
+
+          {%endfor%}
         </div>
-        <div id="detalles-Bestia Clérigo" class="detalles-cabaña">
-            <p>Bestia Clérigo <br>
-              De todas las cabañas esta es espectacular por lo alejada de las demas, para una aventura mas solitaria
-            </p>
-            <img src="{{ url_for('static', filename='Imagenes/bestiaclerigo.jpg') }}" alt="Bestia Clérigo"> <br>
-            <a href="{{url_for('reserva') }}"><button class="btn-reserva-hover btn-reserva">Reserva ya</button></a>
-        </div>
-        <div id="detalles-Vicaria Amelia" class="detalles-cabaña">
-            <p>Vicaria Amelia <br>
-              Esta es una cabaña que ofrece buenas vistas.
-            </p>
-            <img src="{{ url_for('static', filename='Imagenes/vicariaamelia.jpg') }}" alt="Vicaria Amelia"> <br>
-            <a href="{{url_for('reserva') }}"><button class="btn-reserva-hover btn-reserva">Reserva ya</button></a>
-        </div>
-        <div id="detalles-Emisario Celestial" class="detalles-cabaña">
-            <p>Emisario Celestial <br>
-              Esta cabaña ofrece un ambiente celestial para quienes quieren un lugar mucho mas magico
-            </p>
-            <img src="{{ url_for('static', filename='Imagenes/emisariocelestial.jpg') }}" alt="Emisario Celestial"> <br>
-            <a href="{{url_for('reserva') }}"><button class="btn-reserva-hover btn-reserva">Reserva ya</button></a>
-        </div>
-        <div id="detalles-Presencia Lunar" class="detalles-cabaña">
-            <p>Presencia Lunar <br>
-              Esta cabaña ofrece un techo de transparente directamente para que puedas mirar el cielo
-            </p>
-            <img src="{{ url_for('static', filename='Imagenes/presencialunar.jpg') }}" alt="Presencia Lunar"> <br>
-            <a href="{{url_for('reserva') }}"><button class="btn-reserva-hover btn-reserva">Reserva ya</button></a>
-        </div>
-        <div id="detalles-Adela" class="detalles-cabaña">
-            <p>Adela <br>
-              Esta cabaña es elegida por muchos por su amplio espacio
-            </p>
-            <img src="{{ url_for('static', filename='Imagenes/adela.jpg') }}" alt="Adela"> <br>
-            <a href="{{url_for('reserva') }}"><button class="btn-reserva-hover btn-reserva">Reserva ya</button></a>
-        </div>
-        <div id="detalles-Almendra" class="detalles-cabaña">
-            <p>Almendra <br>
-                Esta cabaña es simplemente hermosa. Con sus vistas de frente hacia el atardecer, brinda una experiencia
-                unica e inigualable a sus visitantes.
-            </p>
-            <img src="{{ url_for('static', filename='Imagenes/almendra.jpg') }}" alt="Almendra"> <br>
-            <a href="{{url_for('reserva') }}"><button class="btn-reserva-hover btn-reserva">Reserva ya</button></a>
-        </div>
+        {% for cabaña in cabañas %}
+            <div id="detalles-{{cabaña}}" class="detalles-cabaña ">
+                <h3>{{cabaña}}</h3>
+                <p class="max-width-80 text-align-center">
+                  {{cabañas[cabaña][0]}}
+                </p>
+                <img class="max-width-80" src="{{cabañas[cabaña][1]}}" alt={{cabaña}}> <br>
+                <a href="{{url_for('reserva') }}"><button class="btn-reserva-hover btn-reserva">Reserva ya</button></a>
+            </div>
+          {%endfor%}
     </div>
   </section>
 
@@ -296,51 +262,50 @@
 
 
   <!-- Contact Container -->
-  <section id="contacto">
-    <div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
-      <div class="w3-row">
-        <div class="w3-padding-16 nosotros">
-          <span class="w3-xlarge w3-border-teal w3-bottombar">Sobre Nosotros</span>
-        </div>
-        <div class="m5 columns ">
-          <div class="width50">
-            <h3 class="center">Contacto</h3>
-            <ul class=text-nosotros>
-              <li><i class="fa fa-map-marker"></i> Los Terrones 950 esquina, Batalla de Caseros, X5184 Capilla del Monte, Córdoba<br>
-              </li>
-              <li>
-                <i class="fa fa-phone"></i> Telefono : +54 2482-5445
-              </li>
-              <li><i class="fa fa-envelope"> </i> Email : posadabyteados@gmail.com
-              </li>
-            </ul>
+    <section id="contacto">
+      <div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+        <div class="w3-row">
+          <div class="w3-padding-16 nosotros">
+            <span class="w3-xlarge w3-border-teal w3-bottombar">Sobre Nosotros</span>
           </div>
-          <div class="width50">
-            <h3 class="center">Ubicación</h3>
-            <iframe 
-            src={{ubicacion}} 
-            class="map" allowfullscreen="" 
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="m5 columns ">
+            <div class="contact-items">
+              <h3 class="center">Contacto</h3>
+              <ul class=text-nosotros>
+                <li><i class="fa fa-map-marker"></i> Los Terrones 950 esquina, Batalla de Caseros, X5184 Capilla del Monte, Córdoba<br>
+                </li>
+                <li>
+                  <i class="fa fa-phone"></i> Telefono : +54 2482-5445
+                </li>
+                <li><i class="fa fa-envelope"> </i> Email : posadabyteados@gmail.com
+                </li>
+              </ul>
+            </div>
+            <div class="contact-items">
+              <h3 class="center">Ubicación</h3>
+              <iframe 
+              src={{ubicacion}} 
+              class="map" allowfullscreen="" 
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
           </div>
-        </div>
-    </div>
-  </section>
+      </div>
+    </section>
   <!-- Footer -->
-  <footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
-    <h4>Seguinos en nuestras redes</h4>
-    <a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Facebook"><i class="fa fa-facebook"></i></a>
-    <a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Twitter"><i class="fa fa-twitter"></i></a>
-    <a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Google +"><i class="fa fa-google-plus"></i></a>
-    <a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Google +"><i class="fa fa-instagram"></i></a>
-    <a class="w3-button w3-large w3-teal w3-hide-small" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>
-    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    <footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
+      <h4>Seguinos en nuestras redes</h4>
+      <a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Facebook"><i class="fa fa-facebook"></i></a>
+      <a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Twitter"><i class="fa fa-twitter"></i></a>
+      <a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Google +"><i class="fa fa-google-plus"></i></a>
+      <a class="w3-button w3-large w3-teal" href="javascript:void(0)" title="Google +"><i class="fa fa-instagram"></i></a>
+      <a class="w3-button w3-large w3-teal w3-hide-small" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
 
-    <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
-      <span class="w3-text w3-padding w3-teal w3-hide-small">Ir al inicio</span>   
-      <a class=" w3-theme-2" href="#myPage"><span class="w3-xlarge">
-      <i class="fa fa-chevron-circle-up"></i></span></a>
-    </div>
-  </footer>
+      <div style="position:fixed;left:95%;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
+        <a class=" w3-theme-2" href="#myPage"><span class="w3-xlarge">
+        <i class="fa fa-chevron-circle-up"></i></span></a>
+      </div>
+    </footer>
 
   <script src="{{ url_for('static', filename='js/script.js')}}"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
