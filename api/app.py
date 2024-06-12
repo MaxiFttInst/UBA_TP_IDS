@@ -217,7 +217,7 @@ def crear_reserva():
         if codigo_reserva:
             return jsonify({"codigo_reserva": codigo_reserva}), 201
 
-        return jsonify({"mensaje": "Se ha producido un error al intentar crear la reserva."}), 400
+        return jsonify({"msj": "Se ha producido un error al intentar crear la reserva."}), 400
     except KeyError:
         return jsonify({"msj": "Los campos ingresados son incorrectos."}), 400
 
@@ -339,7 +339,7 @@ def eliminar_imagen():
     if fue_eliminada:
         return jsonify({"msj": "La imagen se elimino exitosamente."}), 202
 
-    return jsonify({"No se a podido eliminar la imagen."}), 400
+    return jsonify({"msj":"No se a podido eliminar la imagen."}), 400
 
 
 if __name__ == "__main__":
