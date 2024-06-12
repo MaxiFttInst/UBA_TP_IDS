@@ -45,7 +45,7 @@ def eliminar_imagen(link = None, cabania_id = None):
 
         if link is not None :
             query = """Delete from Imagenes
-                       where link = ?"""
+                       where imagen_link = ?"""
             parametros.append(link)
             
         conn.execute(query, tuple(parametros))
