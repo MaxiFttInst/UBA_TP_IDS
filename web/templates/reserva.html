@@ -71,51 +71,19 @@
           <div class="header-day">Sá</div>
           <div class="header-day">Do</div>
       </div>
+      {% for semana in calendario_data %}
       <div class="calendar__week">
-          <div class="calendar__day busy_day"> <b class="day">1</b></div>
-          <div class="calendar__day busy_day"> <b class="day">2</b></div>
-          <div class="calendar__day busy_day"> <b class="day">3</b></div>
-          <div class="calendar__day busy_day"> <b class="day">4</b></div>
-          <div class="calendar__day  busy_day"> <b class="day">5</b></div>
-          <div class="calendar__day"> <b class="day">6</b></div>
-          <div class="calendar__day"><b class="day">7</b></div>
+        {% for dia in semana.keys() %}
+          {% if semana[dia]["ocupado"] %}
+            <div class="calendar__day busy_day">
+          {% else %}
+            <div class="calendar__day">
+          {% endif %}
+              <b class="day">{{semana[dia]["dia"]}}</b>
+            </div>
+        {% endfor %}
       </div>
-      <div class="calendar__week">
-          <div class="calendar__day"> <b class="day">8</b></div>
-          <div class="calendar__day"> <b class="day">9</b></div>
-          <div class="calendar__day"><b class="day">10</b></div>
-          <div class="calendar__day"> <b class="day">11</b></div>
-          <div class="calendar__day"> <b class="day">12</b></div>
-          <div class="calendar__day"> <b class="day">13</b></div>
-          <div class="calendar__day"> <b class="day">14</b></div>
-      </div>
-      <div class="calendar__week">
-          <div class="calendar__day"> <b class="day">15</b></div>
-          <div class="calendar__day"> <b class="day">16</b></div>
-          <div class="calendar__day"> <b class="day">17</b></div>
-          <div class="calendar__day"> <b class="day">18</b></div>
-          <div class="calendar__day"> <b class="day">19</b></div>
-          <div class="calendar__day"> <b class="day">20</b></div>
-          <div class="calendar__day"> <b class="day">21</b></div>
-      </div>
-      <div class="calendar__week">
-          <div class="calendar__day busy_day"> <b class="day">22</b></div>
-          <div class="calendar__day busy_day"><b class="day">23</b></div>
-          <div class="calendar__day busy_day"><b class="day">24</b></div>
-          <div class="calendar__day busy_day"> <b class="day">25</b></div>
-          <div class="calendar__day busy_day"> <b class="day">26</b></div>
-          <div class="calendar__day busy_day"> <b class="day">27</b></div>
-          <div class="calendar__day"> <b class="day">28</b></div>
-      </div>
-      <div class="calendar__week">
-          <div class="calendar__day"><b class="day">29</b></div>
-          <div class="calendar__day"><b class="day">30</b></div>
-          <div class="calendar__day"><b class="day">31</b></div>
-          <div class="calendar__day"><b class="day">1</b></div>
-          <div class="calendar__day"><b class="day">2</b></div>
-          <div class="calendar__day"><b class="day">3</b></div>
-          <div class="calendar__day"><b class="day">4</b></div>
-      </div>
+      {% endfor %}
   </div>
   </div>
 

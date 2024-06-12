@@ -1,6 +1,8 @@
 from flask import Flask, render_template , request
 import requests
 import os
+import utils
+
 app = Flask(__name__)
 
 API_URL = os.environ.get("API_URL", "https://posadabyteados.pythonanywhere.com")
@@ -31,6 +33,12 @@ def forms_reserva():
 
     }
     print(data)
+<<<<<<< comunicar-calendario-api
+  
+    # Realizar la solicitud POST a la API del backend
+    response = requests.post(f"{API_URL}/crear_reserva", json=data)
+=======
+>>>>>>> Frontend
 
     # Realizar la solicitud POST a la API del backend
     response = requests.post('http://127.0.0.1:5001/crear_reserva', json=data)
@@ -65,10 +73,12 @@ def forms_cancelacion():
 
 
 
-
 @app.route("/reserva")
 def reserva():
     cabania_id = request.args.get('cabania_id')
+<<<<<<< comunicar-calendario-api
+    calendario_data = utils.obtener_calendario(cabania_id)
+=======
     return render_template("reserva.html", cabania_id=cabania_id)
 
 
@@ -85,7 +95,9 @@ def exito():
 @app.route("/cancelacion_fallida")
 def cancelacion_fallida():
     return render_template("form_fallido.html")
+>>>>>>> Frontend
 
+    return render_template("reserva.html", cabania_id=cabania_id, calendario_data=calendario_data)
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8080", debug=True)
