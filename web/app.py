@@ -31,7 +31,7 @@ def forms_reserva():
 
     }
     print(data)
-  
+
     # Realizar la solicitud POST a la API del backend
     response = requests.post('https://posadabyteados.pythonanywhere.com/crear_reserva', json=data)
 
@@ -43,11 +43,38 @@ def forms_reserva():
         return 'Error al realizar la reserva'
 
 
+@app.route('/cancelar', methods=['POST'])
+def forms_cancelacion():
+    reserva_id =  request.form['reserva_id']
+    mail_cancelacion =  request.form['mail_cancelacion']
+    # Obtener los datos del formulario
+    
+    data = {
+        'email': mail_cancelacion
+    }
+    print(data)
+    # Realizar la solicitud POST a la API del backend
+    response = requests.delete(f'https://posadabyteados.pythonanywhere.com/reserva/{reserva_id}', json=data)
+
+    print("Respuesta de la API:", response.text)
+
+    if response.status_code == 202:
+        return 'Reserva realizada correctamente'
+    else:
+        return 'Error al realizar la reserva'
+
+
+
+
 @app.route("/reserva")
 def reserva():
     cabania_id = request.args.get('cabania_id')
     return render_template("reserva.html", cabania_id=cabania_id)
 
+
+@app.route("/cancelar")
+def cancelar():
+    return render_template("cancelacion.html")
 
 
 
