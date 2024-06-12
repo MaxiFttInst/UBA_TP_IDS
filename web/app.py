@@ -33,15 +33,9 @@ def forms_reserva():
 
     }
     print(data)
-<<<<<<< comunicar-calendario-api
   
     # Realizar la solicitud POST a la API del backend
     response = requests.post(f"{API_URL}/crear_reserva", json=data)
-=======
->>>>>>> Frontend
-
-    # Realizar la solicitud POST a la API del backend
-    response = requests.post('http://127.0.0.1:5001/crear_reserva', json=data)
 
     if response.status_code == 201:
         codigo_reserva = response.json().get('codigo_reserva')
@@ -71,15 +65,11 @@ def forms_cancelacion():
     else:
         return 'Error al cancelar la reserva'
 
-
-
 @app.route("/reserva")
 def reserva():
     cabania_id = request.args.get('cabania_id')
-<<<<<<< comunicar-calendario-api
     calendario_data = utils.obtener_calendario(cabania_id)
-=======
-    return render_template("reserva.html", cabania_id=cabania_id)
+    return render_template("reserva.html", cabania_id=cabania_id, calendario_data=calendario_data)
 
 
 @app.route("/cancelar")
@@ -95,7 +85,6 @@ def exito():
 @app.route("/cancelacion_fallida")
 def cancelacion_fallida():
     return render_template("form_fallido.html")
->>>>>>> Frontend
 
     return render_template("reserva.html", cabania_id=cabania_id, calendario_data=calendario_data)
 
