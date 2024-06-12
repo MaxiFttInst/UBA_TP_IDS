@@ -105,28 +105,22 @@ def actualizar_reserva(id, datos : dict):
     
     return changes > 0
         
-def eliminar_reserva(reserva_codigo = None, cabania_id = None):
+def eliminar_reserva(reserva_codigo = None, email = None):
     '''
-    Elimina la reserva elegida según el código de reserva.
-    En caso de ingresar el cabania_id, elimina todas las reservas asociadas a esa cabaña.
+    Elimina la reserva elegida según el código de reserva y mail del cliente.
     Si la operación es exitosa devuelve True, caso contrario False.
 
-    Pre-condiciones: No se pueden ingresar reserva_codigo y cabania_id simultáneamente
+    Pre-condiciones:
+        - Los argumentos 'reserva_codigo' y 'email' deben ingresarse simultaneamente.
     '''
-    if reserva_codigo is not None and cabania_id is not None:
-        return False
-    
     argumentos = []
     conn = get_db_connection()
 
     if conn is not None:
-        if reserva_codigo is not None:
-            query = "DELETE from Reservas WHERE reserva_codigo = ?"
+        if reserva_codigo is not None and email is not None:
+            query = "DELETE from Reservas WHERE reserva_codigo = ? AND mail_cliente = ?"
             argumentos.append(reserva_codigo)
-        
-        if cabania_id is not None:
-            query = "DELETE from Reservas where cabania_id = ?"
-            argumentos.append(cabania_id)
+            argumentos.append(email)
         
         conn.execute(query, tuple(argumentos))
         conn.commit()

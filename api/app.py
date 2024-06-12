@@ -222,19 +222,23 @@ def crear_reserva():
         return jsonify({"msj": "Los campos ingresados son incorrectos."}), 400
 
 @app.route("/reserva/<int:id>", methods=["DELETE"])
-@admin
 def eliminar_reserva(id):
     """
     Recibe:
-        {
-            "secreto" : passw
+        {   
+            "email" : example@mail.com
         }
+    Si "email" es proporcionado, la reserva del cliente con el codigo de reserva 'id', sera eliminada.
     """
-
-    if reserva.eliminar_reserva(id):
-        return jsonify({"mensaje": f"La reserva con codigo #{id} se a eliminado exitosamente."}), 202
-
-    return jsonify({"mensaje": f"La reserva con codigo #{id} no existe."}), 404
+    try:
+        res = request.get_json()
+        email = res["email"]
+        if reserva.eliminar_reserva(id, email):
+            return jsonify({"msj": f"La reserva #{id} se a eliminado exitosamente."}), 202    
+        return jsonify({"msj": f"La reserva #{id} con email '{email}' no existe."}), 404    
+    
+    except KeyError:     
+        return jsonify({"msj" : "Los campos ingresados son incorrectos."}), 400
    
 @app.route("/reserva/<int:id>", methods=["PATCH"])
 @admin
