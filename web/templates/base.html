@@ -94,11 +94,11 @@
           {% for image in lista_carrucel %}
             <div 
               {% if image == lista_carrucel[0] %}
-                class="carousel-item active carousel-image"
+                class="carousel-image-container carousel-item active"
               {% else %}
                 class="carousel-item"
               {% endif %}>
-                <img class="d-block width100 carousel-image" src="{{image}}" style="width:100%; height:auto;" alt="First slide">
+                <img class="d-block carousel-image" src="{{image}}" >
             </div>
           {% endfor %}
           
