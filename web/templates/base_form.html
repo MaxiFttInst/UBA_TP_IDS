@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Byteados</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+
+{% block estilos %}
+{% endblock %}
+
+</head>
+<body class="w3-content">
+
+<!-- Sidebar/menu -->
+<header> <h1 class="page-title">{% block h1 %}{% endblock %}</h1></header>
+
+	<!-- Formulario a llenar con inputs -->
+	{% block formulario %}
+    {% endblock %}
+
+    <div class="w3-hide-large" style="margin-top:80px"></div>
+</body>
+</html>

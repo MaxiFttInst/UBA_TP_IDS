@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+{% extends "base_form.html" %}
+
+{% block estilos %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/cancelacion.css')}}">
-</head>
-<body class="w3-content">
+{% endblock %}
 
-<!-- Sidebar/menu -->
-<header> <h1 class="page-title">Cancelar reserva</h1></header>
+{% block h1 %}Cancela tu reserva{% endblock %}
 
-
+{% block formulario %}
 <div class="container right-panel-active">
 	<!-- Sign Up -->
 	<div class="container__form container--signup">
@@ -31,9 +22,4 @@
 			<button class="btn">Cancelar reserva</button>
 		</form>
 	</div>
-
-
-  <div class="w3-hide-large" style="margin-top:80px"></div>
-
-</body>
-</html>
+{% endblock %}
