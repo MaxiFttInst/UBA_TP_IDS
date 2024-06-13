@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 
-def agregar_imagen(link, descripcion, id_cabania=None):
+def agregar_imagen(link, descripcion, id_cabania="NULL"):
     '''
     Agrega url de imagen a la base de datos, el parametro id_cabania es opcional. Devuelve True si la operación es exitosa.
     '''
@@ -60,12 +60,13 @@ def obtener_imagenes(cabania_id=None):
     conn = get_db_connection()
 
     if conn is not None:
-        query = "SELECT descripcion, imagen_link FROM Imagenes WHERE cabania_id " + condicion_consulta
+        query = "SELECT descripcion, imagen_link FROM Imagenes WHERE cabania_id " + \
+            condicion_consulta
         imagenes = conn.execute(query, tuple(lista_variables)).fetchall()
         conn.close()
 
         for descripcion, link in imagenes:
+            print
             res[descripcion] = link
 
     return res
-

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+<style>
+  body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #EBF0F5;
+  }
+  .card {
+    text-align: center;
+    background: white;
+    padding: 60px;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px #C8D0D8;
+  }
+  h1 {
+    color: #FF4D4D; /* Rojo */
+    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+  p {
+    color: #404F5E;
+    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-size: 20px;
+    margin: 0;
+  }
+  i {
+    color: #FF4D4D; /* Rojo */
+    font-size: 100px;
+    line-height: 200px;
+    margin-left: -15px;
+  }
+  .circle {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    background: #F8FAF5;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  .btn {
+	background-color: #FF4D4D; /* Rojo */
+	background-image: linear-gradient(90deg, #FF4D4D 0%, #FFA07A 74%); /* Gradiente rojo */
+	border-radius: 20px;
+	border: 1px solid #FF4D4D; /* Rojo */
+	color: black;
+	cursor: pointer;
+	font-size: 0.8rem;
+	font-weight: bold;
+	letter-spacing: 0.1rem;
+	padding: 0.9rem 4rem;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+</style>
+</head>
+
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="circle">
+        <i class="cross">✘</i>
+      </div>
+      <h1>No se pudo realizar la reserva</h1> 
+      <p>Lo sentimos, hubo un problema al procesar tu solicitud de reserva </p>
+      <br>
+      <br>
+      <a href="{{ url_for('index') }}"><button type="submit"class="btn">Volver al inicio</button> </a> 
+    </div>
+  </div>
+</body>
+</html>
