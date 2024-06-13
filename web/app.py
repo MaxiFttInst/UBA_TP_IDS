@@ -92,3 +92,8 @@ def cancelacion_fallida():
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8080", debug=True)
+
+    return render_template("reserva.html", cabania_id=cabania_id, calendario_data=calendario_data)
+
+if __name__ == "__main__":
+    app.run("127.0.0.1", port="8080", debug=True)
