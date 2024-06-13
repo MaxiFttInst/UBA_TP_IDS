@@ -1,4 +1,5 @@
 {% extends "base_form.html" %}
+
 {% block estilos %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/reservas.css')}}">
 {% endblock %}
@@ -8,6 +9,7 @@
 
 
 {% block formulario %}
+
 <div class="container right-panel-active">
 	<!-- Sign Up -->
 	<div class="container__form container--signup">
@@ -78,5 +80,6 @@
       {% endfor %}
   </div>
   </div>
-
+</div>
+</div>
 {% endblock %}
