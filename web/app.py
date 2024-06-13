@@ -1,4 +1,4 @@
-from flask import Flask, render_template , request
+from flask import Flask, render_template , request, redirect, url_for
 import requests
 import os
 import utils
@@ -37,19 +37,19 @@ def forms_reserva():
         'cliente_id': request.form['fdni'],
         'telefono': request.form['fnumber'],
         'email': request.form['femail'],
-    }
 
+    }
     print(data)
-  
+
     # Realizar la solicitud POST a la API del backend
     response = requests.post('https://posadabyteados.pythonanywhere.com/crear_reserva', json=data)
 
-    print("Respuesta de la API:", response.text)
-
     if response.status_code == 201:
-        return 'Reserva realizada correctamente'
+        print("Respuesta de la API:", response.text)
+        codigo_reserva = response.json().get('codigo_reserva')
+        return render_template("reserva_exitosa.html", codigo_reserva=codigo_reserva)
     else:
-        return 'Error al realizar la reserva'
+        return render_template("reserva_fallida.html")
 
 @app.route('/cancelar', methods=['POST'])
 def forms_cancelacion():
@@ -67,9 +67,11 @@ def forms_cancelacion():
     print("Respuesta de la API:", response.text)
 
     if response.status_code == 202:
-        return 'Cancelacion realizada correctamente'
+        return render_template("cancelacion_exitosa.html")
     else:
-        return 'Error al cancelar la reserva'
+        return render_template("cancelacion_fallida.html")
+
+
 
 @app.route("/reserva")
 def reserva():
@@ -82,13 +84,23 @@ def cancelar():
     return render_template("cancelacion.html")
 
 
-@app.route("/exito")
-def exito():
-    return render_template("form_exitoso.html")
+
+
+@app.route("/reserva_exitosa")
+def reserva_exitosa():
+    return render_template("reserva_exitosa.html")
+
+@app.route("/reserva_fallida")
+def reserva_fallida():
+    return render_template("reserva_fallida.html")
+
+@app.route("/cancelacion_exitosa")
+def cancelacion_exitosa():
+    return render_template("cancelacion_exitosa.html")
 
 @app.route("/cancelacion_fallida")
 def cancelacion_fallida():
-    return render_template("form_fallido.html")
+    return render_template("cancelacion_fallida.html")
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8080", debug=True)

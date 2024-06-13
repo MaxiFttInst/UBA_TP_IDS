@@ -1,0 +1,18 @@
+{% extends "reserva_exitosa.html" %}
+{%block estilos%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/no_exitoso.css')}}">
+{%endblock%}
+{%block body%}
+<div class="container">
+  <div class="card">
+    <div class="circle">
+        <i class="cross">✘</i>
+      </div>
+      <h1>No se pudo realizar la reserva</h1> 
+      <p>Lo sentimos, hubo un problema al procesar tu solicitud de reserva </p>
+      <br>
+      <br>
+      <a href="{{ url_for('index') }}"><button type="submit"class="btn">Volver al inicio</button> </a> 
+    </div>
+  </div>
+{%endblock%}

@@ -1,0 +1,15 @@
+{% extends "reserva_exitosa.html" %}
+{%block body%}
+        <div class="container">
+            <div class="card">
+              <div class="circle">
+                <i class="checkmark">✓</i>
+              </div>
+              <h1>Cancelación exitosa!</h1> 
+              <p>Hemos recibido tu solicitud de cancelacion<br/>
+              <br>
+              <br>
+              <a href="{{ url_for('index') }}"><button type="submit"class="btn">Volver al inicio</button> </a> 
+            </div>
+          </div>
+{%endblock%}
