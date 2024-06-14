@@ -1,18 +1,15 @@
-{% extends "reserva_exitosa.html" %}
+{%extends "base_resultado.html" %}
+
 {%block estilos%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/no_exitoso.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/no_exitoso.css')}}">
 {%endblock%}
-{%block body%}
-<div class="container">
-  <div class="card">
-    <div class="circle">
-        <i class="cross">✘</i>
-      </div>
-      <h1>No se pudo realizar la cancelación</h1> 
-      <p>Lo sentimos, hubo un problema al procesar tu solicitud de cancelación</p>
-      <br>
-      <br>
-      <a href="{{ url_for('index') }}"><button lass="btn">Volver al inicio</button> </a> 
-    </div>
-  </div>
+
+
+{%block marca%}
+  <i class="cross">✘</i>
+{%endblock%}
+
+{%block contenido%}
+  <h1>No se pudo realizar la cancelación</h1> 
+  <p>Lo sentimos, hubo un problema al procesar tu solicitud de cancelación</p>
 {%endblock%}

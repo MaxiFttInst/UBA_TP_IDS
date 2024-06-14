@@ -1,28 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
+{%extends "base_resultado.html" %}
 
-<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
 {%block estilos%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/exito.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/exito.css')}}">
 {%endblock%}
-</head>
 
-<body>
-  {%block body%}
-  <div class="container">
-    <div class="card">
-      <div class="circle">
-        <i class="checkmark">✓</i>
-      </div>
+{%block marca%}
+  <i class="checkmark">✓</i>
+{%endblock%}
+
+{%block contenido%}
       <h1>Reserva exitosa!</h1> 
       <p>Hemos recibido tu solicitud de reserva;<br/> ¡Nos pondremos en contacto contigo pronto!</p>
       <p>Tu ID de reserva es:  <strong> {{codigo_reserva}} </strong>. No lo olvides!</p>
-      <br>
-      <br>
-      <a href="{{ url_for('index') }}"><button class="btn">Volver al inicio</button> </a> 
-    </div>
-  </div>
-  {%endblock%}
-</body>
-</html>
+      {%endblock%}

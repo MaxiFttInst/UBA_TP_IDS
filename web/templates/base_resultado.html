@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+{%block estilos%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exito.css')}}">
+{%endblock%}
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="circle">
+        {%block marca%}{%endblock%}
+      </div>
+      {%block contenido%}
+      {%endblock%}
+      <br>
+      <br>
+      <a href="{{ url_for('index') }}"><button class="btn">Volver al inicio</button> </a> 
+    </div>
+  </div>
+</body>
+</html>
