@@ -20,9 +20,10 @@ def index():
         cabanias = res.json()
         
     for cabania in cabanias:
+        if "portada" in cabanias[cabania]["imagenes"]:
             imagenes.append(cabanias[cabania]["imagenes"]["portada"])
 
-    return render_template("base.html", cabanias=cabanias, lista_carrucel=imagenes, ubicacion=ubicacion, dic_espacios=instalacionesComunes)
+    return render_template("index.html", cabanias=cabanias, lista_carrucel=imagenes, ubicacion=ubicacion, dic_espacios=instalacionesComunes)
 
 
 # Ruta para manejar la solicitud de reserva
