@@ -99,14 +99,14 @@
   <div class=" phone-only">
     <div id="carouselExampleIndicators" class="carousel slide carusel-image" data-ride="carousel">
       <div class="carousel-inner">
-        {% for image in lista %}
+        {% for image in lista_carrucel %}
           <div 
-            {% if image == lista[0] %}
-              class="carousel-item active"
+            {% if image == lista_carrucel[0] %}
+            class="carousel-image-container carousel-item active"
             {% else %}
               class="carousel-item"
             {% endif %}>
-              <img class="d-block w-100" src="{{ url_for('static', filename= image )}}" alt="First slide">
+            <img class="d-block carousel-image" src="{{image}}" >
           </div>
         {% endfor %}
         

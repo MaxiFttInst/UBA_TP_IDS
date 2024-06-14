@@ -20,6 +20,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "system-ui", Arial, Helvetica, sans-serif}
 		Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+/* modificar para ajustar el titulo */
+h1 { 
+	padding-top: 10%;
+	color:rgb(61, 37, 0);
+}
 body {
 	align-items: center;
     justify-content: center;
@@ -225,7 +230,6 @@ body {
     flex: 2; /* Que ocupe más espacio que la etiqueta */
     width: 100%; /* Asegura que el campo de entrada llene el espacio restante */
 }
-=======
 body,h1,h2,h3,h4,h5,h6 {font-family: "system-ui", Arial, Helvetica, sans-serif}
 .mySlides {display: none}
 
@@ -252,7 +256,7 @@ body {
 	align-items: center;
     justify-content: center;
 	background-color: var(--white);
-	background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
+	background: url("../Imagenes/posada.jpg");
 	background-attachment: fixed;
 	background-position: center;
 	background-repeat: no-repeat;
