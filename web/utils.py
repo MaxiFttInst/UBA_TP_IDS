@@ -5,10 +5,19 @@ from settings import API_URL
 # API_URL = os.environ.get("API_URL", "https://posadabyteados.pythonanywhere.com")
 
 
-def obtener_calendario(cabania_id):
+def obtener_calendario(cabania_id, mes=None, año=None):
     tiempo = datetime.date.today()
-    mes = tiempo.month
-    año = tiempo.year
+    if año is None:
+        año = tiempo.year
+    if mes > 12:
+        mes = 1
+        año += 1
+    elif mes < 1:
+        mes = 12
+        año -= 1
+    elif mes is None:
+        mes = tiempo.month
+
     calendario = calendar.Calendar()
     iterador = calendario.itermonthdates(año, mes)
     fechas = [{}]
@@ -40,8 +49,7 @@ def obtener_calendario(cabania_id):
                     "dia": dia,
                     "ocupado": True
                 }
-    print(fechas)
-    return fechas
+    return mes, año, fechas
 
 
 def obtener_reservas(cabania_id):

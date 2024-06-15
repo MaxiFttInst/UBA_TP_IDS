@@ -1,6 +1,7 @@
 from settings import API_URL
 from flask import Flask, render_template, request, redirect, url_for
 import requests
+import datetime
 import os
 import utils
 app = Flask(__name__)
@@ -102,9 +103,32 @@ def form_consultar_reservas():
 
 @app.route("/reserva")
 def reserva():
+    nombres_meses = ["", "enero", "febrero", "marzo", "abril",
+                     "mayo", "junio", "julio", "agosto",
+                     "septiembre", "ocbutbre", "noviembre", "diciembre"]
     cabania_id = request.args.get('cabania_id')
-    calendario_data = utils.obtener_calendario(cabania_id)
-    return render_template("reserva.html", cabania_id=cabania_id, ubicacion=UBICACION, calendario_data=calendario_data)
+    mes = request.args.get('mes')
+    año = request.args.get('año')
+    mes_anterior: int = None
+    mes_siguiente: int = None
+    if mes is not None:
+        mes = int(mes)
+    if año is not None:
+        año = int(año)
+
+    mes, año, calendario_data = utils.obtener_calendario(cabania_id, mes, año)
+    print(mes)
+    mes_anterior = mes - 1
+    mes_siguiente = mes + 1
+    return render_template("reserva.html",
+                           cabania_id=cabania_id,
+                           mes_anterior=mes_anterior,
+                           mes_siguiente=mes_siguiente,
+                           mes=mes,
+                           nombres_meses=nombres_meses,
+                           año=año,
+                           ubicacion=UBICACION,
+                           calendario_data=calendario_data)
 
 
 @app.route("/cancelar")

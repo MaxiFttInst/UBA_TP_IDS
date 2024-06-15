@@ -53,7 +53,8 @@
 
   <div class="calendario-wrapper">
     <header>
-      <h2>Junio</h2>
+      <h2>{{nombres_meses[mes]}}</h2>
+      <h2>{{año}}</h2>
     </header>
     <div class="calendar">
       <div class="calendar__header">
@@ -83,6 +84,8 @@
   <br>
   <br>
   <br>
+  <a href="{{ url_for('reserva', cabania_id=cabania_id, mes=mes_anterior, año=año) }}">mes anterior</a> 
+  <a href="{{ url_for('reserva', cabania_id=cabania_id, mes=mes_siguiente, año=año) }}">mes siguiente</a> 
   <a href="{{ url_for('index') }}"><button class="btn">Volver</button> </a> 
     </div>
   </div>
