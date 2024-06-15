@@ -1,9 +1,9 @@
 import calendar
 import requests
-import os
 import datetime
+from settings import API_URL
+# API_URL = os.environ.get("API_URL", "https://posadabyteados.pythonanywhere.com")
 
-API_URL = os.environ.get("API_URL", "https://posadabyteados.pythonanywhere.com")
 
 def obtener_calendario(cabania_id):
     tiempo = datetime.date.today()
@@ -40,13 +40,14 @@ def obtener_calendario(cabania_id):
                     "dia": dia,
                     "ocupado": True
                 }
-
+    print(fechas)
     return fechas
+
 
 def obtener_reservas(cabania_id):
     res = requests.get(f"{API_URL}/cabanias/calendario/{cabania_id}")
 
-    if res.status_code != 200 and res.status_code != 201:
+    if res.status_code != 200 or res.status_code != 201:
         return {}
 
     return res.json()
