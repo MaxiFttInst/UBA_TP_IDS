@@ -56,12 +56,12 @@ def forms_reserva():
 @app.route('/cancelar', methods=['POST'])
 def forms_cancelacion():
     reserva_id =  request.form['reserva_id']
-    id_cliente =  request.form['mail_cancelacion']
+    mail_cancelacion =  request.form['mail_cancelacion']
     # Obtener los datos del formulario
     
     data = {
         'reserva_id': reserva_id,
-        'id_cliente': id_cliente
+        'email': mail_cancelacion
     }
     print(data)
     # Realizar la solicitud POST a la API del backend
