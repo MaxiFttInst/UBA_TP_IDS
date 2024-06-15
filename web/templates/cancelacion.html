@@ -8,46 +8,88 @@
 
 {% block formulario %}
 
-<div class="container right-panel-active" style="margin-top: 2%;">
+<div class="container right-panel-active" style="margin-top: 2%;padding-top: 2%;padding-bottom: 2%;">
 
-  <div class="container__form container--signup" id="consultar_reservas">
+  <div class="container__form container--signup" id="consultar_reservas_form">
     <h2>Consultar reservas a tu nombre:</h2>
-    <form action="{{ url_for('form_consultar_reservas') }}" class="form" id="conultar_reservas", method="get">
+    <form action="{{ url_for('form_consultar_reservas') }}" class="form" id="consultar_reservas" method="post">
       <div class="input-group">
-        <label><i class="fa fa-male"></i> Nombre y Apellido</label>
-        <input type="text" placeholder="Nombre Apellido" class="input" name="fname" required/>
+          <label><i class="fa fa-male"></i> Nombre y Apellido</label>
+          <input type="text" placeholder="Nombre Apellido" class="input" name="fname" id="fname" required/>
       </div>
       <div class="input-group">
-        <label><i class="fa fa-id-card"></i> DNI o Pasaporte</label>
-          <input type="text" placeholder="12345678" class="input" name="fdni" required/>
+          <label><i class="fa fa-id-card"></i> DNI o Pasaporte</label>
+          <input type="text" placeholder="12345678" class="input" name="fdni" id="fdni" required/>
       </div>
-      <button button type="submit"class="btn">Consultar</button>
+      <button type="submit" class="btn">Consultar</button>
     </form>
   </div>
 
   <br><br><br><br>
 
-  <div class="container__form container--signup" id="cancelar_reserva">
+  <div class="container__form container--signup" id="cancelar_reserva" style="padding-left: 0%;">
     <div class="container-formularios">
       <h2>Cancelá tu reserva:</h2>
-      <form action="{{ url_for('forms_cancelacion') }}" class="form" id="cancelar_reservas", method="post">
+      <form action="{{ url_for('forms_cancelacion') }}" class="form" id="cancelar_reservas_form" method="post">
         <div class="input-group">
-                  <label><i class="fa fa-ticket"></i>ID Reserva</label>
-                  <input type="text" placeholder="12345678" class="input" name="reserva_id" required/>
-                </div>
-                <div class="input-group">
-                  <label><i class="fa fa-envelope"></i> Email</label>
-                  <input type="email" placeholder="ejemplo@gmail.com" class="input" name="mail_cancelacion" required/>
-              </div>
-        <button button type="submit"class="btn">Cancelar reserva</button>
+          <label><i class="fa fa-ticket"></i>ID Reserva</label>
+          <input type="text" placeholder="12345678" class="input" name="reserva_id" required/>
+        </div>
+        <div class="input-group">
+          <label><i class="fa fa-envelope"></i> Email</label>
+          <input type="email" placeholder="ejemplo@gmail.com" class="input" name="mail_cancelacion" required/>
+        </div>
+        <button type="submit" class="btn">Cancelar reserva</button>
       </form>
-   
-  <br>
-  <a href="{{ url_for('index') }}"><button class="btn">Volver</button> </a> 
-  
-  </div>
+      <a href="{{ url_for('index') }}"><button class="btn">Volver</button> </a>
+    </div>
   </div>
 
 </div>
+
+
+{% if reservas %}
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+  <!-- Modal content -->
+  {% if len != -1 %} 
+    <div class="modal-header">
+      <h2>Reservas</h2>
+    </div>
+
+    <div class="modal-body">
+      <ul>
+        {% for reserva in reservas %}
+        <li>Codigo de reserva: {{reserva["codigo_reserva"]}}</li>
+            <ul>
+              <li>Cabaña: {{reserva["nombre_cabania"]}}</li>
+              <li>Mail asociado: {{reserva["mail"]}}</li>
+              <li>Entrada: {{reserva["fecha_ingreso"]}}</li>
+              <li>Salida: {{reserva["fecha_egreso"]}} </li>
+            </ul>
+        <br>
+        {% endfor %}
+      </ul>
+    </div>
+
+
+  {% else %}
+  <div class="modal-header">
+    <h2>{{reservas["msj"]}}</h2>
+  </div>
+
+  <div class="modal-body">
+    <p>Hace tu reserva! Deseamos verte pronto!</p>
+  </div>
+  {% endif %}
+  </div>
+
+</div>
+
+<script src="{{url_for('static', filename='js/mostrar_reservas.js')}}"></script> 
+{% endif %}
 
 {% endblock %}
