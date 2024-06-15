@@ -47,7 +47,7 @@ def obtener_calendario(cabania_id):
 def obtener_reservas(cabania_id):
     res = requests.get(f"{API_URL}/cabanias/calendario/{cabania_id}")
 
-    if res.status_code != 200 or res.status_code != 201:
+    if res.status_code != 200 and res.status_code != 201:
         return {}
 
     return res.json()
