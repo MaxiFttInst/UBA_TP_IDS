@@ -56,11 +56,12 @@ def forms_reserva():
 @app.route('/cancelar', methods=['POST'])
 def forms_cancelacion():
     reserva_id =  request.form['reserva_id']
-    mail_cancelacion =  request.form['mail_cancelacion']
+    id_cliente =  request.form['mail_cancelacion']
     # Obtener los datos del formulario
     
     data = {
-        'email': mail_cancelacion
+        'reserva_id': reserva_id,
+        'id_cliente': id_cliente
     }
     print(data)
     # Realizar la solicitud POST a la API del backend
@@ -104,24 +105,6 @@ def reserva():
 def cancelar():
     return render_template("cancelacion.html", ubicacion=UBICACION, reservas = [], len = 0)
 
-
-
-
-# @app.route("/reserva_exitosa")
-# def reserva_exitosa():
-#     return render_template("reserva_exitosa.html")
-
-# @app.route("/reserva_fallida")
-# def reserva_fallida():
-#     return render_template("reserva_fallida.html")
-
-# @app.route("/cancelacion_exitosa")
-# def cancelacion_exitosa():
-#     return render_template("cancelacion_exitosa.html")
-
-# @app.route("/cancelacion_fallida")
-# def cancelacion_fallida():
-#     return render_template("cancelacion_fallida.html")
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8080", debug=True)
