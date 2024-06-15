@@ -173,12 +173,13 @@ def consultar_reserva():
         res = reserva.consultar_reservas(cliente_id, nombre)
         if res:
             data = []
-            for codigo_reserva, nombre_cabania, fecha_ingreso, fecha_egreso in res:
+            for codigo_reserva, nombre_cabania, fecha_ingreso, fecha_egreso, mail_cliente in res:
                 data.append({
                     "codigo_reserva": codigo_reserva,
                     "nombre_cabania": nombre_cabania,
                     "fecha_ingreso": fecha_ingreso,
-                    "fecha_egreso": fecha_egreso
+                    "fecha_egreso": fecha_egreso,
+                    "mail": mail_cliente
                 })
             return jsonify(data)
 

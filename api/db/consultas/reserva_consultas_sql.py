@@ -41,7 +41,7 @@ def realizar_reserva(cabania_id, fecha_ent, fecha_sal, id_cliente, nombre_comple
 
 def consultar_reservas(dni_cliente, nombre_cliente):
     '''
-    Consulta si el cliente ya tiene reservas. 
+    Consulta si el cliente ya tiene reservas y devuelve sus datos. 
     Si todos los datos coinciden, devuelve una tupla con los códigos de reserva. 
     En caso contrario devuelve False.
     '''
@@ -49,7 +49,7 @@ def consultar_reservas(dni_cliente, nombre_cliente):
         return False
 
     conn = get_db_connection()
-    query = """SELECT r.reserva_codigo, c.nombre, r.fecha_ent, r.fecha_sal from Reservas r, Cabanias c 
+    query = """SELECT r.reserva_codigo, c.nombre, r.fecha_ent, r.fecha_sal, r.mail_cliente from Reservas r, Cabanias c 
                            WHERE r.cabania_id = c.cabania_id 
                                 AND lower(r.id_cliente) = lower(?) 
                                 AND lower(r.nombre_completo_cliente) = lower(?)"""
