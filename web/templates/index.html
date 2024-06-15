@@ -160,7 +160,7 @@
           <strong>{{ cabanias[cabania]["nombre"] }}</strong>
           <br>
           <p>{{ cabanias[cabania]["descripcion"] }}</p>
-          <img src="{{ url_for('static', filename='Imagenes/' + cabania + '.jpg') }}" alt="Bestia Clérigo"> <br>
+          <img src="{{ url_for('static', filename='Imagenes/' + cabania + '.jpg') }}" class="imagen-cabaña" alt="Bestia Clérigo"> <br>
           <a href="{{url_for('reserva', cabania_id=cabania) }}"><button class="btn-reserva-hover btn-reserva">Reserva ya</button></a>
         </div>
       {% endfor %}
