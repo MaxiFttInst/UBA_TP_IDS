@@ -1,4 +1,4 @@
-from flask import Flask, render_template , request, redirect, url_for
+from flask import Flask, render_template , request, jsonify
 import requests
 import os
 import utils
@@ -75,24 +75,30 @@ def forms_cancelacion():
     
 @app.route('/consultar-reserva', methods=['GET'])
 def form_consultar_reservas():
-    nombre_cliente = request.args.get('fname')
-    id_cliente = request.args.get('fdni')
+    nombre_cliente = request.form['fname']
+    id_cliente = request.form['fdni']
     
     # Obtener los datos del formulario
-    params = {  
+    data = {  
         "cliente_id": id_cliente,
         "nombre_cliente" : nombre_cliente
     }
 
-    # Realizar la solicitud GET a la API del backend
-    response = requests.get('https://posadabyteados.pythonanywhere.com/reserva', params=params)
+    # Realizar la solicitud POST a la API del backend
+    response = requests.post('https://posadabyteados.pythonanywhere.com/reserva', json=data)
 
     print("Respuesta de la API:", response.text)
 
-    if response.status_code == 202: # Configurar pop-ups acá
-        return render_template("cancelacion_exitosa.html")
+    if response.status_code == 200: 
+        try:
+            data = response.json()
+            # Filtrar los datos que quieres mostrar en el popup
+            filtered_data = [{k: v for k, v in entry.items() if k in ["codigo_reserva", "fecha_egreso", "fecha_ingreso"]} for entry in data]
+            return jsonify(filtered_data)
+        except json.JSONDecodeError:
+            return "Error: La respuesta de la API no es un JSON válido", 500
     else:
-        return render_template("cancelacion_fallida.html")
+        return "Error: La API ha devuelto un código de estado inesperado", response.status_code
 
 
 @app.route("/reserva")
