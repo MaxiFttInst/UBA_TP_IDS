@@ -21,6 +21,7 @@
     <a href="#reserva_ahora" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Reserva</a>
     <a href="#espacios_comunes" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Espacios Comunes</a>
     <a href="#actividades_extra" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Actividades Extra</a>
+    <a href="{{url_for('cancelar') }}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Cancelar Reserva</a>
     <a href="#contacto" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contacto</a>
     <div>
      <button class="w3-bar-item w3-button w3-hide-small w3-hover-white" id="moon_btn"><i id="modeFa" class="fa fa-sun-o"></i></button>
@@ -239,7 +240,7 @@
 
 
 {% block footer_boton %}
-  <a href="{{url_for('cancelar') }}"><button class="btn-reserva-hover btn-reserva">¿Quieres cancelar una reserva?</button></a>
+  <a href="{{url_for('cancelar') }}"><button class="btn-reserva-hover btn-reserva" id="cancelar">¿Quieres cancelar una reserva?</button></a>
 {% endblock %}
 
 {% block flecha_index %}
