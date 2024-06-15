@@ -47,12 +47,48 @@
 
 </div>
 
+
+{% if reservas %}
+<!-- The Modal -->
 <div id="myModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p id="modalText"></p>
+
+  <!-- Modal content -->
+  {% if len != -1 %} 
+    <div class="modal-header">
+      <h2>Reservas</h2>
+    </div>
+
+    <div class="modal-body">
+      <ul>
+        {% for reserva in reservas %}
+        <li>Codigo de reserva: {{reserva["codigo_reserva"]}}</li>
+            <ul>
+              <li>Cabaña: {{reserva["nombre_cabania"]}}</li>
+              <li>Entrada: {{reserva["fecha_ingreso"]}}</li>
+              <li>Salida: {{reserva["fecha_egreso"]}} </li>
+            </ul>
+        <br>
+        {% endfor %}
+      </ul>
+    </div>
+
+
+  {% else %}
+  <div class="modal-header">
+    <h2>{{reservas["msj"]}}</h2>
   </div>
+
+  <div class="modal-body">
+    <p>Hace tu reserva! Deseamos verte pronto!</p>
+  </div>
+  {% endif %}
+  </div>
+
 </div>
 
-<script src="{{url_for('static', filename='js/mostrar_reservas.js')}}"></script>
+<script src="{{url_for('static', filename='js/mostrar_reservas.js')}}"></script> 
+{% endif %}
+
 {% endblock %}

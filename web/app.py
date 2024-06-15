@@ -1,4 +1,4 @@
-from flask import Flask, render_template , request, jsonify
+from flask import Flask, render_template , request, flash
 import requests
 import os
 import utils
@@ -43,7 +43,7 @@ def forms_reserva():
     print(data)
 
     # Realizar la solicitud POST a la API del backend
-    response = requests.post('https://posadabyteados.pythonanywhere.com/crear_reserva', json=data)
+    response = requests.post(API_URL + "/crear_reserva", json=data)
 
     if response.status_code == 201:
         print("Respuesta de la API:", response.text)
@@ -64,7 +64,7 @@ def forms_cancelacion():
     }
     print(data)
     # Realizar la solicitud POST a la API del backend
-    response = requests.delete(f'https://posadabyteados.pythonanywhere.com/reserva/{reserva_id}', json=data)
+    response = requests.delete(API_URL + "/reserva/" + reserva_id, json=data)
 
     print("Respuesta de la API:", response.text)
 
@@ -73,7 +73,7 @@ def forms_cancelacion():
     else:
         return render_template("cancelacion_fallida.html")
     
-@app.route('/consultar-reserva', methods=['GET'])
+@app.route('/consultar-reserva', methods=['POST'])
 def form_consultar_reservas():
     nombre_cliente = request.form['fname']
     id_cliente = request.form['fdni']
@@ -85,20 +85,13 @@ def form_consultar_reservas():
     }
 
     # Realizar la solicitud POST a la API del backend
-    response = requests.post('https://posadabyteados.pythonanywhere.com/reserva', json=data)
-
-    print("Respuesta de la API:", response.text)
-
-    if response.status_code == 200: 
-        try:
-            data = response.json()
-            # Filtrar los datos que quieres mostrar en el popup
-            filtered_data = [{k: v for k, v in entry.items() if k in ["codigo_reserva", "fecha_egreso", "fecha_ingreso"]} for entry in data]
-            return jsonify(filtered_data)
-        except json.JSONDecodeError:
-            return "Error: La respuesta de la API no es un JSON válido", 500
+    response = requests.get(API_URL + "/reserva", json=data)
+    response = response.json()
+    print("Respuesta de la API:", response)
+    if "msj" in response:
+        return render_template("cancelacion.html", ubicacion = UBICACION, reservas=response, len = -1)
     else:
-        return "Error: La API ha devuelto un código de estado inesperado", response.status_code
+        return render_template("cancelacion.html", ubicacion = UBICACION, reservas=response, len = len(response))
 
 
 @app.route("/reserva")
@@ -109,26 +102,26 @@ def reserva():
 
 @app.route("/cancelar")
 def cancelar():
-    return render_template("cancelacion.html", ubicacion=UBICACION)
+    return render_template("cancelacion.html", ubicacion=UBICACION, reservas = [], len = 0)
 
 
 
 
-@app.route("/reserva_exitosa")
-def reserva_exitosa():
-    return render_template("reserva_exitosa.html")
+# @app.route("/reserva_exitosa")
+# def reserva_exitosa():
+#     return render_template("reserva_exitosa.html")
 
-@app.route("/reserva_fallida")
-def reserva_fallida():
-    return render_template("reserva_fallida.html")
+# @app.route("/reserva_fallida")
+# def reserva_fallida():
+#     return render_template("reserva_fallida.html")
 
-@app.route("/cancelacion_exitosa")
-def cancelacion_exitosa():
-    return render_template("cancelacion_exitosa.html")
+# @app.route("/cancelacion_exitosa")
+# def cancelacion_exitosa():
+#     return render_template("cancelacion_exitosa.html")
 
-@app.route("/cancelacion_fallida")
-def cancelacion_fallida():
-    return render_template("cancelacion_fallida.html")
+# @app.route("/cancelacion_fallida")
+# def cancelacion_fallida():
+#     return render_template("cancelacion_fallida.html")
 
 if __name__ == "__main__":
     app.run("127.0.0.1", port="8080", debug=True)
