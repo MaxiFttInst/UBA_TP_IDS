@@ -234,41 +234,10 @@
         </div>
         </div>
 </section>
-
-<!-- Contact Container -->
-<section id="contacto">
-  <div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
-    <div class="w3-row">
-      <div class="w3-padding-16 nosotros">
-        <span class="w3-xlarge w3-border-teal w3-bottombar">Sobre Nosotros</span>
-      </div>
-      <div class="m5 columns ">
-        <div class="contact-items">
-          <h3 class="center">Contacto</h3>
-          <ul class=text-nosotros>
-            <li><i class="fa fa-map-marker"></i> Los Terrones 950 esquina, Batalla de Caseros, X5184 Capilla del Monte, Córdoba<br>
-            </li>
-            <li>
-              <i class="fa fa-phone"></i> Telefono : +54 2482-5445
-            </li>
-            <li><i class="fa fa-envelope"> </i> Email : posadabyteados@gmail.com
-            </li>
-          </ul>
-          <a href="{{url_for('cancelar') }}"><button class="btn-reserva-hover btn-reserva">¿Quieres cancelar una reserva?</button></a>
-        </div>
-        <div class="contact-items">
-          <h3 class="center">Ubicación</h3>
-          <iframe 
-          src={{ubicacion}} 
-          class="map" allowfullscreen="" 
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
-  </div>
-</section>
-<!-- Image of location/map -->
-<img src="{{ url_for('static', filename='Imagenes/posadanoche.jpg') }}" style="width:100%;">
+{% endblock %}
 
 
+{% block footer_boton %}
+  <a href="{{url_for('cancelar') }}"><button class="btn-reserva-hover btn-reserva">¿Quieres cancelar una reserva?</button></a>
 {% endblock %}
 
