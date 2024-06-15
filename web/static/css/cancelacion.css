@@ -24,12 +24,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "system-ui", Arial, Helvetica, sans-serif}
 h1 { 
 	padding-top: 10%;
 	color:rgb(61, 37, 0);
+	padding-bottom: 0%;
 }
 body {
 	align-items: center;
     justify-content: center;
 	background-color: var(--white);
-	background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
 	background-attachment: fixed;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -38,7 +38,7 @@ body {
 	height: 100vh;
     margin: 0;
 	place-items: center;
-  background-color: lightgrey !important;
+    background-color: lightgrey !important;
 }
 
 .form__title {
@@ -55,7 +55,8 @@ body {
 
 .container {
     margin: 150px auto; /* Reducir el margen superior para centrarlo verticalmente */
-    max-width: 600px;
+	margin-top: 10px;
+	max-width: 600px;
     width: 100%;
     height: auto;
     display: flex;
@@ -288,11 +289,12 @@ body {
     display: flex;
     gap: 36px;
     padding: 36px; /* Aumentar el espacio alrededor del contenido */
-    justify-content: center; /* Centrar horizontalmente */
+    justify-content: left; /* Centrar horizontalmente */
     flex-wrap: wrap;
     background-color: var(--white);
     border-radius: 12px;
     font-size: 1.2rem; /* Aumentar el tamaño de la fuente */
+	color: rgb(59, 45, 45);
 }
 
 .container__form {
@@ -457,3 +459,4 @@ body {
     flex: 2; /* Que ocupe más espacio que la etiqueta */
     width: 100%; /* Asegura que el campo de entrada llene el espacio restante */
 }
+

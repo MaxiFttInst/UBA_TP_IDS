@@ -47,7 +47,7 @@ body {
   flex-wrap: wrap;
   background-color: var(--white);
   border-radius: 12px;
-  color: black;
+	color: rgb(59, 45, 45);
 }
 
 .container__form {

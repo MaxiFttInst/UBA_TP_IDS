@@ -52,6 +52,7 @@ def forms_reserva():
     else:
         return render_template("reserva_fallida.html")
 
+
 @app.route('/cancelar', methods=['POST'])
 def forms_cancelacion():
     reserva_id =  request.form['reserva_id']
@@ -71,7 +72,27 @@ def forms_cancelacion():
         return render_template("cancelacion_exitosa.html")
     else:
         return render_template("cancelacion_fallida.html")
+    
+@app.route('/consultar-reserva', methods=['GET'])
+def form_consultar_reservas():
+    nombre_cliente = request.args.get('fname')
+    id_cliente = request.args.get('fdni')
+    
+    # Obtener los datos del formulario
+    params = {  
+        "cliente_id": id_cliente,
+        "nombre_cliente" : nombre_cliente
+    }
 
+    # Realizar la solicitud GET a la API del backend
+    response = requests.get('https://posadabyteados.pythonanywhere.com/reserva', params=params)
+
+    print("Respuesta de la API:", response.text)
+
+    if response.status_code == 202: # Configurar pop-ups acá
+        return render_template("cancelacion_exitosa.html")
+    else:
+        return render_template("cancelacion_fallida.html")
 
 
 @app.route("/reserva")

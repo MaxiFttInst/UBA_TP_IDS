@@ -80,11 +80,8 @@
   <img src="{{ url_for('static', filename='Imagenes/posadanoche.jpg') }}" style="width:100%;">
 <!-- Footer -->
 <footer class="w3-container full-width w3-padding-32 w3-theme-d1">
-
-    <div style="position:fixed;left:95%;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
-      <a class=" w3-theme-2" href="#myPage"><span class="w3-xlarge">
-      <i class="fa fa-chevron-circle-up"></i></span></a>
-    </div>
+  {% block flecha_index %}
+  {% endblock %}
   </footer>
   
   <script src="{{ url_for('static', filename='js/script.js')}}"></script>
