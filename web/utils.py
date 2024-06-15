@@ -9,14 +9,15 @@ def obtener_calendario(cabania_id, mes=None, año=None):
     tiempo = datetime.date.today()
     if año is None:
         año = tiempo.year
-    if mes > 12:
+
+    if mes is None:
+        mes = tiempo.month
+    elif mes > 12:
         mes = 1
         año += 1
     elif mes < 1:
         mes = 12
         año -= 1
-    elif mes is None:
-        mes = tiempo.month
 
     calendario = calendar.Calendar()
     iterador = calendario.itermonthdates(año, mes)
