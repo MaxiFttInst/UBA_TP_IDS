@@ -2,6 +2,7 @@ from flask import Flask, render_template , request, redirect, url_for
 import requests
 import os
 import utils
+import datetime
 app = Flask(__name__)
 
 API_URL = os.environ.get("API_URL", "https://posadabyteados.pythonanywhere.com")
@@ -98,14 +99,19 @@ def form_consultar_reservas():
 @app.route("/reserva")
 def reserva():
     cabania_id = request.args.get('cabania_id')
-    calendario_data = utils.obtener_calendario(cabania_id)
-    return render_template("reserva.html", cabania_id=cabania_id, ubicacion=UBICACION, calendario_data=calendario_data)
+
+    #obtener mes y año actuales
+    tiempo = datetime.date.today()
+    mes = tiempo.month
+    año = tiempo.year
+
+    calendarios = utils.obtener_proximos_calendarios(cabania_id, mes, año, 5)
+
+    return render_template("reserva.html", cabania_id=cabania_id, ubicacion=UBICACION, calendarios=calendarios)
 
 @app.route("/cancelar")
 def cancelar():
     return render_template("cancelacion.html", ubicacion=UBICACION)
-
-
 
 
 @app.route("/reserva_exitosa")
