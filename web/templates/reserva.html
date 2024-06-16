@@ -5,12 +5,15 @@
 
 {% endblock %}
 
-
-{% block h1 %}Reserva tu cabaña{% endblock %}
-
-
 {% block formulario %}
-<div class="container right-panel-active" style="padding-top: 3%; padding-bottom: 3%;margin-top: 3%;">
+
+<div class="Titulo">
+  <h1>Reserva tu Cabaña</h1>
+</div>
+
+<div class="container right-panel-active" style="padding-top: 3%; padding-bottom: 3%;margin-top: 0%; justify-content: space-evenly;">
+
+  <br>
 	<!-- Sign Up -->
 	<div class="container__form container--signup">
 		<form action="{{ url_for('forms_reserva') }}" method="post" class="form" id="form1">
@@ -84,7 +87,7 @@
   <br>
   <br>
   <br>
-  <a href="{{ url_for('index') }}"><button class="btn">Volver</button> </a> 
+  <a href="{{ url_for('index') }}"><button class="btn" color="">Volver</button> </a> 
     </div>
   </div>
 </div>

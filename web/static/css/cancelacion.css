@@ -5,8 +5,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "system-ui", Arial, Helvetica, sans-serif}
 	/* COLORS */
 	--white: #e9e9e9;
 	--gray: #333;
-	--blue: #0367a6;
-	--lightblue: #008997;
+	--brown: #382a2a;
+	--light-brown: #b89b9b;
 
 	/* RADII */
 	--button-radius: 0.7rem;
@@ -238,9 +238,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "system-ui", Arial, Helvetica, sans-serif}
 	/* COLORS */
 	--white: #e9e9e9;
 	--gray: #333;
-	--blue: #0367a6;
-	--lightblue: #008997;
-
+	--brown: #382a2a;
+	--light-brown: #b89b9b;
 	/* RADII */
 	--button-radius: 0.7rem;
 
@@ -341,7 +340,6 @@ body {
 
 .overlay {
 	background-color: var(--lightblue);
-	background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
 	background-attachment: fixed;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -390,10 +388,10 @@ body {
 }
 
 .btn {
-	background-color: var(--blue);
-	background-image: linear-gradient(90deg, var(--blue) 0%, var(--lightblue) 74%);
+	background-color: var(--brown);
+	background-image: linear-gradient(90deg, var(--brown) 0%, var(--light-brown) 74%);
 	border-radius: 20px;
-	border: 1px solid var(--blue);
+	border: 1px solid var(--black);
 	color: var(--white);
 	cursor: pointer;
 	font-weight: bold;
@@ -404,6 +402,10 @@ body {
     padding: 1rem 4rem; /* Aumentar el tamaño del botón */
     margin-top: 20px; /* Aumentar el espacio entre el botón y los campos de entrada */
 
+}
+
+.btn:hover{
+	color: var(--brown);
 }
 
 .form > .btn {
@@ -476,18 +478,19 @@ body {
   
   /* Modal Content/Box */
   .modal-content {
-	background-color: #fefefe;
-	margin: 15% auto; /* 15% from the top and centered */
+	background-color: #e0dede;
+	margin: 2% auto; /* from the top and centered */
 	padding: 20px;
+	padding-bottom: 10px;
 	border: 1px solid #888;
-	width: 80%; /* Could be more or less, depending on screen size */
+	width: 40%; /* Could be more or less, depending on screen size */
   }
   
   /* The Close Button */
   .close {
 	color: #aaa;
 	float: right;
-	font-size: 28px;
+	font-size: 36px;
 	font-weight: bold;
   }
   
