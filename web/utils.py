@@ -1,14 +1,51 @@
 import calendar
 import requests
 import os
-import datetime
 
 API_URL = os.environ.get("API_URL", "https://posadabyteados.pythonanywhere.com")
+NOMBRES_MESES = {
+    "1": "Enero",
+    "2": "Febrero",
+    "3": "Marzo",
+    "4": "Abril",
+    "5": "Mayo",
+    "6": "Junio",
+    "7": "Julio",
+    "8": "Agosto",
+    "9": "Septiembre",
+    "10": "Octubre",
+    "11": "Noviembre",
+    "12": "Diciembre"
+}
 
-def obtener_calendario(cabania_id):
-    tiempo = datetime.date.today()
-    mes = tiempo.month
-    año = tiempo.year
+def obtener_reservas(cabania_id):
+    res = requests.get(f"{API_URL}/cabanias/calendario/{cabania_id}")
+
+    if res.status_code != 200 and res.status_code != 201:
+        return {}
+
+    return res.json()
+
+def obtener_calendario(cabania_id:str, mes:int, año:int):
+    """
+    Retorna una lista con multiples diccionarios. Cada diccionario de la lista
+    corresponde a una semana del mes y año enviados por parametro. Cada dia de la semana
+    es un diccionario con informacion sobre el numero de dia y si esta ocupado
+
+    Ejemplo:
+    [
+        {'2024-06-05': {
+                'dia': 5,
+                'ocupado': False
+            }
+        },
+        {'2024-06-06': {
+                'dia': 6,
+                'ocupado': True
+            }
+        }
+    ]
+    """
     calendario = calendar.Calendar()
     iterador = calendario.itermonthdates(año, mes)
     fechas = [{}]
@@ -43,10 +80,21 @@ def obtener_calendario(cabania_id):
 
     return fechas
 
-def obtener_reservas(cabania_id):
-    res = requests.get(f"{API_URL}/cabanias/calendario/{cabania_id}")
+def obtener_proximos_calendarios(cabania_id:str, mes:int, año:int, n:int):
+    """
+    Llama a obtener_calendario() una cantidad n de veces y devuelve una lista con
+    con tuplas que contienen un calendario y el nombre de mes corresponiendte
+    """
+    calendarios = []
 
-    if res.status_code != 200 and res.status_code != 201:
-        return {}
+    for i in range(n):
+        calendario_data = obtener_calendario(cabania_id, mes, año)
+        nombre_mes = NOMBRES_MESES[str(mes)]
+        calendarios.append((calendario_data, nombre_mes))
+        if mes == 12:
+            mes = 1
+            año += 1
+        else:
+            mes += 1
 
-    return res.json()
+    return calendarios

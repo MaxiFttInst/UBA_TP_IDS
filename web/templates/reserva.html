@@ -56,33 +56,44 @@
 	</div>
 
   <div class="calendario-wrapper">
-    <header>
-      <h2>Junio</h2>
-    </header>
-    <div class="calendar">
-      <div class="calendar__header">
-          <div class="header-day">Lu</div>
-          <div class="header-day">Ma</div>
-          <div class="header-day">Mi</div>
-          <div class="header-day">Ju</div>
-          <div class="header-day">Vi</div>
-          <div class="header-day">Sá</div>
-          <div class="header-day">Do</div>
-      </div>
-      {% for semana in calendario_data %}
-      <div class="calendar__week">
-        {% for dia in semana.keys() %}
-          {% if semana[dia]["ocupado"] %}
-            <div class="calendar__day busy_day">
-          {% else %}
-            <div class="calendar__day">
-          {% endif %}
-              <b class="day">{{semana[dia]["dia"]}}</b>
-            </div>
+    {% for calendario_data, nombre_mes in calendarios %}
+      
+      {% if (calendario_data, nombre_mes) == calendarios[0] %}
+        <div class="calendar calendar_active">
+      {% else %}
+        <div class="calendar">
+      {% endif %}
+          <header>
+            <h2>{{ nombre_mes }}</h2>
+          </header>
+          <div class="calendar__header">
+              <div class="header-day">Lu</div>
+              <div class="header-day">Ma</div>
+              <div class="header-day">Mi</div>
+              <div class="header-day">Ju</div>
+              <div class="header-day">Vi</div>
+              <div class="header-day">Sá</div>
+              <div class="header-day">Do</div>
+          </div>
+          {% for semana in calendario_data %}
+          <div class="calendar__week">
+            {% for dia in semana.keys() %}
+              {% if semana[dia]["ocupado"] %}
+                <div class="calendar__day busy_day">
+              {% else %}
+                <div class="calendar__day">
+              {% endif %}
+                  <b class="day">{{semana[dia]["dia"]}}</b>
+                </div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
         {% endfor %}
-      </div>
-      {% endfor %}
-  </div>
+  <button style="margin-top: 12px;" id="cambiar-calendario">
+    Siguiente
+    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+  </button>
   <br>
   <br>
   <br>

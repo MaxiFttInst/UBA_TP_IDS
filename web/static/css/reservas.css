@@ -163,7 +163,13 @@ body {
   }
   
   .calendar{
+    display: none;
     width: 250px;
+    border-radius: 12px;
+  }
+
+  .calendar_active{
+    display: block;
   }
   
   .calendar__week,
@@ -175,6 +181,12 @@ body {
   .calendar__week {
     grid-auto-rows: 30px;
     text-align: right;
+    background-color: white;
+  }
+
+  .calendar__week:last-child{
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
   }
   
   .calendar__header {
@@ -184,6 +196,7 @@ body {
     background-color: rgb(238, 235, 235);
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
+    border: 1px solid #e1e1e1;
   }
   
   .calendar__day {
@@ -218,12 +231,6 @@ body {
   
   main {
     background-color: #FCFBFC;
-  }
-  
-  .calendar {
-    background-color: white;
-    border: 1px solid #e1e1e1;
-    border-radius: 12px;
   }
   
   .calendar__header > div {
