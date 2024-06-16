@@ -28,7 +28,7 @@ def obtener_cabanias():
         for cabania_id, nombre, descripcion, cap_max, precio_noche   in cabanias:
             res[cabania_id] = {
                 "nombre": nombre,
-                "cap_max": descripcion,
+                "cap_max": cap_max,
                 "imagenes": obtener_imagenes(cabania_id),
                 "descripcion": descripcion,
                 "precio_noche": precio_noche}
