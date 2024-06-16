@@ -58,7 +58,8 @@
 
   <!-- Modal content -->
   {% if len != -1 %} 
-    <div class="modal-header" style="justify-content: space-between;">
+    <div class="modal-header">
+      <i class="fa fa-calendar-check-o" style="font-size:36px"></i>
       <h2>Reservas</h2>
       <span class="close">&times;</span>
     </div>
@@ -82,6 +83,7 @@
   {% else %}
   <div class="modal-header">
     <h2>{{reservas["msj"]}}</h2>
+    <span class="close">&times;</span>
   </div>
 
   <div class="modal-body">
