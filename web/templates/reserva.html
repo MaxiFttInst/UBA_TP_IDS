@@ -2,18 +2,21 @@
 
 {% block estilos %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/reservas.css')}}">
+
 {% endblock %}
 
-
-{% block h1 %}Reserva tu cabaña{% endblock %}
-
-
 {% block formulario %}
-<br><br>
-<div class="container right-panel-active">
+
+<div class="Titulo">
+  <h1>Reserva tu Cabaña</h1>
+</div>
+
+<div class="container right-panel-active" style="padding-top: 3%; padding-bottom: 3%;margin-top: 0%; justify-content: space-evenly;">
+
+  <br>
 	<!-- Sign Up -->
 	<div class="container__form container--signup">
-		<form action="{{ url_for('forms_reserva') }}" target="_blank" method="post" class="form" id="form1">
+		<form action="{{ url_for('forms_reserva') }}" method="post" class="form" id="form1">
 			
       <div class="input-group">
         <label><i class="fa fa-calendar-check-o"></i> Fecha ingreso</label>
@@ -49,6 +52,7 @@
 
 			<button type="submit"class="btn">Reservar</button>
 		</form>
+
 	</div>
 
   <div class="calendario-wrapper">
@@ -94,7 +98,7 @@
   <br>
   <br>
   <br>
-  <a href="{{ url_for('index') }}"><button class="btn">Volver</button> </a> 
+  <a href="{{ url_for('index') }}"><button class="btn" color="">Volver</button> </a> 
     </div>
   </div>
 </div>

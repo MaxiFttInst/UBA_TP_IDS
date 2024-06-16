@@ -4,8 +4,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "system-ui", Arial, Helvetica, sans-serif}
 	/* COLORS */
 	--white: #e9e9e9;
 	--gray: #333;
-	--blue: #0367a6;
-	--lightblue: #008997;
+  --brown: #382a2a;
+  --light-brown: #b89b9b;
 
 	/* RADII */
 	--button-radius: 0.7rem;
@@ -19,9 +19,18 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "system-ui", Arial, Helvetica, sans-serif}
 		Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 /* modificar para ajustar el titulo */
-h1 { 
-	padding-top: 10%;
+h1 {
+  margin-top: 3%;
 	color:rgb(61, 37, 0);
+  border-radius: 15px;
+}
+
+.Titulo{
+  padding: 10px;
+  background-color: #e9e9e9;
+  border-radius: 15px;
+  margin-bottom: 3%;
+
 }
 body {
 	align-items: center;
@@ -34,7 +43,6 @@ body {
 	display: grid;
 	height: 100vh;
 	place-items: center;
-  background-color: lightgrey !important;
 }
 
 
@@ -77,10 +85,10 @@ body {
 }
 
 .btn {
-	background-color: var(--blue);
-	background-image: linear-gradient(90deg, var(--blue) 0%, var(--lightblue) 74%);
+	background-color: var(--brown);
+	background-image: linear-gradient(90deg, var(--brown) 0%, var(--light-brown) 74%);
 	border-radius: 20px;
-	border: 1px solid var(--blue);
+	border: 1px solid var(--black);
 	color: var(--white);
 	cursor: pointer;
 	font-size: 0.8rem;
@@ -89,6 +97,10 @@ body {
 	padding: 0.9rem 4rem;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+}
+
+.btn:hover, .btn:active{
+	color: var(--brown);
 }
 
 .form > .btn {
@@ -194,7 +206,7 @@ body {
   }
   
   .busy_day{
-    background-color: #f5ad9b;
+    background-color: #ddc6bd;
     color: white;
   }
   

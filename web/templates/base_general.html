@@ -13,18 +13,6 @@
 {% block estilos %}
 {% endblock %}
 
-
-<style>
-    .full-width {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-</style>
-
-
-
 <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Imagenes/icono.png')}}"> 
 <!-- HACERLO DE MANERA DINAMICA, GUARDAR EL ICONO EN LA BASE -->
 
@@ -43,10 +31,10 @@
 <!-- Contact Container -->
 <div style="margin:0">
 <section id="contacto">
-    <div class="w3-container full-width w3-padding-64 w3-theme-l5" id="contact">
+    <div class="w3-container full-width w3-padding-64 w3-theme-d2" id="contact">
       <div class="w3-row">
         <div class="w3-padding-16 nosotros">
-          <span class="w3-xlarge w3-border-teal w3-bottombar">Sobre Nosotros</span>
+          <span class="w3-xlarge  w3-bottombar">Sobre Nosotros</span>
         </div>
         <div class="m5 columns ">
           <div class="contact-items">
@@ -78,11 +66,8 @@
 
   <!-- Image of location/map -->
   <img src="{{ url_for('static', filename='Imagenes/posadanoche.jpg') }}" style="width:100%;">
-<!-- Footer -->
-<footer class="w3-container full-width w3-padding-32 w3-theme-d1">
   {% block flecha_index %}
   {% endblock %}
-  </footer>
   
   <script src="{{ url_for('static', filename='js/script.js')}}"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

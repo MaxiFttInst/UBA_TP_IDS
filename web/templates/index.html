@@ -16,11 +16,12 @@
 <div class="w3-top">
   <div class="w3-bar w3-theme-d2 w3-left-align">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button w3-teal"><i class="fa fa-home w3-margin-right"></i>Inicio</a>
+    <a href="#" class="w3-bar-item w3-button w3-sand"><i class="fa fa-home w3-margin-right"></i>Inicio</a>
     <a href="#habitaciones" class="w3-bar-item w3-button w3-hide-small w3-hover-white"> Cabañas</a>
     <a href="#reserva_ahora" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Reserva</a>
     <a href="#espacios_comunes" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Espacios Comunes</a>
     <a href="#actividades_extra" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Actividades Extra</a>
+    <a href="{{url_for('cancelar') }}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Cancelar Reserva</a>
     <a href="#contacto" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contacto</a>
     <div>
      <button class="w3-bar-item w3-button w3-hide-small w3-hover-white" id="moon_btn"><i id="modeFa" class="fa fa-sun-o"></i></button>
@@ -33,6 +34,7 @@
     <a href="#work" class="w3-bar-item w3-button">Espacios Comunes</a>
     <a href="#extra" class="w3-bar-item w3-button">Actividades Extras</a>
     <a href="#contact" class="w3-bar-item w3-button">Contacto</a>
+    <a href="{{url_for('cancelar') }}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Cancelar Reserva</a>
     <a href="#nos" class="w3-bar-item w3-button">Nosotros</a>
   </div>
 </div>
@@ -44,7 +46,7 @@
 
 
 <!-- Carrusel cabañas -->
-<section id="habitaciones" class="bc-light-gray">
+<section id="habitaciones" class="w3-theme-d2">
   <!--carrucel-->
 
   <h2 class="text-white fs-2">¡Echa un vistazo a nuestras Cabañas!</h2>
@@ -167,10 +169,11 @@
   </div>
 </section>
 
-<section id="espacios_comunes" class="bc-light-gray">
+<section id="espacios_comunes" class="w3-theme-d2">
   <div class="w3-row-padding w3-center w3-padding-64" id="pricing">
       <h2>Instalaciones Comunes</h2>
       <h4>Aqui podras disfrutar de nuestros espacios</h4>
+      <br><br><br>
       {% for espacio in dic_espacios %}
             <div class="w3-third w3-margin-bottom">
               <ul class="w3-ul w3-hover-shadow w3-theme header">
@@ -191,12 +194,12 @@
 <section id="actividades_extra" class="bc-white">
     <div class="w3-row-padding w3-center w3-padding-64" id="extra">
         <h2>Actividades Adicionales</h2>
-        <h5>Algunas de nuestras actividades</h5><br>
+        <h5>Algunas de nuestras actividades</h5><br><br>
         <div class="w3-row-padding">
             <div class="w3-half w3-margin-bottom">
             <img src="{{ url_for('static', filename='Imagenes/tour1.jpg') }}" alt="Norway" style="width:100%">
             <div class="w3-container w3-white">
-                <h3>Tour Cumbrecita</h3>
+                <h3 style = "margin-top: 1%;">Tour Cumbrecita</h3>
                   <span class="hide" id="hideText">
                     <p> <h5>Por persona US$54</h5> <br>
                       <h4>Recorrido</h4><h5>Salida:</h5> Partirás desde la ciudad de Córdoba por la Ruta Provincial E55, pasando por el Monumento a Myriam Stefford, Alta Gracia, Anisacate, La Bolsa y Villa Ciudad de América. <br>
@@ -211,13 +214,13 @@
 
                       La empresa se reserva el derecho de alterar y / o modificar itinerarios y excursiones contratados ante cuestiones de diagramación y/o causas de fuerza mayor y / o caso fortuito que impidan el normal cumplimiento del mismo: corte de rutas x nevadas, huracanes, inundaciones, reprogramación de eventos y / o cualquier otro factor que pueda significar un riesgo o una falta de servicio para el pasajero.</p>
                 </span>
-                <button class="w3-button w3-block w3-black w3-margin-bottom" id="hideText_btn">Mas Información</button>
+                <button class="w3-button w3-block w3-black w3-margin-bottom w3-theme-d2" id="hideText_btn">Mas Información</button>
             </div>
         </div>
         <div class="w3-half w3-margin-bottom">
           <img src="{{ url_for('static', filename='Imagenes/tour2.jpg') }}" alt="Austria" style="width:100%">
           <div class="w3-container w3-white">
-              <h3>Wine Tour Privado a Colonia Caroya</h3>
+              <h3 style = "margin-top: 1%;">Wine Tour Privado a Colonia Caroya</h3>
                 <span class="hide" id="hideText2">
                   <p> <h5>Por persona US$114</h5> <br>
                   
@@ -229,7 +232,7 @@
                   La empresa se reserva el derecho de alterar y / o modificar itinerarios y excursiones contratados ante cuestiones de diagramación y/o causas de fuerza mayor y / o caso fortuito que impidan el normal cumplimiento del mismo: corte de rutas x nevadas, huracanes, inundaciones, reprogramación de eventos y / o cualquier otro factor que pueda significar un riesgo o una falta de servicio para el pasajero.La empresa se reserva el derecho de alterar y / o modificar itinerarios y excursiones contratados ante cuestiones de diagramación y/o causas de fuerza mayor y / o caso fortuito que impidan el normal cumplimiento del mismo: corte de rutas x nevadas, huracanes, inundaciones, reprogramación de eventos y / o cualquier otro factor que pueda significar un riesgo o una falta de servicio para el pasajero.
                   </p>
                 </span>
-                <button class="w3-button w3-block w3-black w3-margin-bottom" id="hideText_btn2">Mas Información</button>
+                <button class="w3-button w3-block w3-black w3-margin-bottom w3-theme-d2" id="hideText_btn2">Mas Información</button>
             </div>
         </div>
         </div>
@@ -239,12 +242,12 @@
 
 
 {% block footer_boton %}
-  <a href="{{url_for('cancelar') }}"><button class="btn-reserva-hover btn-reserva">¿Quieres cancelar una reserva?</button></a>
+  <a href="{{url_for('cancelar') }}"><button class="btn-reserva-hover btn-reserva" id="cancelar">¿Quieres cancelar una reserva?</button></a>
 {% endblock %}
 
 {% block flecha_index %}
 <div style="position:fixed;left:95%;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
-  <a class=" w3-theme-2" href="#myPage"><span class="w3-xlarge">
+  <a class=" w3-flecha"href="#myPage"><span class="w3-xlarge">
   <i class="fa fa-chevron-circle-up"></i></span></a>
 </div>
 {% endblock %}
