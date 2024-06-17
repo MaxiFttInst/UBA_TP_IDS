@@ -1,49 +1,50 @@
-const tagsHabitacion = document.getElementsByClassName("btn-habitacion")
-
-const CABAÑAS = {
-    "1": {
-       "nombre": "Cabaña 1",
-       "descripcion": "Descripcion de la cabaña 1"
-    },
-    "2": {
-       "nombre": "Cabaña 2",
-       "descripcion": "Descripcion de la cabaña 2"
-    },
-    "3": {
-       "nombre": "Cabaña 3",
-       "descripcion": "Descripcion de la cabaña 3"
-    },
-    "4": {
-       "nombre": "Cabaña 4",
-       "descripcion": "Descripcion de la cabaña 4"
-    },
-}
-// Esto habria que recibirlo desde el back (?)
-
-function cambiarActivo(anterior, nuevo){
-    const botonAnterior = anterior.children[0]
-    botonAnterior.classList.remove("active")
-
-    const botonNuevo = nuevo.children[0]
-    botonNuevo.classList.add("active")
-
-    return nuevo
-}
-
-window.onload = () => {
-    const descripcion = document.getElementById("descripcion-cabaña")
-    let tagActivo = tagsHabitacion[0]
-    let cabaña = CABAÑAS[tagActivo.dataset.cabaña]
+function obtenerHoy(){
+    var today = new Date();
+    var dia = today.getDate();
+    var mes = today.getMonth() + 1; //January is 0!
+    var año = today.getFullYear();
     
-    descripcion.innerHTML += cabaña["descripcion"]
-
-    for (let i = 0; i < tagsHabitacion.length; i++){
-        const tag = tagsHabitacion[i]
-        tag.addEventListener("click", () => {
-            tagActivo = cambiarActivo(tagActivo, tag)
-            cabaña = CABAÑAS[tagActivo.dataset.cabaña]
-            descripcion.innerHTML = cabaña["descripcion"]
-        })
+    if (dia < 10) {
+       dia = '0' + dia;
     }
+    
+    if (mes < 10) {
+       mes = '0' + mes;
+    } 
+        
+    return `${año}-${mes}-${dia}`
 }
 
+const inputsCalendario = document.getElementsByClassName("input_calendario")
+const hoy = obtenerHoy()
+for(let i = 0; i < inputsCalendario.length; i++){
+    inputsCalendario[i].setAttribute("min", hoy)
+}
+
+const botonCambiarCalendario = document.getElementById("cambiar-calendario")
+const contenidoBotonSiguiente = `Siguiente <i class="fa fa-arrow-right" aria-hidden="true"></i>`
+const contenidoBotonAnterior = `Volver <i class="fa fa-arrow-left" aria-hidden="true"></i></i>`
+const calendarios = document.getElementsByClassName("calendar")
+let calendarioActual = 0
+botonCambiarCalendario.addEventListener("click", () => {
+    for(let i = 0; i < calendarios.length; i++){
+        if(i == calendarioActual){
+            calendarios[i].classList.toggle("calendar_active")
+            if(i == 0){
+                botonCambiarCalendario.innerHTML = contenidoBotonSiguiente
+            } else if(i == calendarios.length - 2){
+                botonCambiarCalendario.innerHTML = contenidoBotonAnterior
+            }
+            
+            if(i == calendarios.length - 1){
+                botonCambiarCalendario.innerHTML = contenidoBotonSiguiente
+                calendarios[0].classList.toggle("calendar_active")
+                calendarioActual = 0
+            } else{
+                calendarios[i+1].classList.toggle("calendar_active")
+                calendarioActual++
+            }
+            break
+        }
+    }
+})

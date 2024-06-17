@@ -1,52 +1,58 @@
-
 .w3-theme-d1  {
     color: #fff !important;
-     background-color: #000000 !important;
+     background-color: rgb(180, 156, 156) !important;
 }
 .w3-theme-d2  {
     color: #fff !important;
-    background-color: #221303 !important;
+    background-color: #312625 !important;
 }
 .w3-theme-d3  {
     color: #fff !important;
-     background-color: #000000 !important;
+     background-color: rgb(75, 62, 62) !important;
 }
 .w3-theme-d4  {
     color: #fff !important;
-     background-color: #000000 !important;
+     background-color: rgb(75, 62, 62) !important;
 }
 .w3-theme-d5  {
-    color: #fff !important;
-     background-color: #000000 !important;
+    color: #312625 !important;
+     background-color: #fdf5e6 !important;
 }
 
 .w3-theme-light  {
-    color: #000 !important;
+    color: rgb(75, 62, 62) !important;
      background-color: #f0f0f0 !important;
 }
 .w3-theme-dark  {
     color: #fff !important;
-     background-color: #000000 !important;
+     background-color: rgb(75, 62, 62) !important;
 }
 .w3-theme-action  {
     color: #fff !important;
-     background-color: #000000 !important;
+     background-color: rgb(75, 62, 62) !important;
 }
 .w3-text-theme  {
-    color: #000000 !important;
+    color: rgb(48, 39, 39)!important;
 }
 .w3-border-theme  {
-    border-color: #000000 !important;
+    border-color: rgb(48, 39, 39) !important;
 }
 .w3-hover-theme:hover  {
     color: #fff !important;
-     background-color: #000000 !important;
+     background-color: rgb(75, 62, 62) !important;
 }
 .w3-hover-text-theme:hover  {
-    color: #000000 !important;
+    color: rgb(75, 62, 62) !important;
 }
 .w3-hover-border-theme:hover  {
-    border-color: #000000 !important;
+    border-color: #291f1f !important;
+}
+
+.width100{
+    width: 100%;
+}
+.width50{
+    width: 50%;
 }
 
 html {
@@ -57,10 +63,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 .mySlides {display: none}
 
 #habitaciones{
-    display: flex;
-    justify-content: space-around;
     padding: 48px 0;
-    background-color: rgb(51, 51, 51);
+}
+
+.max-width-80{
+    max-width: 80%;
 }
 
 .carusel-image {
@@ -73,13 +80,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     cursor: pointer;
 }
 
-#actividades_extra {
-    background-color: rgb(51, 51, 51);
-    color: #fff;
-}
-
 .w3-hover-shadow{
-    background-color: #666666;
+    background-color: #5a4848;
 }
 .info {
     max-height: 0;
@@ -95,22 +97,25 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 }
 
 .w3-theme {
-    background-color: #000;
-    color: white;
+    background-color: #FDF5E6;
+    color: rgb(46, 38, 38);
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+.w3-flecha{
+    color: rgb(10, 10, 10); 
+}
 
 .w3-theme:hover {
     background-color: #dcdcdc;
     transform: scale(1.02);
-    color: black;
+    color: rgb(105, 90, 90);
     scroll-behavior: smooth;
 }
 
 .w3-theme:hover p {
-    color: #000;
+    color: #413131;
 }
 
 
@@ -123,17 +128,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 }
 
 #contacto {
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(65, 49, 49);
     color: #fff;
 }
 
-#reserva_ahora{
-    background-color: rgb(224, 209, 180);
-
-}
-
 #espacios_comunes{
-    background-color: rgb(224, 209, 180);
+    color: #fff;
+    border-color: rgb(105, 85, 85);
+    background-color: rgb(43, 36, 36);
 }
 .titulo{
     text-align: center;
@@ -163,7 +165,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 }
 
 .boton {
-    background-color: #000;
+    background-color: #302424;
     color: white;
     border-radius: 40px;
     margin: 5px;
@@ -188,7 +190,33 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     transition: all .4s ease-in-out;
   }
   
-  .btn-reserva-hover:hover {
+.btn-reserva-hover:hover {
+background-position: 100% 0;
+-o-transition: all .4s ease-in-out;
+-webkit-transition: all .4s ease-in-out;
+transition: all .4s ease-in-out;
+}
+
+.btn-reserva-hover:focus {
+outline: none;
+}
+
+.btn-reserva-hover.btn-reserva {
+background-image: linear-gradient(
+    to right,
+    #3c292b,
+    #1d1518,
+    #533232,
+    #be9494
+);
+box-shadow: 0 4px 15px 0 rgba(46, 39, 40, 0.75);
+}
+
+.cabania-visible{
+    display: block !important;
+}
+
+.btn-reserva-hover:hover {
     background-position: 100% 0;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
@@ -202,10 +230,210 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   .btn-reserva-hover.btn-reserva {
     background-image: linear-gradient(
       to right,
-      #29323c,
-      #485563,
-      #2b5876,
-      #4e4376
+      #3c292b,
+      #1d1518,
+      #533232,
+      #be9494
     );
     box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
   }
+
+/* ALL */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Raleway", Arial, Helvetica, sans-serif;
+    max-width: 100vw;
+}
+
+.mySlides {display: none}
+/* Container holding the image and the text */
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin: 0;
+    padding: 0;
+  }
+.hero{
+    width: 100vw;
+    max-height: 700px;
+}
+/* Centered text */
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
+    1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
+  }
+.hero-text{
+    font-size: 6rem;
+    opacity: 75%;
+    color:#be9494;
+}
+.lead{
+    font-size: 2rem;
+
+}
+
+#habitaciones{
+    text-align: center;
+    padding: 48px 0;
+}
+
+.carusel-display {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.carousel-image {
+    width: 30rem;
+    height: auto;
+}
+.columns{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+.text-align-center{
+    margin-left: 10%;
+}
+.sticky{
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    top:2.5em;
+}
+.nosotros{
+    text-align: center;
+    align-items: center;
+}
+.map{
+    width: 90%;
+    margin:5%;
+    height: auto;
+    min-height: 20rem;
+}
+.text-center{
+    text-align: center;
+}
+.header-size{
+    max-height: 30rem;
+    overflow: hidden;
+}
+
+.text-nosotros{
+    font-size: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+    list-style-type:none;
+}
+.right{
+    display:flex;
+    margin-left: 0;
+    justify-content:space-between;
+}
+.bc-actividades{
+    border-radius: 10px;
+}
+.bc-dark-gray{
+    background-color: rgb(31, 31, 31)
+}
+.bc-light-gray{
+    background-color: rgb(31, 31, 31)
+}
+.bc-white{
+    background-color: white
+}
+/* DIFERENT SIZE */
+@media only screen and (max-width:767px) {
+    /* styles for browsers larger than 960px; */
+    .pc-only{
+        display: none;
+    }
+    .phone-only{
+        display: flex;
+        justify-content: space-around;
+    }
+    .carusel-cualidades{
+        max-width: 100vw;
+        padding: 1rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        font-size: 1.5rem;
+        list-style-type: none;
+        justify-content: center;
+    }
+    .item-list{
+        width: 25%;
+        min-width: 10rem;
+        margin:2%;
+    }
+    .reserve{
+        width: 70%;
+        border-radius: 2rem;
+        background-color: rgb(44, 40, 40);
+        color:wheat;
+        font-size: 3rem;
+    }
+    .contact-items{
+        width: 100%;
+    }
+    .contact-items{
+        width: 100%;
+        
+    }
+}
+@media only screen and (min-width: 768px)and (max-width:999px)  {
+    /* styles for browsers larger than 1440px; */
+    .pc-only{
+        display: none;
+    }
+    .phone-only{
+        display: flex;
+        justify-content: space-around;
+    }
+    .contact-items{
+        width: 100%;
+
+    }
+}
+@media only screen and (min-width: 1000px) {
+    .contact-items{
+        width: 40%;
+    }
+    /* for sumo sized (mac) screens */
+    .pc-only{
+        display: flex;
+        justify-content: space-around;
+    }
+    .phone-only{
+        display: none;
+    }
+    .carousel-image{
+        width: auto;
+        height: 350px;
+        max-width: 90%;
+        object-fit: cover;
+    }
+    .text-pc-carrucel{
+        align-items: center;
+        align-items: top;
+    }
+    .carousel-item.active{
+        display: flex !important;
+        justify-content: center;
+    }
+}
+
+.imagen-cabaña{
+    max-width: 80vw;
+}

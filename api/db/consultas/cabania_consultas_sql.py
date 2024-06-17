@@ -3,7 +3,6 @@ from db.consultas.conexion_base import get_db_connection
 import sqlite3
 from datetime import datetime
 import sys
-import os
 
 # Añadir el directorio del paquete a sys.path de manera dinámica
 from pathlib import Path
@@ -29,7 +28,7 @@ def obtener_cabanias():
         for cabania_id, nombre, descripcion, cap_max, precio_noche   in cabanias:
             res[cabania_id] = {
                 "nombre": nombre,
-                "cap_max": descripcion,
+                "cap_max": cap_max,
                 "imagenes": obtener_imagenes(cabania_id),
                 "descripcion": descripcion,
                 "precio_noche": precio_noche}
@@ -58,33 +57,49 @@ def consultar_disponibilidad(cabania_id, fecha_ent, fecha_sal):
         conn.close()
         return res[0] == 0
 
+def existe_id_cabania(cabania_id):
+    '''
+    Función auxiliar la cual devuelve True si el cabania_id existe,
+    caso contrario devuelve False.
+    '''
+    conn = get_db_connection()
+    cabanias = conn.execute("Select cabania_id from cabanias", ()).fetchall()
+    conn.close()
+
+    for cabania in cabanias:
+        if cabania_id == cabania[0]:
+            return True
+    return False
 
 def calendario_reservas(cabania_id):
     '''
     Función auxiliar para usar en el diseño del calendario. 
     Devuelve una lista de diccionarios con el rango de fechas de cada reserva para la cabaña elegida. 
-
+    En caso de no existir la cabaña devuelve FALSE.
+    
     Salida:
     [{'fecha_ent': '2023-03-01', 'fecha_sal': '2023-03-20'}, {'fecha_ent': '2023-06-01', 'fecha_sal': '2023-07-22'}, … ]
     '''
-    conn = get_db_connection()
     reservas = []
 
+    if not existe_id_cabania(cabania_id) or cabania_id is None:
+        return False
+    
+    conn = get_db_connection()
     if conn is not None:
         query = f"""
         SELECT fecha_ent, fecha_sal FROM Reservas
-        WHERE cabania_id = '?'
+        WHERE cabania_id = ?
         """
         res = conn.execute(query, (cabania_id,)).fetchall()
         conn.close()
         for row in res:
             reserva = {
-                "fecha_ent": row["fecha_ent"],
-                "fecha_sal": row["fecha_sal"]
+                "fecha_ent": row[0],
+                "fecha_sal": row[1]
             }
             reservas.append(reserva)
-
-    return reservas
+        return reservas
 
 
 def agregar_cabania(cabania_id, nombre, descripcion, cap_max, precio_noche):
@@ -109,10 +124,9 @@ def agregar_cabania(cabania_id, nombre, descripcion, cap_max, precio_noche):
 
     return changes > 0
 
-
 def eliminar_cabania(cabania_id):
     '''
-    Elimina la cabaña según el cabania_id ingresado (de la base de datos).
+    Elimina la cabaña según el cabania_id ingresado (de la base de datos). Las reservas e imagenes asociadas a la cabaña tambien seran eliminadas.
     Si la operación se realiza exitosamente devuelve True, sino devuelve False.
     '''
     changes = 0
@@ -128,7 +142,6 @@ def eliminar_cabania(cabania_id):
             conn.rollback()
         conn.close()
     return changes > 0
-
 
 def modificar_cabania(cabania_id, nuevo_nombre=None, nueva_descripcion=None, nueva_cap_max=None, nuevo_precio_noche=None):
     '''

@@ -15,14 +15,24 @@ def index():
         <h1>Index de API</h1>
         <p>Si necesitas un poco de ayuda, consulta la documentación</p>
     """
+
+
 # --CABANIAS--
-
-
 @app.route("/cabanias", methods=["GET"])
 def cabanias():
     res = cabania.obtener_cabanias()
     return jsonify(res), 200
 
+@app.route("/cabanias/calendario/<string:cabania_id>", methods=["GET"])
+def cabanias_get_fechas(cabania_id):
+    if id is None:
+        return jsonify({"mensaje": "no se pasó el id"}), 400
+    
+    res = cabania.calendario_reservas(cabania_id)
+    if not res:
+        return jsonify({"mensaje": "ID inexistente"}), 404
+    
+    return jsonify(res), 200
 
 @app.route("/cabanias", methods=["POST"])
 @admin
@@ -125,6 +135,26 @@ def cabanias_patch_del(id):
 
 # --RESERVAS--
 
+@app.route("/reservas", methods=["GET"])
+def consultar_reservas():
+    data = reserva.consultar_reservas_todas()
+    if data:
+        res = {}
+        for codigo_reserva, cabania_id, fecha_ingreso, fecha_egreso, cliente_id, nombre_cliente, telefono, email, precio_total in data:
+            res[cabania_id] = res.get(cabania_id, [])
+            res[cabania_id].append({
+                "codigo_reserva":codigo_reserva,
+                "nombre_cliente":nombre_cliente,
+                "cliente_id":cliente_id,
+                "email":email,
+                "telefono":telefono,
+                "fecha_ingreso":fecha_ingreso,
+                "fecha_egreso":fecha_egreso,
+                "precio_total":precio_total
+            })
+
+        return jsonify(res), 200
+    return jsonify({"msj":"No se encontraron reservas."}), 200
 
 @app.route("/reserva", methods=["GET"])
 def consultar_reserva():
@@ -143,12 +173,13 @@ def consultar_reserva():
         res = reserva.consultar_reservas(cliente_id, nombre)
         if res:
             data = []
-            for codigo_reserva, nombre_cabania, fecha_ingreso, fecha_egreso in res:
+            for codigo_reserva, nombre_cabania, fecha_ingreso, fecha_egreso, mail_cliente in res:
                 data.append({
                     "codigo_reserva": codigo_reserva,
                     "nombre_cabania": nombre_cabania,
                     "fecha_ingreso": fecha_ingreso,
-                    "fecha_egreso": fecha_egreso
+                    "fecha_egreso": fecha_egreso,
+                    "mail": mail_cliente
                 })
             return jsonify(data)
 
@@ -182,28 +213,33 @@ def crear_reserva():
         # revisar funcion consultar_disponibilidad()
         codigo_reserva = reserva.realizar_reserva(
             id, ingreso, egreso, cliente_id, nombre, telefono, email)
+        
         print('CODIGO RESERVA:', codigo_reserva)
         if codigo_reserva:
             return jsonify({"codigo_reserva": codigo_reserva}), 201
 
-        return jsonify({"mensaje": "Se a producido un error al intentar crear la reserva."}), 400
+        return jsonify({"msj": "Se ha producido un error al intentar crear la reserva."}), 400
     except KeyError:
         return jsonify({"msj": "Los campos ingresados son incorrectos."}), 400
 
 @app.route("/reserva/<int:id>", methods=["DELETE"])
-@admin
 def eliminar_reserva(id):
     """
     Recibe:
-        {
-            "secreto" : passw
+        {   
+            "email" : example@mail.com
         }
+    Si "email" es proporcionado, la reserva del cliente con el codigo de reserva 'id', sera eliminada.
     """
-
-    if reserva.eliminar_reserva(id):
-        return jsonify({"mensaje": f"La reserva con codigo #{id} se a eliminado exitosamente."}), 202
-
-    return jsonify({"mensaje": f"La reserva con codigo #{id} no existe."}), 404
+    try:
+        res = request.get_json()
+        email = res["email"]
+        if reserva.eliminar_reserva(id, email):
+            return jsonify({"msj": f"La reserva #{id} se a eliminado exitosamente."}), 202    
+        return jsonify({"msj": f"La reserva #{id} con email '{email}' no existe."}), 404    
+    
+    except KeyError:     
+        return jsonify({"msj" : "Los campos ingresados son incorrectos."}), 400
    
 @app.route("/reserva/<int:id>", methods=["PATCH"])
 @admin
@@ -214,33 +250,26 @@ def actualizar_reserva(id):
         "secreto" : passw
     }
     y al menos uno de los siguientes: 
-    -"cabania_id" : id
-    -"fecha_ingreso" : "aaaa-mm-dd"
-    -"fecha_egreso" : "aaaa-mm-dd"
-    -"nombre_cliente" : "nombre_cliente"
-    -"cliente_id": cliente_id
-    -"telefono": telefono
-    -"email" : "example@example.com"
+    -"fecha_ent" : "aaaa-mm-dd"
+    -"fecha_sal" : "aaaa-mm-dd"
+    -"nombre_completo_cliente" : "nombre_cliente"
+    -"id_cliente": cliente_id
+    -"telefono_cliente": telefono
+    -"mail_cliente" : "example@example.com"
 
     ej:
     {
-        "cliente_id" : cliente_id-modificado,
-        "telefono" : telefono-actualizado
+        "id_cliente" : cliente_id-modificado,
+        "telefono_cliente" : telefono-actualizado
     }
     """
-    res = request.get_json(silent=True)
-    cabania_id = res.get("cabania_id", None)
-    fecha_ingreso = res.get("fecha_ingreso", None)
-    fecha_egreso = res.get("fecha_egreso", None)
-    nombre_cliente = res.get("nombre_cliente", None)
-    cliente_id = res.get("cliente_id", None)
-    telefono = res.get("telefono", None)
-    email = res.get("email", None)
+    res = request.get_json()
+    res.pop('secreto')
 
-    if reserva.actualizar_reserva(id, cabania_id, fecha_ingreso, fecha_egreso, nombre_cliente, cliente_id, telefono, email):
+    if reserva.actualizar_reserva(id, res):
         return jsonify({"msj": "Su reserva se modifico exitosamente."}), 200
 
-    return jsonify({"Hubo un problema al intentar modificar la reserva", 400})
+    return jsonify({"msj":"Hubo un problema al intentar modificar la reserva"}), 400
 
 # --IMAGENES--
 
@@ -250,6 +279,7 @@ def obtener_imagenes():
     """
     Recibe:
     {   
+        "secreto" : passw,
         "cabania_id" : id *opcional*
     }
     """
@@ -311,7 +341,7 @@ def eliminar_imagen():
     if fue_eliminada:
         return jsonify({"msj": "La imagen se elimino exitosamente."}), 202
 
-    return jsonify({"No se a podido eliminar la imagen."}), 400
+    return jsonify({"msj":"No se a podido eliminar la imagen."}), 400
 
 
 if __name__ == "__main__":

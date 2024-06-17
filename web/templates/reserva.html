@@ -1,34 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+{% extends "base_form.html" %}
+
+{% block estilos %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/reservas.css')}}">
-</head>
-<body class="w3-content">
 
-<!-- Sidebar/menu -->
-<header> <h1 class="page-title">Reserva tu cabaña</h1></header>
+{% endblock %}
 
+{% block formulario %}
 
-<div class="container right-panel-active">
+<div class="Titulo">
+  <h1>Reserva tu Cabaña</h1>
+</div>
+
+<div class="container right-panel-active" style="padding-top: 3%; padding-bottom: 3%;margin-top: 0%; justify-content: space-evenly;">
+
+  <br>
 	<!-- Sign Up -->
 	<div class="container__form container--signup">
-		<form action="{{ url_for('forms_reserva') }}" target="_blank" method="post" class="form" id="form1">
+		<form action="{{ url_for('forms_reserva') }}" method="post" class="form" id="form1">
 			
       <div class="input-group">
         <label><i class="fa fa-calendar-check-o"></i> Fecha ingreso</label>
-        <input type="date" placeholder="DD / MM / AAAA" class="input" name="fcheckin" required/>
+        <input type="date" placeholder="DD / MM / AAAA" class="input input_calendario" name="fcheckin" required/>
     </div>
 
     <div class="input-group">
       <label><i class="fa fa-calendar-check-o"></i> Fecha salida</label>
-      <input type="date" placeholder="DD / MM / AAAA" class="input" name="fcheckout" required/>
+      <input type="date" placeholder="DD / MM / AAAA" class="input input_calendario" name="fcheckout" required/>
   </div>
 
   <div class="input-group">
@@ -42,7 +39,7 @@
   </div>
   
   <div class="input-group">
-    <label><i class="fa fa-id-card"></i> DNI</label>
+    <label><i class="fa fa-id-card"></i> DNI o Pasaporte</label>
     <input type="text" placeholder="12345678" class="input" name="fdni" required/>
   </div>
 		
@@ -51,15 +48,19 @@
     <input type="text" placeholder="11-1234-5678" class="input" name="fnumber" required/>
   </div>
 
+  <input type="hidden" name="cabania_id" value="{{ cabania_id }}" />
+
 			<button type="submit"class="btn">Reservar</button>
 		</form>
+
 	</div>
 
   <div class="calendario-wrapper">
     <header>
-      <h2>Junio</h2>
+      <h2>{{nombres_meses[mes]}}</h2>
+      <h2>{{año}}</h2>
     </header>
-    <div class="calendar">
+    <div class="calendar calendar_active">
       <div class="calendar__header">
           <div class="header-day">Lu</div>
           <div class="header-day">Ma</div>
@@ -69,59 +70,29 @@
           <div class="header-day">Sá</div>
           <div class="header-day">Do</div>
       </div>
+      {% for semana in calendario_data %}
       <div class="calendar__week">
-          <div class="calendar__day busy_day"> <b class="day">1</b></div>
-          <div class="calendar__day busy_day"> <b class="day">2</b></div>
-          <div class="calendar__day busy_day"> <b class="day">3</b></div>
-          <div class="calendar__day busy_day"> <b class="day">4</b></div>
-          <div class="calendar__day  busy_day"> <b class="day">5</b></div>
-          <div class="calendar__day"> <b class="day">6</b></div>
-          <div class="calendar__day"><b class="day">7</b></div>
+        {% for dia in semana.keys() %}
+          {% if semana[dia]["ocupado"] %}
+            <div class="calendar__day busy_day">
+          {% else %}
+            <div class="calendar__day">
+          {% endif %}
+              <b class="day">{{semana[dia]["dia"]}}</b>
+            </div>
+        {% endfor %}
       </div>
-      <div class="calendar__week">
-          <div class="calendar__day"> <b class="day">8</b></div>
-          <div class="calendar__day"> <b class="day">9</b></div>
-          <div class="calendar__day"><b class="day">10</b></div>
-          <div class="calendar__day"> <b class="day">11</b></div>
-          <div class="calendar__day"> <b class="day">12</b></div>
-          <div class="calendar__day"> <b class="day">13</b></div>
-          <div class="calendar__day"> <b class="day">14</b></div>
-      </div>
-      <div class="calendar__week">
-          <div class="calendar__day"> <b class="day">15</b></div>
-          <div class="calendar__day"> <b class="day">16</b></div>
-          <div class="calendar__day"> <b class="day">17</b></div>
-          <div class="calendar__day"> <b class="day">18</b></div>
-          <div class="calendar__day"> <b class="day">19</b></div>
-          <div class="calendar__day"> <b class="day">20</b></div>
-          <div class="calendar__day"> <b class="day">21</b></div>
-      </div>
-      <div class="calendar__week">
-          <div class="calendar__day busy_day"> <b class="day">22</b></div>
-          <div class="calendar__day busy_day"><b class="day">23</b></div>
-          <div class="calendar__day busy_day"><b class="day">24</b></div>
-          <div class="calendar__day busy_day"> <b class="day">25</b></div>
-          <div class="calendar__day busy_day"> <b class="day">26</b></div>
-          <div class="calendar__day busy_day"> <b class="day">27</b></div>
-          <div class="calendar__day"> <b class="day">28</b></div>
-      </div>
-      <div class="calendar__week">
-          <div class="calendar__day"><b class="day">29</b></div>
-          <div class="calendar__day"><b class="day">30</b></div>
-          <div class="calendar__day"><b class="day">31</b></div>
-          <div class="calendar__day"><b class="day">1</b></div>
-          <div class="calendar__day"><b class="day">2</b></div>
-          <div class="calendar__day"><b class="day">3</b></div>
-          <div class="calendar__day"><b class="day">4</b></div>
-      </div>
+      {% endfor %}
   </div>
+  <a href="{{ url_for('reserva', cabania_id=cabania_id, mes=mes_anterior, año=año) }}"><i class="fa fa-arrow-left"></i>anterior</a> 
+  <a href="{{ url_for('reserva', cabania_id=cabania_id, mes=mes_siguiente, año=año) }}">siguiente<i class="fa fa-arrow-right"></i></a> 
+  <br>
+  <br>
+  <br>
+  <br>
+  <a href="{{ url_for('index') }}"><button class="btn" color="">Volver</button> </a> 
+    </div>
   </div>
-
-  <div class="w3-hide-large" style="margin-top:80px"></div>
-
-<script src="{{ url_for('static', filename='js/hab.js')}}"></script>
-
-</body>
-</html>
-<p></p>
-
+</div>
+</div>
+{% endblock %}
