@@ -124,10 +124,9 @@ def agregar_cabania(cabania_id, nombre, descripcion, cap_max, precio_noche):
 
     return changes > 0
 
-
 def eliminar_cabania(cabania_id):
     '''
-    Elimina la cabaña según el cabania_id ingresado (de la base de datos).
+    Elimina la cabaña según el cabania_id ingresado (de la base de datos). Las reservas e imagenes asociadas a la cabaña tambien seran eliminadas.
     Si la operación se realiza exitosamente devuelve True, sino devuelve False.
     '''
     changes = 0
@@ -143,21 +142,6 @@ def eliminar_cabania(cabania_id):
             conn.rollback()
         conn.close()
     return changes > 0
-
-def eliminar_cabania_y_datos(cabania_id):
-    '''
-    Elimina la cabaña según el cabania_id ingresado (de la base de datos).
-    Si la operación se realiza exitosamente devuelve True, sino devuelve False.
-    '''
-    from db.consultas.imagenes_consultas import eliminar_imagen
-    from db.consultas.reserva_consultas_sql import eliminar_reserva
-
-    changes = 0
-    changes += int(eliminar_cabania(cabania_id))
-    changes += int(eliminar_imagen(cabania_id = cabania_id))
-    changes += int(eliminar_reserva(cabania_id = cabania_id))
-    return changes > 0
-
 
 def modificar_cabania(cabania_id, nuevo_nombre=None, nueva_descripcion=None, nueva_cap_max=None, nuevo_precio_noche=None):
     '''
