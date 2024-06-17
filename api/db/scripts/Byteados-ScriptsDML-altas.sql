@@ -10,12 +10,12 @@ insert into Cabanias values
 
 -- Tabla Imagenes
 insert into Imagenes (descripcion, cabania_id, imagen_link) values
-('portada', 'CAB-ADE', 'https://lh3.googleusercontent.com/d/1srx8YtvXiG_AwGJNnlAEXQN0_S6Kpxcw'),
-('portada', 'CAB-ALM', 'https://lh3.googleusercontent.com/d/1UmjKNyaQSIwyVEr24Te0ViV0-HFLIZUF'),
-('portada', 'CAB-EMI', 'https://lh3.googleusercontent.com/d/1bLiHFID5_rNtpLTKeKeZrEHUS3thSJhw'),
-('portada', 'CAB-PRE', 'https://lh3.googleusercontent.com/d/1o3KX6yFJPT6HIexN1GALE6PECqLwMOCD'),
-('portada', 'CAB-CLE', 'https://lh3.googleusercontent.com/d/1piA3rZ-O_EqfLpE3djiBqDA4hd6HFwU3'),
-('portada', 'CAB-VIC', 'https://lh3.googleusercontent.com/d/10wGokRYw4eFoHNF1H-XC-yEbhWwCSLgZ'),
+('portada', 'CAB-ADE', 'https://lh3.googleusercontent.com/d/1QloOnCy5hglDf1YIJWAFay5pFm23EzZ2'),
+('portada', 'CAB-ALM', 'https://lh3.googleusercontent.com/d/1x0PaThjSKvDgsYr6IKIZ-s7SNtpfeGfF'),
+('portada', 'CAB-EMI', 'https://lh3.googleusercontent.com/d/1pWVZQSRyFXoLAUFn0Zeu9lpaBJmt2siO'),
+('portada', 'CAB-PRE', 'https://lh3.googleusercontent.com/d/1sXSJ_Nlrm64T2BbO8_8rISRkVuZLN5kY'),
+('portada', 'CAB-CLE', 'https://lh3.googleusercontent.com/d/10uNQ4KsZbBDQzzAWQ9p9RjIm2gSJo1Dn'),
+('portada', 'CAB-VIC', 'https://lh3.googleusercontent.com/d/10wGokRYw4eFoHNF1H-XC-yEbhWwCSLgZ');
 
 insert into Imagenes (descripcion, imagen_link) values
 ('cocina1', 'https://lh3.googleusercontent.com/d/1s9gHPAZ3vfpSmhOPU1F5gZqIQ4b6z0fQ'),
@@ -28,7 +28,7 @@ insert into Imagenes (descripcion, imagen_link) values
 ('posadanoche', 'https://lh3.googleusercontent.com/d/1YmZ5-XZtNZY7WVu4yzkm1ymom1dEp4_m'),
 ('spa', 'https://lh3.googleusercontent.com/d/1_IIpxQbsbPoduTXc70w5h88oPo9XXh-r'),
 ('tour1', 'https://lh3.googleusercontent.com/d/1--gMgb7clkDxSB4aPFuT8912SwMGfDSq'),
-('tour2', 'https://lh3.googleusercontent.com/d/1NR_c0T6FVfTa42qIgoNTErc5Dz0oWZgv'),
+('tour2', 'https://lh3.googleusercontent.com/d/1NR_c0T6FVfTa42qIgoNTErc5Dz0oWZgv');
 
 -- Inserts de base para tabla RESERVAS
 -- reserva_codigo, cabania_id, fecha_ent, fecha_sal, id_cliente, telefono_cliente, mail_cliente, precio_total

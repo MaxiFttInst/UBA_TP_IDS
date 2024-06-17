@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Posada Byteados</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Imagenes/icono.png')}}"> 
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}       
+{% if 'EXITO' in message %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exito.css')}}">
+{%elif 'ERROR' in message%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/no_exitoso.css')}}">
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="circle">
+        {% block marca %}{% endblock %}
+      </div>
+      {% block contenido %}{% endblock %}
+      <br>
+      <br>
+      <a href="{{ url_for('index') }}"><button class="btn">Volver al inicio</button></a> 
+    </div>
+  </div>
+</body>
+</html>

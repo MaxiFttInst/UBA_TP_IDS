@@ -124,7 +124,7 @@ def cabanias_patch_del(id):
         exito = False
         try:
             if id is not None:
-                exito = cabania.eliminar_cabania_y_datos(id)
+                exito = cabania.eliminar_cabania(id)
         except Exception as e:
             return jsonify({"mensaje": f"FRACASO {e}"}), 400
 
@@ -279,6 +279,7 @@ def obtener_imagenes():
     """
     Recibe:
     {   
+        "secreto" : passw,
         "cabania_id" : id *opcional*
     }
     """

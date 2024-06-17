@@ -23,7 +23,7 @@ create table Reservas(
     mail_cliente varchar(100) not null,
     precio_total float not null,
     primary key (reserva_codigo),
-    constraint fk_cabania_id FOREIGN KEY (cabania_id) REFERENCES Cabanias(cabania_id)
+    constraint fk_cabania_id FOREIGN KEY (cabania_id) REFERENCES Cabanias(cabania_id) ON DELETE CASCADE
 );
 
 create table Imagenes(
@@ -31,7 +31,7 @@ create table Imagenes(
     cabania_id varchar(7),
     descripcion varchar(100),
     constraint pk_Imagenes primary key (imagen_link),
-    constraint fk_cabania_id foreign key (cabania_id) references Cabanias(cabania_id)
+    constraint fk_cabania_id foreign key (cabania_id) references Cabanias(cabania_id) ON DELETE CASCADE
 );
 
 
