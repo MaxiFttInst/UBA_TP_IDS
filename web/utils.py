@@ -1,32 +1,11 @@
 import calendar
 import requests
-import os
+import datetime
+from settings import API_URL
+# API_URL = os.environ.get("API_URL", "https://posadabyteados.pythonanywhere.com")
 
-API_URL = os.environ.get("API_URL", "https://posadabyteados.pythonanywhere.com")
-NOMBRES_MESES = {
-    "1": "Enero",
-    "2": "Febrero",
-    "3": "Marzo",
-    "4": "Abril",
-    "5": "Mayo",
-    "6": "Junio",
-    "7": "Julio",
-    "8": "Agosto",
-    "9": "Septiembre",
-    "10": "Octubre",
-    "11": "Noviembre",
-    "12": "Diciembre"
-}
 
-def obtener_reservas(cabania_id):
-    res = requests.get(f"{API_URL}/cabanias/calendario/{cabania_id}")
-
-    if res.status_code != 200 and res.status_code != 201:
-        return {}
-
-    return res.json()
-
-def obtener_calendario(cabania_id:str, mes:int, año:int):
+def obtener_calendario(cabania_id, mes=None, año=None):
     """
     Retorna una lista con multiples diccionarios. Cada diccionario de la lista
     corresponde a una semana del mes y año enviados por parametro. Cada dia de la semana
@@ -46,6 +25,19 @@ def obtener_calendario(cabania_id:str, mes:int, año:int):
         }
     ]
     """
+    tiempo = datetime.date.today()
+    if año is None:
+        año = tiempo.year
+
+    if mes is None:
+        mes = tiempo.month
+    elif mes > 12:
+        mes = 1
+        año += 1
+    elif mes < 1:
+        mes = 12
+        año -= 1
+
     calendario = calendar.Calendar()
     iterador = calendario.itermonthdates(año, mes)
     fechas = [{}]
@@ -77,24 +69,13 @@ def obtener_calendario(cabania_id:str, mes:int, año:int):
                     "dia": dia,
                     "ocupado": True
                 }
+    return mes, año, fechas
 
-    return fechas
 
-def obtener_proximos_calendarios(cabania_id:str, mes:int, año:int, n:int):
-    """
-    Llama a obtener_calendario() una cantidad n de veces y devuelve una lista con
-    con tuplas que contienen un calendario y el nombre de mes corresponiendte
-    """
-    calendarios = []
+def obtener_reservas(cabania_id):
+    res = requests.get(f"{API_URL}/cabanias/calendario/{cabania_id}")
 
-    for i in range(n):
-        calendario_data = obtener_calendario(cabania_id, mes, año)
-        nombre_mes = NOMBRES_MESES[str(mes)]
-        calendarios.append((calendario_data, nombre_mes))
-        if mes == 12:
-            mes = 1
-            año += 1
-        else:
-            mes += 1
+    if res.status_code != 200 and res.status_code != 201:
+        return {}
 
-    return calendarios
+    return res.json()

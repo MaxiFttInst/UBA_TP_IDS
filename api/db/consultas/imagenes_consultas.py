@@ -24,16 +24,31 @@ def agregar_imagen(link, descripcion, id_cabania="NULL"):
     return cambios > 0
 
 
-def eliminar_imagen(link):
+def eliminar_imagen(link = None, cabania_id = None):
     '''
     Elimina la url de imágen ingresada de la base de datos. Devuelve True si la operación es exitosa.
+    Si se ingresa un Cabania_Id elimina por el id de cabaña todo el grupo de links asociado a la misma.
+
+    Pre-Condición: No se puede eliminar por el link y cabania_id al mismo tiempo
     '''
+    if cabania_id is None and link is None:
+        return False
+    
     cambios = 0
+    parametros = []
     conn = get_db_connection()
-    if conn is not None:
-        query = """Delete from Imagenes
-                Where imagen_link = ?"""
-        conn.execute(query, (link,))
+    if conn is not None:    
+        if cabania_id is not None:
+            query = """Delete from Imagenes
+                       where cabania_id = ?"""
+            parametros.append(cabania_id)
+
+        if link is not None :
+            query = """Delete from Imagenes
+                       where imagen_link = ?"""
+            parametros.append(link)
+            
+        conn.execute(query, tuple(parametros))
         conn.commit()
         cambios = conn.total_changes
         conn.close()

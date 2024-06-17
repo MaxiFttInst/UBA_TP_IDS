@@ -255,3 +255,8 @@ body {
   .page-title{
     font-weight: bolder;
   }
+
+a {
+  color: black;
+  text-decoration: none;
+}
