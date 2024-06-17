@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import db.consultas.cabania_consultas_sql as cabania
 import db.consultas.imagenes_consultas as imagen
 import db.consultas.reserva_consultas_sql as reserva
-
+import datetime
 from errors import CampoInvalido
 from utils import admin
 
@@ -23,16 +23,18 @@ def cabanias():
     res = cabania.obtener_cabanias()
     return jsonify(res), 200
 
+
 @app.route("/cabanias/calendario/<string:cabania_id>", methods=["GET"])
 def cabanias_get_fechas(cabania_id):
     if id is None:
         return jsonify({"mensaje": "no se pasó el id"}), 400
-    
+
     res = cabania.calendario_reservas(cabania_id)
     if not res:
         return jsonify({"mensaje": "ID inexistente"}), 404
-    
+
     return jsonify(res), 200
+
 
 @app.route("/cabanias", methods=["POST"])
 @admin
@@ -135,6 +137,7 @@ def cabanias_patch_del(id):
 
 # --RESERVAS--
 
+
 @app.route("/reservas", methods=["GET"])
 def consultar_reservas():
     data = reserva.consultar_reservas_todas()
@@ -143,18 +146,19 @@ def consultar_reservas():
         for codigo_reserva, cabania_id, fecha_ingreso, fecha_egreso, cliente_id, nombre_cliente, telefono, email, precio_total in data:
             res[cabania_id] = res.get(cabania_id, [])
             res[cabania_id].append({
-                "codigo_reserva":codigo_reserva,
-                "nombre_cliente":nombre_cliente,
-                "cliente_id":cliente_id,
-                "email":email,
-                "telefono":telefono,
-                "fecha_ingreso":fecha_ingreso,
-                "fecha_egreso":fecha_egreso,
-                "precio_total":precio_total
+                "codigo_reserva": codigo_reserva,
+                "nombre_cliente": nombre_cliente,
+                "cliente_id": cliente_id,
+                "email": email,
+                "telefono": telefono,
+                "fecha_ingreso": fecha_ingreso,
+                "fecha_egreso": fecha_egreso,
+                "precio_total": precio_total
             })
 
         return jsonify(res), 200
-    return jsonify({"msj":"No se encontraron reservas."}), 200
+    return jsonify({"msj": "No se encontraron reservas."}), 200
+
 
 @app.route("/reserva", methods=["GET"])
 def consultar_reserva():
@@ -187,6 +191,7 @@ def consultar_reserva():
     except KeyError:
         return jsonify({"msj": "Los campos ingresados son incorrectos."}), 400
 
+
 @app.route("/crear_reserva", methods=["POST"])
 def crear_reserva():
     """
@@ -210,10 +215,12 @@ def crear_reserva():
         cliente_id = res['cliente_id']
         telefono = res['telefono']
         email = res['email']
+        if datetime.datetime.fromisoformat(res['fecha_ingreso']) > datetime.datetime.fromisoformat(res['fecha_egreso']):
+            return jsonify({"msj": "Se ha producido un error al intentar crear la reserva."}), 400
         # revisar funcion consultar_disponibilidad()
         codigo_reserva = reserva.realizar_reserva(
             id, ingreso, egreso, cliente_id, nombre, telefono, email)
-        
+
         print('CODIGO RESERVA:', codigo_reserva)
         if codigo_reserva:
             return jsonify({"codigo_reserva": codigo_reserva}), 201
@@ -221,6 +228,7 @@ def crear_reserva():
         return jsonify({"msj": "Se ha producido un error al intentar crear la reserva."}), 400
     except KeyError:
         return jsonify({"msj": "Los campos ingresados son incorrectos."}), 400
+
 
 @app.route("/reserva/<int:id>", methods=["DELETE"])
 def eliminar_reserva(id):
@@ -235,12 +243,13 @@ def eliminar_reserva(id):
         res = request.get_json()
         email = res["email"]
         if reserva.eliminar_reserva(id, email):
-            return jsonify({"msj": f"La reserva #{id} se a eliminado exitosamente."}), 202    
-        return jsonify({"msj": f"La reserva #{id} con email '{email}' no existe."}), 404    
-    
-    except KeyError:     
-        return jsonify({"msj" : "Los campos ingresados son incorrectos."}), 400
-   
+            return jsonify({"msj": f"La reserva #{id} se a eliminado exitosamente."}), 202
+        return jsonify({"msj": f"La reserva #{id} con email '{email}' no existe."}), 404
+
+    except KeyError:
+        return jsonify({"msj": "Los campos ingresados son incorrectos."}), 400
+
+
 @app.route("/reserva/<int:id>", methods=["PATCH"])
 @admin
 def actualizar_reserva(id):
@@ -269,7 +278,7 @@ def actualizar_reserva(id):
     if reserva.actualizar_reserva(id, res):
         return jsonify({"msj": "Su reserva se modifico exitosamente."}), 200
 
-    return jsonify({"msj":"Hubo un problema al intentar modificar la reserva"}), 400
+    return jsonify({"msj": "Hubo un problema al intentar modificar la reserva"}), 400
 
 # --IMAGENES--
 
@@ -341,7 +350,7 @@ def eliminar_imagen():
     if fue_eliminada:
         return jsonify({"msj": "La imagen se elimino exitosamente."}), 202
 
-    return jsonify({"msj":"No se a podido eliminar la imagen."}), 400
+    return jsonify({"msj": "No se a podido eliminar la imagen."}), 400
 
 
 if __name__ == "__main__":
