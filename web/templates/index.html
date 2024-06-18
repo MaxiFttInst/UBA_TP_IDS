@@ -77,14 +77,11 @@
         <div class="carousel-inner width100">
           {% for image in lista_carrucel %}
             <div 
-              {% if image == lista_carrucel[0] %}
-                class="carousel-item active carousel-image"
-              {% else %}
-                class="carousel-item"
-              {% endif %}>
-                <img class="d-block width100 carousel-image" src="{{image}}" style="width:100%; height:auto;" alt="First slide">
+              class="carousel-item {% if image == lista_carrucel[0] %}active{% endif %}">
+              <img class="d-block w-100 carousel-image" src="{{ image }}" alt="Slide">
             </div>
           {% endfor %}
+
           
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -126,11 +123,11 @@
         <ul class="carusel-cualidades text-white">
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-bath"></i>
-            <p>Caja fuerte</p>
+            <p>Baño/s privado/s con ducha</p>
           </li>
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-cutlery" aria-hidden="true"></i>
-            <p>Caja fuerte</p>
+            <p>Kitchenette</p>
           </li>
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -138,7 +135,7 @@
           </li>
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-television" aria-hidden="true"></i>
-            <p>Caja fuerte</p>
+            <p>Smart TV</p>
           </li>
         </ul>
       </div>
