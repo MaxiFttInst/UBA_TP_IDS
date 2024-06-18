@@ -1,8 +1,49 @@
-\documentclass[12pt, letter paper]{article}
+\documentclass[11pt, a4paper]{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage[colorlinks=true, allcolors=blue]{hyperref} %para linkear diferentes sitios
 \graphicspath{{images/}} %comando para traer las imagenes
+\usepackage{titlesec} %cambia el tamanio de fuente
+\usepackage{fontspec} %Permite usar el mainfont
+\usepackage{fancyhdr}
+\pagestyle{fancy}
 
+%tipo de fuente
+\setmainfont{Times New Roman}
+
+%tamanio de letras
+
+\newcommand{\secfnt}{\fontsize{16}{19}} 
+\newcommand{\ssecfnt}{\fontsize{14}{17}}
+
+\renewcommand{\baselinestretch}{1,5} %interlineado
+
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0pt}
+
+%pie de pagina
+\lfoot{Basile , Colombo, 
+
+de la Peña , Fittipaldi,
+
+Garcia , Mancini,
+
+Ordorica , Parrado,
+
+Piñeiro , Saenz
+}
+
+\rfoot{\thepage}
+\cfoot{}
+
+%encabezado de la pagina
+\fancyhead[C]{Byteados}
+\fancyhead[R]{}
+
+\titleformat{\section}
+{\normalfont\secfnt\bfseries}{\thesection}{1em}{}
+
+\titleformat{\subsection}
+{\normalfont\ssecfnt\bfseries}{\thesubsection}{1em}{}
 
 
 \title{Documentacion}
@@ -11,24 +52,21 @@
 
 \begin{document}
 \maketitle
-
 \tableofcontents
 
+\input{5_Referencias/Enlaces_externos}
 \input{0_Pre_Documentacion/Integrantes}
 \input{0_Pre_Documentacion/Keywords}
 \input{1_Introduccion/Introduccion}
 \input{2_Solucion/Pruebas}
 \input{2_Solucion/Solucion_propuesta}
+\input{2_Solucion/Endpoint}
 \input{3_Plan_de_actividades/Hitos}
-\input{4_Conclusion/Abstract}
 \input{4_Conclusion/Hipotesis}
-\input{5_Referencias/Bibliografia}
-\input{5_Referencias/Enlaces_externos}
+\input{4_Conclusion/Abstract}
 
 
 
-
-Los encargados a la elaboracion del proyecto "Posada Byteados" esta conformado por un grupo de alumnos de la fiuba 
 
 
 
