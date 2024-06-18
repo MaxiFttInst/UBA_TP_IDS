@@ -149,26 +149,27 @@
 
 <section id="reserva_ahora" class="bc-white">
   <div class="w3-row-padding w3-center w3-padding-64">
-      <h2>Nuestras Cabañas</h2>
-      <div class="botones-cabañas">
-          {% for cabania in cabanias.keys() %}
-            <button class="boton boton-cabania" data-cabania-id="{{cabania}}">
-              {{ cabanias[cabania]["nombre"] }}
-            </button>
-          {% endfor %}
-      </div>
+    <h2>Nuestras Cabañas</h2>
+    <div class="botones-cabañas">
       {% for cabania in cabanias.keys() %}
-        <div class="detalles-cabaña" id="{{ cabania }}">
-          <strong>{{ cabanias[cabania]["nombre"] }}</strong>
-          <br>
-          <p>{{ cabanias[cabania]["descripcion"] }}</p>
-          <img src="{{ url_for('static', filename='Imagenes/' + cabania + '.jpg') }}" class="imagen-cabaña" alt="Bestia Clérigo"> <br>
-          <a href="{{url_for('reserva', cabania_id=cabania) }}"><button class="btn-reserva-hover btn-reserva">Reserva ya</button></a>
-        </div>
+        <button class="boton boton-cabania" data-cabania-id="{{cabania}}">
+          {{ cabanias[cabania]["nombre"] }}
+        </button>
       {% endfor %}
+    </div>
+    {% for cabania in cabanias.keys() %}
+      <div class="detalles-cabaña" id="{{ cabania }}">
+        <strong>{{ cabanias[cabania]["nombre"] }}</strong>
+        <p>{{ cabanias[cabania]["descripcion"] }}</p>
+        <img src="{{ cabanias[cabania]["imagenes"]["portada"] }}" class="imagen-cabaña" alt="Imagen de la cabaña">
+        <br>
+        <a href="{{url_for('reserva', cabania_id=cabania) }}">
+          <button class="btn-reserva-hover btn-reserva">Reserva ya</button>
+        </a>
+      </div>
+    {% endfor %}
   </div>
 </section>
-
 <section id="espacios_comunes" class="w3-theme-d2">
   <div class="w3-row-padding w3-center w3-padding-64" id="pricing">
       <h2>Instalaciones Comunes</h2>
