@@ -21,6 +21,9 @@ def get_db_connection():
             f"Falló la conexión a la base de datos \nEl archivo de la base de datos no existe en la ruta: {db_path}")
         return None
     conn = sqlite3.connect(db_path)  # Conexion a base
+
+    #Activa los 'constraints'. Necesario para el funcionamiento del constraint 'ON DELETE CASCADE', desactivado por defecto. 
+    conn.execute("PRAGMA foreign_keys=ON")
     return conn
 
 

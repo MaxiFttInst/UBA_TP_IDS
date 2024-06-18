@@ -320,16 +320,10 @@ def crear_imagen():
     cabania_id = res.get("cabania_id", None)
     link = res["link"]
     descripcion = res["descripcion"]
-
-    fue_creada = False
-    if cabania_id == None:
-        fue_creada = imagen.agregar_imagen(link, descripcion)
-    else:
-        fue_creada = imagen.agregar_imagen(
-            link, descripcion, cabania_id)
-
-    if fue_creada:
+    
+    if imagen.agregar_imagen(link, descripcion, cabania_id):
         return jsonify({"msj": "La imagen fue agregada con exito."}), 201
+    
     return jsonify({"msj": "Ocurrio un error al intentar crear la imagen."}), 400
 
 

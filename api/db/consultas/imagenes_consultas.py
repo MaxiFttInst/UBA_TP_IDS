@@ -8,19 +8,25 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 
-def agregar_imagen(link, descripcion, id_cabania="NULL"):
+def agregar_imagen(link, descripcion, id_cabania):
     '''
     Agrega url de imagen a la base de datos, el parametro id_cabania es opcional. Devuelve True si la operación es exitosa.
     '''
     cambios = 0
     conn = get_db_connection()
+    query = ""
     if conn is not None:
-        query = """Insert into Imagenes values
-                (?, ?, ?)"""
-        conn.execute(query, (link, id_cabania, descripcion))
+        
+        if id_cabania == None:
+            query = """Insert into Imagenes values (?, NULL, ?)"""
+            conn.execute(query, (link, descripcion))
+        else:
+            query = """Insert into Imagenes values (?, ?, ?)"""
+            conn.execute(query, (link, id_cabania, descripcion))        
         conn.commit()
         cambios = conn.total_changes
         conn.close()
+
     return cambios > 0
 
 

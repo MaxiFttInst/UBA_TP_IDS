@@ -1,1 +1,2 @@
 pipenv install;
+pipenv shell;
