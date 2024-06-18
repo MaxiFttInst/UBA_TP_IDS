@@ -3,13 +3,15 @@ Sitio web de hostería.
 
 ## Integrantes
 
+#### Referente Docs
+- Lucas Mancini
+
 #### Referentes base de datos
 - Joaquín Basile
 - Lucas de la Peña
 
 #### Referentes Forms
 - Mateo Parrado
-- Lucas Mancini
 
 #### Referentes vistas
 - Melanie Belen Garcia Lapegna
@@ -24,12 +26,7 @@ Sitio web de hostería.
 
 ## Ejecutar
 
-### En host
-El único requisito es tener instalado pipenv.
-Podes usar **init.sh** o **pipenv install** en
-ambas apps.
-
-### En docker
+### En docker (recomendado)
 Ejecutar:
 ```
 sudo docker buildx build -t ids_img .
@@ -47,6 +44,18 @@ habría falta de comunicación entre contenedores y se necesitaría una configur
 Los archivos dentro de [web](web/) y [api](api/) se montan vía monturas bind, es decir, los
 contenedores leen la aplicación del host y la imagen no necesita ser reconstruida por cambio.
 
+### En host
+El único requisito es tener instalado pipenv.
+Podes usar **init.sh** o **pipenv install** en
+ambas apps.
+En caso de ser necesario instalar python 3.11.9,
+ejecutar los siguientes comandos (debian):
+
+```
+$ sudo add-apt-repository ppa:deadsnakes/ppa
+$ sudo apt update
+$ sudo apt install python3.11
+```
 
 ## Documentación y ayuda
 [Descripción proyecto](https://docs.google.com/document/d/1mb9RKfqSAJfvnvmGMwoJfzLQW7B9jlwTmD1y_JOt8-A/edit?usp=sharing)
