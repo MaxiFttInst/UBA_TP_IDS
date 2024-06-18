@@ -76,13 +76,8 @@
       <div id="carouselExampleIndicators" class="carousel slide carusel-display" data-ride="carousel">
         <div class="carousel-inner width100">
           {% for image in lista_carrucel %}
-            <div 
-              {% if image == lista_carrucel[0] %}
-                class="carousel-item active carousel-image"
-              {% else %}
-                class="carousel-item"
-              {% endif %}>
-                <img class="d-block width100 carousel-image" src="{{image}}" style="width:100%; height:auto;" alt="First slide">
+            <div class="carousel-item {% if image == lista_carrucel[0] %}active{% endif %}">
+              <img class="d-block w-100 carousel-image" src="{{ image }}" alt="Slide">
             </div>
           {% endfor %}
           
@@ -126,11 +121,11 @@
         <ul class="carusel-cualidades text-white">
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-bath"></i>
-            <p>Caja fuerte</p>
+            <p>Baño/s privado/s con ducha</p>
           </li>
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-cutlery" aria-hidden="true"></i>
-            <p>Caja fuerte</p>
+            <p>Kitchenette</p>
           </li>
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -138,7 +133,7 @@
           </li>
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-television" aria-hidden="true"></i>
-            <p>Caja fuerte</p>
+            <p>Smart TV</p>
           </li>
         </ul>
       </div>
@@ -149,23 +144,28 @@
 
 <section id="reserva_ahora" class="bc-white">
   <div class="w3-row-padding w3-center w3-padding-64">
-      <h2>Nuestras Cabañas</h2>
-      <div class="botones-cabañas">
-          {% for cabania in cabanias.keys() %}
-            <button class="boton boton-cabania" data-cabania-id="{{cabania}}">
-              {{ cabanias[cabania]["nombre"] }}
-            </button>
-          {% endfor %}
-      </div>
+    <h2>Nuestras Cabañas</h2>
+    <div class="botones-cabañas">
       {% for cabania in cabanias.keys() %}
-        <div class="detalles-cabaña" id="{{ cabania }}">
-          <strong>{{ cabanias[cabania]["nombre"] }}</strong>
-          <br>
-          <p>{{ cabanias[cabania]["descripcion"] }}</p>
-          <img src="{{ url_for('static', filename='Imagenes/' + cabania + '.jpg') }}" class="imagen-cabaña" alt="Bestia Clérigo"> <br>
-          <a href="{{url_for('reserva', cabania_id=cabania) }}"><button class="btn-reserva-hover btn-reserva">Reserva ya</button></a>
-        </div>
+        <button class="boton boton-cabania" data-cabania-id="{{cabania}}">
+          {{ cabanias[cabania]["nombre"] }}
+        </button>
       {% endfor %}
+    </div>
+    {% for cabania in cabanias.keys() %}
+      <div class="detalles-cabaña" id="{{ cabania }}">
+        <h3><b>{{ cabanias[cabania]["nombre"] }}</b></h3>
+        <p>{{ cabanias[cabania]["descripcion"] }}</p>
+        <p><i class="fa fa-dollar"></i> <b>{{ cabanias[cabania]["precio_noche"] }} USD</b> por noche</p>
+        <p><i class="fa fa-users"></i> Capacidad <b>{{ cabanias[cabania]["cap_max"] }}</b> personas</p>
+        <br>
+        <img src="{{ cabanias[cabania]["imagenes"]["portada"] }}" class="imagen-cabaña" alt="Imagen de la cabaña">
+        <br>
+        <a href="{{url_for('reserva', cabania_id=cabania) }}">
+          <button class="btn-reserva-hover btn-reserva">Reserva ya</button>
+        </a>
+      </div>
+    {% endfor %}
   </div>
 </section>
 
@@ -251,4 +251,3 @@
   <i class="fa fa-chevron-circle-up"></i></span></a>
 </div>
 {% endblock %}
-

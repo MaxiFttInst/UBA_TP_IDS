@@ -57,8 +57,7 @@
 
   <div class="calendario-wrapper">
     <header>
-      <h2>{{nombres_meses[mes]}}</h2>
-      <h2>{{año}}</h2>
+      <h2>{{nombres_meses[mes].capitalize()}}  {{año}}</h2>
     </header>
     <div class="calendar calendar_active">
       <div class="calendar__header">
@@ -84,8 +83,8 @@
       </div>
       {% endfor %}
   </div>
-  <a href="{{ url_for('reserva', cabania_id=cabania_id, mes=mes_anterior, año=año) }}"><i class="fa fa-arrow-left"></i>anterior</a> 
-  <a href="{{ url_for('reserva', cabania_id=cabania_id, mes=mes_siguiente, año=año) }}">siguiente<i class="fa fa-arrow-right"></i></a> 
+  <a href="{{ url_for('reserva', cabania_id=cabania_id, mes=mes_anterior, año=año) }}"><i class="fa fa-arrow-left"></i> anterior</a>
+  <a href="{{ url_for('reserva', cabania_id=cabania_id, mes=mes_siguiente, año=año) }}">siguiente <i class="fa fa-arrow-right"></i></a> 
   <br>
   <br>
   <br>
