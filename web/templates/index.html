@@ -77,11 +77,14 @@
         <div class="carousel-inner width100">
           {% for image in lista_carrucel %}
             <div 
-              class="carousel-item {% if image == lista_carrucel[0] %}active{% endif %}">
-              <img class="d-block w-100 carousel-image" src="{{ image }}" alt="Slide">
+              {% if image == lista_carrucel[0] %}
+                class="carousel-item active carousel-image"
+              {% else %}
+                class="carousel-item"
+              {% endif %}>
+                <img class="d-block width100 carousel-image" src="{{image}}" style="width:100%; height:auto;" alt="First slide">
             </div>
           {% endfor %}
-
           
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -123,11 +126,11 @@
         <ul class="carusel-cualidades text-white">
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-bath"></i>
-            <p>Baño/s privado/s con ducha</p>
+            <p>Caja fuerte</p>
           </li>
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-cutlery" aria-hidden="true"></i>
-            <p>Kitchenette</p>
+            <p>Caja fuerte</p>
           </li>
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -135,7 +138,7 @@
           </li>
           <li class="align-middle gap-2 item-list">
             <i class="fa fa-television" aria-hidden="true"></i>
-            <p>Smart TV</p>
+            <p>Caja fuerte</p>
           </li>
         </ul>
       </div>
@@ -156,8 +159,11 @@
     </div>
     {% for cabania in cabanias.keys() %}
       <div class="detalles-cabaña" id="{{ cabania }}">
-        <strong>{{ cabanias[cabania]["nombre"] }}</strong>
+        <h3><b>{{ cabanias[cabania]["nombre"] }}</b></h3>
         <p>{{ cabanias[cabania]["descripcion"] }}</p>
+        <p><i class="fa fa-dollar"></i> <b>{{ cabanias[cabania]["precio_noche"] }} USD</b> por noche</p>
+        <p><i class="fa fa-users"></i> Capacidad <b>{{ cabanias[cabania]["cap_max"] }}</b> personas</p>
+        <br>
         <img src="{{ cabanias[cabania]["imagenes"]["portada"] }}" class="imagen-cabaña" alt="Imagen de la cabaña">
         <br>
         <a href="{{url_for('reserva', cabania_id=cabania) }}">
@@ -167,6 +173,7 @@
     {% endfor %}
   </div>
 </section>
+
 <section id="espacios_comunes" class="w3-theme-d2">
   <div class="w3-row-padding w3-center w3-padding-64" id="pricing">
       <h2>Instalaciones Comunes</h2>
@@ -249,4 +256,3 @@
   <i class="fa fa-chevron-circle-up"></i></span></a>
 </div>
 {% endblock %}
-
