@@ -1,0 +1,147 @@
+\subsection{Endpoints}
+
+%cabanias
+
+\textbf{Endponint}:/cabanias
+
+metodo: GET
+
+recibe: no se reciben parámetros
+
+
+\textbf{Endpoint}: /cabanias/calendario/<string:cabania-id>
+
+metodo: GET
+
+recibe: no se reciben parámetros
+
+
+\textbf{Endpoint}: /cabanias
+
+metodo: POST 
+
+recibe:
+\{"secreto":...,"id":...,"nombre":..., \newline
+"descripcion":...,"cap-max":...,"precio-noche":...\}
+
+
+\textbf{Endpoint}: /cabanias/<string:id>
+
+metodo: PATCH 
+
+recibe: \{"secreto":...,
+"nombre":...,"descripcion":...,
+"cap-max":...,"precio-noche":...\}
+
+metodo: DELETE
+
+recibe: id (por URI)
+
+
+%reservas
+
+
+\textbf{Endpoint}: /reservas
+
+metodo: GET
+
+recibe:
+
+\{"codigo-reserva": codigo-reserva,"nombre-cliente": nombre-cliente,
+
+"cliente-id": cliente-id,"email": email,
+
+"telefono": telefono, "fecha-ingreso": fecha-ingreso,
+
+"fecha-egreso": fecha-egreso,"precio-total": precio-total\}
+
+
+\textbf{Endpoint}: /reserva
+
+metodo: GET
+
+recibe: \{"cliente-id": cliente-id|pasaporte,"nombre-cliente" : nombre-cliente\}
+
+
+\textbf{Endpoint}: /crear-reserva
+
+metodo: POST
+
+recibe: \{"cabania-id" : id,"fecha-ingreso" : "aaaa-mm-dd",
+
+"fecha-egreso" : "aaaa-mm-dd","nombre-cliente" : "nombre-cliente",
+
+"cliente-id": cliente-id,"telefono": telefono,
+
+"email" : "example@example.com"\}
+
+
+\textbf{Endpoint}: /reserva/<int:id>
+
+metodo: DELETE
+
+recibe:
+\{"email" : example@mail.com\}
+
+Si "email" es proporcionado, la reserva del cliente con el codigo de reserva 'id', sera eliminada.
+
+
+\textbf{Endpoint}: /reserva/<int:id>
+
+metodo: PATCH
+
+recibe: \{"secreto" : passw\}
+
+luego se puede modificar lo que se quiera de la reserva
+
+%imagenes
+
+\textbf{Endpoint}: /imagenes
+
+metodo: GET
+
+recibe:\{"secreto" : passw, "cabania-id" : id *opcional*\}
+
+\textbf{Endpoint}: /crear-imagen
+
+metodo: POST
+
+recibe:
+
+\{"secreto" : passw, "cabania-id" : id, *opcional*
+
+"link" : url-img,"descripcion" : portada\}
+
+\textbf{Endpoint}: /imagen
+
+metodo: DELETE
+
+recibe: \{"secreto" : passw, "link" : url\}
+
+\href{https://github.com/MaxiFttInst/UBA_TP_IDS/blob/api/api/app.py}{API del proyecto}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
